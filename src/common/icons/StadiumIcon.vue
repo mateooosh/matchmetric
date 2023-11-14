@@ -1,7 +1,7 @@
 <template>
 <!--  https://www.svgrepo.com/svg/488103/soccer-arena?edit=true-->
-  <svg class="stadium-icon" fill="#fff" height="48px" width="48px" viewBox="0 0 24 24"
-       xmlns="http://www.w3.org/2000/svg" transform="rotate(90)">
+  <svg class="stadium-icon" :fill="props.color" :width="props.width" :height="props.height" viewBox="0 0 24 24"
+       xmlns="http://www.w3.org/2000/svg">
     <g stroke-width="0"></g>
     <g stroke-linecap="round" stroke-linejoin="round"></g>
     <g>
@@ -12,7 +12,20 @@
 </template>
 
 <script setup lang="ts">
-
+const props = defineProps({
+  color: {
+    type: String,
+    default: '#fff'
+  },
+  width: {
+    type: String,
+    default: '36px'
+  },
+  height: {
+    type: String,
+    default: '36px'
+  },
+})
 </script>
 
 <style scoped lang="scss">

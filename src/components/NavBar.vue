@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <StadiumIcon/>
+    <StadiumIcon width="50px" height="50px"/>
     <div>Matchmetric</div>
   </div>
 </template>
@@ -12,7 +12,6 @@ import StadiumIcon from '../common/icons/StadiumIcon.vue'
 <style lang="scss" scoped>
 .navbar {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: $m;
