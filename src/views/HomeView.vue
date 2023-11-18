@@ -29,78 +29,21 @@ import StadiumIcon from '../common/icons/StadiumIcon.vue'
 import BallIcon from '../common/icons/BallIcon.vue'
 import AssistIcon from '../common/icons/AssistIcon.vue'
 import GAME_RESULT from '../common/enums/GAME_RESULT.ts'
+import GameModel from '../models/GameModel.ts'
 
 const addGame = () => {
   console.log('add game')
 }
 
-const createArrayFromN = (n:Number):Array => {
+const createArrayFromN = (n: number): Array<number> => {
   return Array.from(Array(n).keys())
 }
 
-const gamesHardCoded = [
-  {
-    type: 'outside', // outside | inside
-    result: 'win',
-    date: '06-11-2023',
-    goals: 5,
-    assists: 3
-  },
-  {
-    type: 'outside', // outside | inside
-    result: 'draw',
-    date: '06-11-2023',
-    goals: 0,
-    assists: 3
-  },
-  {
-    type: 'outside', // outside | inside
-    result: 'lose',
-    date: '06-11-2023',
-    goals: 5,
-    assists: 6
-  },
-  {
-    type: 'outside', // outside | inside
-    result: 'win',
-    date: '06-11-2023',
-    goals: 5,
-    assists: 3
-  },
-  {
-    type: 'outside', // outside | inside
-    result: 'draw',
-    date: '06-11-2023',
-    goals: 0,
-    assists: 3
-  },
-  {
-    type: 'outside', // outside | inside
-    result: 'lose',
-    date: '06-11-2023',
-    goals: 5,
-    assists: 6
-  },{
-    type: 'outside', // outside | inside
-    result: 'win',
-    date: '06-11-2023',
-    goals: 5,
-    assists: 3
-  },
-  {
-    type: 'outside', // outside | inside
-    result: 'draw',
-    date: '06-11-2023',
-    goals: 0,
-    assists: 3
-  },
-  {
-    type: 'outside', // outside | inside
-    result: 'lose',
-    date: '06-11-2023',
-    goals: 5,
-    assists: 6
-  }
+const gamesHardCoded: Array<GameModel> = [
+  new GameModel('outside', 'win', '06-11-2023', 5, 3),
+  new GameModel('outside', 'draw', '06-11-2023', 3, 1),
+  new GameModel('outside', 'lose', '06-11-2023', 6, 2),
+  new GameModel('inside', 'lose', '06-11-2023', 6, 2)
 ]
 </script>
 
