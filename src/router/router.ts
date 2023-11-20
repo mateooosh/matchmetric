@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import GameDetailsView from '../views/GameDetailsView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -10,6 +11,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/matchmetric/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/matchmetric/game-details/:id',
+    name: 'game-details',
+    component: GameDetailsView
   }
 ]
 

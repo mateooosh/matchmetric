@@ -2,9 +2,9 @@
   <div class="home-view">
     <Button label="Add game" @click="addGame"/>
     <div class="games">
-      <div v-for="(game, i) in gamesHardCoded" :key="i" class="game-row">
-        <StadiumIcon :color="GAME_RESULT[game.result.toUpperCase()]"/>
-        <div class="date">06-11-2023</div>
+      <div v-for="game in games" :key="game.timestamp" class="game-row" @click="onGameClick(game.timestamp)">
+        <StadiumIcon :color="game.result"/>
+        <div class="date">{{ game.date }}</div>
         <div class="stats">
           <div>
             <span v-if="!game.goals">-</span>
@@ -28,23 +28,37 @@ import Button from '../components/Button.vue'
 import StadiumIcon from '../common/icons/StadiumIcon.vue'
 import BallIcon from '../common/icons/BallIcon.vue'
 import AssistIcon from '../common/icons/AssistIcon.vue'
-import GAME_RESULT from '../common/enums/GAME_RESULT.ts'
+import useGamesStore from '../stores/gamesStore.ts'
 import GameModel from '../models/GameModel.ts'
+import GAME_RESULT from '../common/enums/GAME_RESULT.ts'
+import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
+import { useRouter } from 'vue-router'
+
+const store = useGamesStore()
+const router = useRouter()
+
+const getRandomInt = (max: number) => {
+  return Math.floor(Math.random() * max)
+}
 
 const addGame = () => {
-  console.log('add game')
+  const types: Array<GAME_TYPE> = [GAME_TYPE.INSIDE, GAME_TYPE.OUTSIDE]
+  const results: Array<GAME_RESULT> = [GAME_RESULT.WIN, GAME_RESULT.DRAW, GAME_RESULT.LOSE]
+
+  const currentDate: Date = new Date()
+  store.addGame(new GameModel(currentDate.getTime(), types[getRandomInt(2)], results[getRandomInt(3)], '06-11-2023', getRandomInt(7), getRandomInt(7)))
 }
 
 const createArrayFromN = (n: number): Array<number> => {
   return Array.from(Array(n).keys())
 }
 
-const gamesHardCoded: Array<GameModel> = [
-  new GameModel('outside', 'win', '06-11-2023', 5, 3),
-  new GameModel('outside', 'draw', '06-11-2023', 3, 1),
-  new GameModel('outside', 'lose', '06-11-2023', 6, 2),
-  new GameModel('inside', 'lose', '06-11-2023', 6, 2)
-]
+const onGameClick = (timestamp: number) => {
+  router.push({ name: 'game-details', params: { id: timestamp } })
+}
+
+const games: Array<GameModel> = store.games
+
 </script>
 
 <style scoped lang="scss">
