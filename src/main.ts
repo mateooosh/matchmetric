@@ -5,7 +5,7 @@ import router from './router/router'
 import { createPinia } from 'pinia'
 
 // vant
-import { Field, NavBar, CellGroup, Stepper } from 'vant'
+import { Field, NavBar, CellGroup, Stepper, Calendar, Cell } from 'vant'
 import 'vant/lib/index.css'
 
 createApp(App)
@@ -14,6 +14,8 @@ createApp(App)
   .use(Field)
   .use(CellGroup)
   .use(Stepper)
+  .use(Calendar)
+  .use(Cell)
   // .use(DatePicker)
   .use(NavBar)
   .mount('#app')

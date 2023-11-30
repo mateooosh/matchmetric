@@ -6,22 +6,26 @@ import AddGameView from '../views/AddGameView.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: {name: 'home'}
+    redirect: {name: 'home'},
+    meta: { transition: 'slide-left' }
   },
   {
     path: '/matchmetric/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    meta: { transition: 'slide-left' }
   },
   {
     path: '/matchmetric/game-details/:id',
     name: 'game-details',
-    component: GameDetailsView
+    component: GameDetailsView,
+    meta: { transition: 'slide-left' }
   },
   {
     path: '/matchmetric/add-game',
     name: 'add-game',
-    component: AddGameView
+    component: AddGameView,
+    meta: { transition: 'slide-left' }
   }
 ]
 
