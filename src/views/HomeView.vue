@@ -1,21 +1,24 @@
 <template>
-  <div class="home-view">
-    <Button label="Add game" @click="addGame"/>
-    <div class="games">
-      <div v-for="game in games" :key="game.timestamp" class="game-row" @click="onGameClick(game.timestamp)">
-        <StadiumIcon :color="game.result"/>
-        <div class="date">{{ game.date }}</div>
-        <div class="stats">
-          <div>
-            <span v-if="!game.goals">-</span>
-            <template v-else>
-              <BallIcon v-for="j in createArrayFromN(game.goals)" :key="j" color="#333" width="18px"
-                        height="18px"/>
-            </template>
-          </div>
-          <div>
-            <AssistIcon v-for="k in createArrayFromN(game.assists)" :key="k" color="#333" width="18px"
-                        height="18px"/>
+  <div>
+    <NavBar/>
+    <div class="home-view">
+      <Button label="Add game" @click="addGame"/>
+      <div class="games">
+        <div v-for="game in games" :key="game.timestamp" class="game-row" @click="onGameClick(game.timestamp)">
+          <StadiumIcon :color="game.result"/>
+          <div class="date">{{ game.date }}</div>
+          <div class="stats">
+            <div>
+              <span v-if="!game.goals">-</span>
+              <template v-else>
+                <BallIcon v-for="j in createArrayFromN(game.goals)" :key="j" color="#333" width="18px"
+                          height="18px"/>
+              </template>
+            </div>
+            <div>
+              <AssistIcon v-for="k in createArrayFromN(game.assists)" :key="k" color="#333" width="18px"
+                          height="18px"/>
+            </div>
           </div>
         </div>
       </div>
@@ -33,6 +36,7 @@ import GameModel from '../models/GameModel.ts'
 import GAME_RESULT from '../common/enums/GAME_RESULT.ts'
 import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
 import { useRouter } from 'vue-router'
+import NavBar from '../components/NavBar.vue'
 
 const store = useGamesStore()
 const router = useRouter()
@@ -42,11 +46,13 @@ const getRandomInt = (max: number) => {
 }
 
 const addGame = () => {
-  const types: Array<GAME_TYPE> = [GAME_TYPE.INSIDE, GAME_TYPE.OUTSIDE]
-  const results: Array<GAME_RESULT> = [GAME_RESULT.WIN, GAME_RESULT.DRAW, GAME_RESULT.LOSE]
+  router.push({ name: 'add-game' })
 
-  const currentDate: Date = new Date()
-  store.addGame(new GameModel(currentDate.getTime(), types[getRandomInt(2)], results[getRandomInt(3)], '06-11-2023', getRandomInt(7), getRandomInt(7)))
+  // const types: Array<GAME_TYPE> = [GAME_TYPE.INSIDE, GAME_TYPE.OUTSIDE]
+  // const results: Array<GAME_RESULT> = [GAME_RESULT.WIN, GAME_RESULT.DRAW, GAME_RESULT.LOSE]
+  //
+  // const currentDate: Date = new Date()
+  // store.addGame(new GameModel(currentDate.getTime(), types[getRandomInt(2)], results[getRandomInt(3)], '06-11-2023', getRandomInt(7), getRandomInt(7)))
 }
 
 const createArrayFromN = (n: number): Array<number> => {
