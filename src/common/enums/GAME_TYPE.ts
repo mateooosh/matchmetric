@@ -1,6 +1,6 @@
 enum GAME_TYPE {
-  INSIDE = 'inside',
-  OUTSIDE = 'outside'
+  INSIDE = 'INSIDE',
+  OUTSIDE = 'OUTSIDE'
 }
 
 export default GAME_TYPE

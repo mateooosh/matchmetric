@@ -1,7 +1,7 @@
 enum GAME_RESULT {
-  WIN = 'green',
-  DRAW = 'grey',
-  LOSE = 'red'
+  WIN = 'WIN',
+  DRAW = 'DRAW',
+  LOSE = 'LOSE'
 }
 
 export default GAME_RESULT

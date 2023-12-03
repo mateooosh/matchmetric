@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import GameModel from '../models/GameModel.ts'
+import * as _ from 'lodash'
 
 const STORAGE_KEY = 'games'
 
@@ -9,7 +10,8 @@ interface State {
 
 export const useGamesStore = defineStore(STORAGE_KEY, {
   state: (): State => ({
-    games: JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+    // games: JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+    games: _.map(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'), GameModel.fromJSON)
   }),
 
   actions: {

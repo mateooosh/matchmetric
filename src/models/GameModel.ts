@@ -17,4 +17,8 @@ export default class GameModel {
     this.goals = goals
     this.assists = assists
   }
+
+  static fromJSON(json: any): GameModel {
+    return new GameModel(json.timestamp, json.type, json.result, json.date, json.goals, json.assists)
+  }
 }

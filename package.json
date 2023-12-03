@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "pinia": "^2.1.7",
     "vant": "^4.8.0",
     "vue": "^3.3.4",
