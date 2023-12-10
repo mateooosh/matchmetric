@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <StadiumIcon width="50px" height="50px"/>
-    <div>Matchmetric</div>
+    <div data-cy="header-title">Matchmetric</div>
   </div>
 </template>
 
