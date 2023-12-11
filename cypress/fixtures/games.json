@@ -1,0 +1,26 @@
+[
+  {
+    "timestamp": 1702333024980,
+    "type": "OUTSIDE",
+    "result": "DRAW",
+    "date": "11-12-2023",
+    "goals": 0,
+    "assists": 0
+  },
+  {
+    "timestamp": 1702333021995,
+    "type": "OUTSIDE",
+    "result": "LOSE",
+    "date": "11-12-2023",
+    "goals": 1,
+    "assists": 1
+  },
+  {
+    "timestamp": 1702333014455,
+    "type": "OUTSIDE",
+    "result": "WIN",
+    "date": "11-12-2023",
+    "goals": 7,
+    "assists": 2
+  }
+]
