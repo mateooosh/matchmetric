@@ -3,84 +3,48 @@
     <van-nav-bar
         title="Add new game"
         left-arrow
-        @click-left="onClickLeft"
-    >
-      <template #right>
-        <div @click="onSave" style="color: white;">
-          Save
-        </div>
-      </template>
-    </van-nav-bar>
+        @click-left="onClickLeft"/>
     <div>
       <van-cell-group inset>
-        <van-field placeholder="Type...">
-          <template #label>
-            <div style="font-size: 18px; height: 100%; display: flex; align-items: center">
-              <span>Type</span>
-            </div>
-          </template>
+        <Field label="Type">
           <template #input>
             <SegmentedControls v-model="state.type" :segments="_.values(GAME_TYPE)"/>
           </template>
-        </van-field>
+        </Field>
 
-        <van-field placeholder="Result...">
-          <template #label>
-            <div style="font-size: 18px; height: 100%; display: flex; align-items: center">
-              <span>Result</span>
-            </div>
-          </template>
+        <Field label="Result">
           <template #input>
             <SegmentedControls v-model="state.result" :segments="_.values(GAME_RESULT)"/>
           </template>
-        </van-field>
+        </Field>
 
-        <van-calendar v-model:show="state.showCalendar" @confirm="onDateConfirm"/>
-        <van-field placeholder="Choose date..." v-model="state.date">
-          <template #label>
-            <div style="font-size: 18px; height: 100%; display: flex; align-items: center">
-              <span>Date</span>
-            </div>
-          </template>
+        <Field label="Date" placeholder="Choose date..." v-model="state.date">
           <template #right-icon>
             <div style="display: flex; align-items: center;">
               <CalendarIcon @click="openCalendar" width="32" height="32"/>
+              <van-calendar v-model:show="state.showCalendar" @confirm="onDateConfirm" :show-confirm="false"
+                            :first-day-of-week="1" :min-date="new Date(1970, 0, 0)" color="#5DB075"/>
             </div>
           </template>
-        </van-field>
+        </Field>
 
-        <van-field>
-          <template #label>
-            <div style="font-size: 18px; height: 100%; display: flex; align-items: center">
-              <span>Goals</span>
-            </div>
-          </template>
+        <Field label="Goals">
           <template #input>
             <van-stepper v-model="state.goals" :min="0" :max="50" input-width="40px" button-size="32px" theme="round"/>
           </template>
-        </van-field>
+        </Field>
 
-        <van-field>
-          <template #label>
-            <div style="font-size: 18px; height: 100%; display: flex; align-items: center">
-              <span>Assists</span>
-            </div>
-          </template>
+        <Field label="Assists">
           <template #input>
             <van-stepper v-model="state.assists" :min="0" :max="50" input-width="40px" button-size="32px"
                          theme="round"/>
           </template>
-        </van-field>
+        </Field>
 
-        <van-field placeholder="Distance">
-          <template #label>
-            <div style="font-size: 18px; height: 100%; display: flex; align-items: center">
-              <span>Distance</span>
-            </div>
-          </template>
-        </van-field>
+        <!--        <Field label="Distance" placeholder="Distance [km]" v-model="state.distance"/>-->
 
       </van-cell-group>
+      <Button label="Save" @click="onSave" style="margin: 8px 16px"/>
     </div>
   </div>
 </template>
@@ -95,11 +59,11 @@ import * as _ from 'lodash'
 import GameModel from '../models/GameModel.ts'
 import useGamesStore from '../stores/gamesStore.ts'
 import CalendarIcon from '../common/icons/CalendarIcon.vue'
+import Button from '../components/Button.vue'
+import Field from '../components/Field.vue'
 
 const gamesStore = useGamesStore()
 const router = useRouter()
-
-// const showCalendar = ref(false)
 
 const dateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -123,16 +87,16 @@ const state = reactive({
   date: formatDate(new Date()),
   goals: 0,
   assists: 0,
+  // distance: null,
   showCalendar: false
 })
 
 const onClickLeft = () => {
-  router.back()
+  router.push({ name: 'home' })
 }
 
 const onSave = () => {
   const newGame: GameModel = new GameModel(new Date().getTime(), state.type, state.result, state.date, state.goals, state.assists)
-  console.log(newGame)
   gamesStore.addGame(newGame)
   router.push({ name: 'home' })
 }
@@ -148,6 +112,8 @@ const onSave = () => {
   --van-nav-bar-icon-color: white;
 
   --van-cell-value-font-size: 18px;
+  --van-cell-group-inset-padding: 0;
+
   --van-stepper-input-font-size: 18px;
   --van-stepper-button-round-theme-color: #5DB075;
 

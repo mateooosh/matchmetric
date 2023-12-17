@@ -2,26 +2,15 @@
   <div>
     <NavBar/>
     <div class="home-view">
-      <Button label="Add game" @click="addGame"/>
+      <van-back-top top="12px" bottom="32px"/>
+<!--      <Button label="Add game" @click="addGame"/>-->
       <GameHeader v-for="game in games" :key="game.timestamp" :game="game"/>
-      <!--      <van-tabs v-model:active="selectedTab" title-active-color="#5DB075" color="#5DB075">-->
-      <!--        <van-tab title="All">-->
-      <!--          <GameHeader v-for="game in games" :key="game.timestamp" :game="game"/>-->
-      <!--        </van-tab>-->
-      <!--        <van-tab title="Outside">-->
-      <!--          <GameHeader v-for="game in outsideGames" :key="game.timestamp" :game="game"/>-->
-      <!--        </van-tab>-->
-      <!--        <van-tab title="Inside">-->
-      <!--          <GameHeader v-for="game in insideGames" :key="game.timestamp" :game="game"/>-->
-      <!--        </van-tab>-->
-      <!--      </van-tabs>-->
-
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import Button from '../components/Button.vue'
+// import Button from '../components/Button.vue'
 import GameHeader from '../components/GameHeader.vue'
 import useGamesStore from '../stores/gamesStore.ts'
 import GameModel from '../models/GameModel.ts'
@@ -31,25 +20,11 @@ import NavBar from '../components/NavBar.vue'
 const gamesStore = useGamesStore()
 const router = useRouter()
 
-// const selectedTab = ref(0)
-
 const games: Array<GameModel> = gamesStore.games
 
-// const outsideGames = computed(() => {
-//   return _.filter(games, ['type', GAME_TYPE.OUTSIDE])
-// })
-//
-// const insideGames = computed(() => {
-//   return _.filter(games, ['type', GAME_TYPE.INSIDE])
-// })
-
-// const getRandomInt = (max: number) => {
-//   return Math.floor(Math.random() * max)
+// const addGame = () => {
+//   router.push({ name: 'add-game' })
 // }
-
-const addGame = () => {
-  router.push({ name: 'add-game' })
-}
 
 </script>
 
@@ -77,11 +52,14 @@ const addGame = () => {
 }
 
 .home-view {
-  padding: $l;
-  --van-tabs-bottom-bar-width: 80px;
+  padding: 0 $l;
 
-  .button {
-    border-radius: $xl;
+  > .button {
+    margin-bottom: $m;
+  }
+
+  .game-row:not(:last-child) {
+    border-bottom: 1px solid $theme-1;
   }
 }
 </style>

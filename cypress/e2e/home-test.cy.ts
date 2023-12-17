@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import HomePO from '../page-object/HomePO.ts'
+import HomePO from '../page-object/HomePO'
 
 const homePO = new HomePO()
 describe('template spec', () => {

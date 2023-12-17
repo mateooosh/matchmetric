@@ -1,5 +1,5 @@
 <template>
-  <svg class="assist-icon iconify iconify--twemoji" :fill="props.color" :stroke="props.color" :width="props.width"
+  <svg class="assist-icon" :fill="props.color" :stroke="props.color" :width="props.width"
        viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img"
        preserveAspectRatio="xMidYMid meet" stroke-width="0.21600000000000003">
     <g stroke-width="0"></g>

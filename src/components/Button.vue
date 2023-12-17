@@ -22,6 +22,7 @@ const onClick = () => {
   color: $white;
   text-align: center;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
+  border-radius: $xl;
 }
 </style>

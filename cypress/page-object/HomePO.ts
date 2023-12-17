@@ -1,4 +1,4 @@
-import BaseTestPO from './BaseTestPO.ts'
+import BaseTestPO from './BaseTestPO'
 
 class HomePO extends BaseTestPO {
   url: string
@@ -8,13 +8,13 @@ class HomePO extends BaseTestPO {
     this.url = '/'
   }
 
-  getNavBarContent () {
+  getNavBarContent() {
     return cy.dataCy('header-title')
   }
 
-  setGamesInStorage () {
-    cy.fixture('games.json').then((value) => {
-      localStorage.setItem('games', JSON.stringify(value))
+  setGamesInStorage() {
+    cy.fixture('games.json').then((value: object) => {
+      this.setInStorage('games', value)
     })
   }
 }

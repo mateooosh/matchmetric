@@ -10,7 +10,6 @@ interface State {
 
 export const useGamesStore = defineStore(STORAGE_KEY, {
   state: (): State => ({
-    // games: JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
     games: _.map(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'), GameModel.fromJSON)
   }),
 

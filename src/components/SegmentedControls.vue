@@ -39,13 +39,14 @@ const getClassesForControl = (segment: string): Array<string> => {
   display: flex;
   width: 100%;
   text-align: center;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
 
   .segment {
     flex: 1;
-    padding: $xs $m;
+    padding: $m $m;
     border: 1px solid $bc;
+    transition: background-color .2s;
 
     &.active {
       background-color: $bc;
