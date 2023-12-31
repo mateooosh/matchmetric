@@ -21,11 +21,11 @@ const props = defineProps({
   },
   width: {
     type: String,
-    default: '36px'
+    default: '40px'
   },
   height: {
     type: String,
-    default: '36px'
+    default: '40px'
   }
 })
 </script>

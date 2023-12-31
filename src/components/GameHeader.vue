@@ -8,22 +8,22 @@
         <span v-if="!props.game.goals">-</span>
         <div v-else-if="goalsShortForm" class="short-form">
           <span>{{ props.game.goals }}</span>
-          <BallIcon color="#333" height="18px" width="18px"/>
+          <BallIcon color="#333" height="22px" width="22px"/>
         </div>
         <template v-else>
-          <BallIcon v-for="j in createArrayFromN(props.game.goals)" :key="j" color="#333" height="18px"
-                    width="18px"/>
+          <BallIcon v-for="j in createArrayFromN(props.game.goals)" :key="j" color="#333" height="22px"
+                    width="22px"/>
         </template>
       </div>
       <div ref="assists">
         <span v-if="!props.game.assists">-</span>
         <div v-else-if="assistsShortForm" class="short-form">
           <span>{{ props.game.assists }}</span>
-          <AssistIcon color="#333" height="18px" width="18px"/>
+          <AssistIcon color="#333" height="22px" width="22px"/>
         </div>
         <template v-else>
-          <AssistIcon v-for="k in createArrayFromN(props.game.assists)" :key="k" color="#333" height="18px"
-                      width="18px"/>
+          <AssistIcon v-for="k in createArrayFromN(props.game.assists)" :key="k" color="#333" height="22px"
+                      width="22px"/>
         </template>
       </div>
     </div>
@@ -69,11 +69,11 @@ const getIconColor = (gameResult: GAME_RESULT): string => {
 }
 
 const goalsShortForm = computed((): boolean => {
-  return goals.value?.clientHeight > 20
+  return goals.value?.clientHeight > 22
 })
 
 const assistsShortForm = computed((): boolean => {
-  return assists.value?.clientHeight > 20
+  return assists.value?.clientHeight > 22
 })
 
 </script>
@@ -95,13 +95,13 @@ const assistsShortForm = computed((): boolean => {
     flex: 1;
     text-wrap: nowrap;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 20px;
   }
 
   > .stats {
     display: flex;
     flex-direction: column;
-    gap: $s;
+    gap: $m;
     align-items: flex-end;
 
     > div {
@@ -116,6 +116,7 @@ const assistsShortForm = computed((): boolean => {
       align-items: center;
       gap: $s;
       font-weight: 600;
+      font-size: 20px;
     }
   }
 }
