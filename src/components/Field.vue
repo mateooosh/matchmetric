@@ -1,5 +1,5 @@
 <template>
-  <van-field class="field" :placeholder="props.placeholder" v-model="state.innerValue" @update:model-value="onValueChange">
+  <van-field class="field" v-model="state.innerValue" @update:model-value="onValueChange">
     <template #label>
       <div class="label">
         <span>{{ props.label }}</span>
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, useSlots } from 'vue'
+import { computed, reactive, useSlots, watch } from 'vue'
 
 const slots = useSlots()
 
@@ -23,10 +23,6 @@ const props = defineProps({
   modelValue: {
     default: null,
     type: [String, Number]
-  },
-  placeholder: {
-    default: '',
-    type: String
   },
   label: {
     default: '',
@@ -43,6 +39,10 @@ const emit = defineEmits(['update:modelValue'])
 const onValueChange = (value: string) => {
   emit('update:modelValue', value)
 }
+
+watch(props, async (newProps) => {
+  state.innerValue = newProps.modelValue
+})
 
 const hasInputSlot = computed((): boolean => {
   return !!slots['input']

@@ -5,7 +5,22 @@ import router from './router/router'
 import { createPinia } from 'pinia'
 
 // vant
-import { BackTop, Calendar, Cell, CellGroup, Field, Locale, NavBar, Stepper, Tab, Tabbar, TabbarItem, Tabs } from 'vant'
+import {
+  BackTop,
+  Calendar,
+  Cell,
+  CellGroup,
+  Field,
+  Locale,
+  NavBar,
+  Popup,
+  Stepper,
+  Tab,
+  Tabbar,
+  TabbarItem,
+  Tabs,
+  TimePicker
+} from 'vant'
 import 'vant/lib/index.css'
 import enUS from 'vant/es/locale/lang/en-US'
 
@@ -27,4 +42,6 @@ createApp(App)
   .use(BackTop)
   .use(Tabbar)
   .use(TabbarItem)
+  .use(Popup)
+  .use(TimePicker)
   .mount('#app')

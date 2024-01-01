@@ -18,12 +18,15 @@
           </template>
         </Field>
 
-        <Field label="Date" placeholder="Choose date..." v-model="state.date">
+        <Field label="Date" placeholder="Choose date..." readonly v-model="state.date">
           <template #right-icon>
             <div style="display: flex; align-items: center;">
               <CalendarIcon @click="openCalendar" width="32" height="32"/>
-              <van-calendar v-model:show="state.showCalendar" @confirm="onDateConfirm" :show-confirm="false"
-                            :first-day-of-week="1" :min-date="new Date(1970, 0, 0)" color="#5DB075"/>
+              <van-calendar v-model:show="state.showCalendar"
+                            @confirm="onDateConfirm"
+                            :show-confirm="false"
+                            :first-day-of-week="1"
+                            :min-date="new Date(1970, 0, 0)" color="#5DB075"/>
             </div>
           </template>
         </Field>
@@ -41,10 +44,25 @@
           </template>
         </Field>
 
-        <!--        <Field label="Distance" placeholder="Distance [km]" v-model="state.distance"/>-->
+        <Field label="Distance" type="number" placeholder="Distance [km]" v-model="state.distance"/>
+
+        <Field label="Duration" placeholder="Duration [hh:mm:ss]" :maxlength="8" readonly v-model="state.duration">
+          <template #right-icon>
+            <div style="display: flex; align-items: center;">
+              <ClockIcon @click="showTimePicker" width="32" height="32"/>
+              <van-popup v-model:show="state.showTimePicker" position="bottom">
+                <van-time-picker @confirm="onTimePickerConfirm"
+                                 @cancel="onTimePickerCancel"
+                                 :columns-type="timePickerColumnsType"/>
+              </van-popup>
+            </div>
+          </template>
+        </Field>
+
+        <Field label="Calories" type="digit" placeholder="Calories" v-model="state.calories"/>
 
       </van-cell-group>
-      <Button label="Save" @click="onSave" style="margin: 8px 16px"/>
+      <Button label="Save" @click="onSave"/>
     </div>
   </div>
 </template>
@@ -61,6 +79,7 @@ import useGamesStore from '../stores/gamesStore.ts'
 import CalendarIcon from '../common/icons/CalendarIcon.vue'
 import Button from '../components/Button.vue'
 import Field from '../components/Field.vue'
+import ClockIcon from '../common/icons/ClockIcon.vue'
 
 const gamesStore = useGamesStore()
 const router = useRouter()
@@ -81,14 +100,32 @@ const onDateConfirm = (value: any) => {
   state.date = formatDate(value)
 }
 
+const timePickerColumnsType = ['hour', 'minute', 'second']
+
+const showTimePicker = () => {
+  state.showTimePicker = true
+}
+
+const onTimePickerCancel = () => {
+  state.showTimePicker = false
+}
+
+const onTimePickerConfirm = (value: any) => {
+  state.duration = _.join(value.selectedValues, ':')
+  state.showTimePicker = false
+}
+
 const state = reactive({
   type: GAME_TYPE.OUTSIDE,
   result: GAME_RESULT.DRAW,
   date: formatDate(new Date()),
   goals: 0,
   assists: 0,
-  // distance: null,
-  showCalendar: false
+  distance: null,
+  duration: null,
+  calories: null,
+  showCalendar: false,
+  showTimePicker: false
 })
 
 const onClickLeft = () => {
@@ -96,10 +133,11 @@ const onClickLeft = () => {
 }
 
 const onSave = () => {
-  const newGame: GameModel = new GameModel(new Date().getTime(), state.type, state.result, state.date, state.goals, state.assists)
+  const newGame: GameModel = new GameModel(new Date().getTime(), state.type, state.result, state.date, state.goals, state.assists, state.distance, state.duration, state.calories)
   gamesStore.addGame(newGame)
   router.push({ name: 'home' })
 }
+
 </script>
 
 <style scoped lang="scss">
@@ -117,9 +155,17 @@ const onSave = () => {
   --van-stepper-input-font-size: 18px;
   --van-stepper-button-round-theme-color: #5DB075;
 
+  --van-picker-action-font-size: 18px;
+  --van-picker-confirm-action-color: #5DB075;
+
+
   //.van-field__body {
   //  font-size: 18px;
   //}
+
+  .button {
+    margin: 8px 16px;
+  }
 }
 
 

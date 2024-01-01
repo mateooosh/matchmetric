@@ -1,48 +1,45 @@
 <template>
   <div class="game-details-view">
     <van-nav-bar
-        title="Add new game"
+        title="Game details"
         left-arrow
         @click-left="onClickLeft"/>
     <div class="content">
       <GameHeader :game="game"/>
 
       <div class="stats">
-        <div class="cell">
-          <BallIcon color="#333" height="32px" width="32px"/>
-          <div>
-            <div class="label">Goals</div>
-            <div>{{ game.goals || 0 }}</div>
-          </div>
-        </div>
-        <div class="cell">
-          <AssistIcon color="#333" height="32px" width="32px"/>
-          <div>
-            <div class="label">Assists</div>
-            <div>{{ game.assists || 0 }}</div>
-          </div>
-        </div>
-        <div class="cell">
-          <MeasureIcon color="green" height="32px" width="32px"/>
-          <div>
-            <div class="label">Distance</div>
-            <div>{{ game.distance || '-' }}</div>
-          </div>
-        </div>
-        <div class="cell">
-          <TimerIcon color="green" height="32px" width="32px"/>
-          <div>
-            <div class="label">Duration</div>
-            <div>{{ game.duration || '-' }}</div>
-          </div>
-        </div>
-        <div class="cell">
-          <FireIcon color="#F29D38" height="32px" width="32px"/>
-          <div>
-            <div class="label">Calories</div>
-            <div>{{ game.calories || '-' }}</div>
-          </div>
-        </div>
+        <StatsCell label="Goals" :value="game.goals">
+          <template #icon>
+            <BallIcon color="#333" height="32px" width="32px"/>
+          </template>
+        </StatsCell>
+
+        <StatsCell label="Assists" :value="game.assists">
+          <template #icon>
+            <AssistIcon color="#333" height="32px" width="32px"/>
+          </template>
+        </StatsCell>
+
+        <StatsCell label="Distance" :value="game.distance">
+          <template #icon>
+            <MeasureIcon color="green" height="32px" width="32px"/>
+          </template>
+          <template #unit>
+            <span>km</span>
+          </template>
+        </StatsCell>
+
+        <StatsCell label="Duration" :value="game.duration">
+          <template #icon>
+            <TimerIcon color="green" height="32px" width="32px"/>
+          </template>
+        </StatsCell>
+
+        <StatsCell label="Calories" :value="game.calories">
+          <template #icon>
+            <FireIcon color="#F29D38" height="32px" width="32px"/>
+          </template>
+        </StatsCell>
       </div>
     </div>
   </div>
@@ -58,6 +55,7 @@ import AssistIcon from '../common/icons/AssistIcon.vue'
 import MeasureIcon from '../common/icons/MeasureIcon.vue'
 import TimerIcon from '../common/icons/TimerIcon.vue'
 import FireIcon from '../common/icons/FireIcon.vue'
+import StatsCell from '../components/StatsCell.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -95,21 +93,6 @@ const onClickLeft = () => {
 
       > .cell {
         width: 50%;
-        display: flex;
-        align-items: center;
-        gap: $m;
-        padding: $m 0;
-
-        > div {
-          display: flex;
-          flex-direction: column;
-          gap: $xs;
-        }
-
-        .label {
-          color: gray;
-          font-weight: 400;
-        }
       }
     }
   }
