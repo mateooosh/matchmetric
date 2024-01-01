@@ -20,7 +20,7 @@
           </template>
         </StatsCell>
 
-        <StatsCell label="Distance" :value="game.distance">
+        <StatsCell v-if="settingsStore.settings.showDistance" label="Distance" :value="game.distance">
           <template #icon>
             <MeasureIcon color="green" height="32px" width="32px"/>
           </template>
@@ -29,13 +29,13 @@
           </template>
         </StatsCell>
 
-        <StatsCell label="Duration" :value="game.duration">
+        <StatsCell v-if="settingsStore.settings.showDuration" label="Duration" :value="game.duration">
           <template #icon>
             <TimerIcon color="green" height="32px" width="32px"/>
           </template>
         </StatsCell>
 
-        <StatsCell label="Calories" :value="game.calories">
+        <StatsCell v-if="settingsStore.settings.showCalories" label="Calories" :value="game.calories">
           <template #icon>
             <FireIcon color="#F29D38" height="32px" width="32px"/>
           </template>
@@ -56,10 +56,12 @@ import MeasureIcon from '../common/icons/MeasureIcon.vue'
 import TimerIcon from '../common/icons/TimerIcon.vue'
 import FireIcon from '../common/icons/FireIcon.vue'
 import StatsCell from '../components/StatsCell.vue'
+import useSettingsStore from '../stores/settingsStore.ts'
 
 const route = useRoute()
 const router = useRouter()
 const store = useGamesStore()
+const settingsStore = useSettingsStore()
 
 const game: GameModel = store.getGameByTimestamp(Number(route.params.id))
 
@@ -93,6 +95,7 @@ const onClickLeft = () => {
 
       > .cell {
         width: 50%;
+        margin: $m 0;
       }
     }
   }

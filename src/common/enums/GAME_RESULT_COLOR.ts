@@ -1,7 +1,7 @@
 enum GAME_RESULT_COLOR {
-  WIN = 'green',
-  DRAW = 'grey',
-  LOSE = 'red'
+  LOSE = '#DC143C',
+  DRAW = '#afafaf',
+  WIN = '#5DB075'
 }
 
 export default GAME_RESULT_COLOR

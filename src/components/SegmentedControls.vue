@@ -1,16 +1,18 @@
 <template>
   <div class="segmented-controls">
-    <div v-for="(segment, i) in props.segments" :key="i" :class="getClassesForControl(segment)" @click="onSegmentClick(segment)">
-      {{ segment }}
+    <div v-for="(segment, i) in props.segments" :key="i" class="segment" :style="getStylesForSegment(segment)"
+         @click="onSegmentClick(segment)">
+      {{ segment.value }}
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
+import SegmentModel from '../models/SegmentModel.ts'
 
 const props = defineProps({
-  segments: Array<string>,
+  segments: Array<SegmentModel>,
   modelValue: {
     default: GAME_TYPE.OUTSIDE,
     type: String
@@ -19,18 +21,17 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
-const onSegmentClick = (segment: string) => {
-  emit('update:modelValue', segment)
+const onSegmentClick = (segment: SegmentModel) => {
+  emit('update:modelValue', segment.value)
 }
 
-const getClassesForControl = (segment: string): Array<string> => {
-  const classes = ['segment']
-
-  if (props.modelValue === segment) {
-    classes.push('active')
+const getStylesForSegment = (segment: SegmentModel) => {
+  const isActive = props.modelValue === segment.value
+  return {
+    backgroundColor: isActive ? segment.color : 'transparent',
+    color: isActive ? 'white' : '#323233',
+    borderColor: isActive ? segment.color : '#5DB075'
   }
-
-  return classes
 }
 </script>
 
@@ -44,14 +45,10 @@ const getClassesForControl = (segment: string): Array<string> => {
 
   .segment {
     flex: 1;
-    padding: $m $m;
+    padding: 12px $m;
     border: 1px solid $bc;
-    transition: background-color .2s;
-
-    &.active {
-      background-color: $bc;
-      color: $white;
-    }
+    transition: all .2s;
+    user-select: none;
 
     &:nth-child(1) {
       border-bottom-left-radius: $m;

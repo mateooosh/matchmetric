@@ -1,7 +1,7 @@
 enum GAME_RESULT {
-  WIN = 'Win',
+  LOSE = 'Lose',
   DRAW = 'Draw',
-  LOSE = 'Lose'
+  WIN = 'Win'
 }
 
 export default GAME_RESULT

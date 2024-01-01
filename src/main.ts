@@ -19,7 +19,10 @@ import {
   Tabbar,
   TabbarItem,
   Tabs,
-  TimePicker
+  TimePicker,
+  Collapse,
+  CollapseItem,
+  Switch
 } from 'vant'
 import 'vant/lib/index.css'
 import enUS from 'vant/es/locale/lang/en-US'
@@ -44,4 +47,7 @@ createApp(App)
   .use(TabbarItem)
   .use(Popup)
   .use(TimePicker)
+  .use(Collapse)
+  .use(CollapseItem)
+  .use(Switch)
   .mount('#app')

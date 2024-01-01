@@ -20,9 +20,10 @@ const state = reactive({
 <style lang="scss" scoped>
 .app {
   --van-tabbar-item-icon-size: 28px;
-  --van-tabbar-height: 56px;
-  --van-tabbar-item-font-size: 14px;
+  --van-tabbar-height: 68px;
+  --van-tabbar-item-font-size: 16px;
 
-  padding-bottom: 50px;
+  user-select: none;
+  padding-bottom: 68px;
 }
 </style>

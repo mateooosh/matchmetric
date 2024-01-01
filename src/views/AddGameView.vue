@@ -8,19 +8,19 @@
       <van-cell-group inset>
         <Field label="Type">
           <template #input>
-            <SegmentedControls v-model="state.type" :segments="_.values(GAME_TYPE)"/>
+            <SegmentedControls v-model="state.type" :segments="gameTypesToSegments"/>
           </template>
         </Field>
 
         <Field label="Result">
           <template #input>
-            <SegmentedControls v-model="state.result" :segments="_.values(GAME_RESULT)"/>
+            <SegmentedControls v-model="state.result" :segments="gameResultsToSegments"/>
           </template>
         </Field>
 
         <Field label="Date" placeholder="Choose date..." readonly v-model="state.date">
           <template #right-icon>
-            <div style="display: flex; align-items: center;">
+            <div class="right-icon">
               <CalendarIcon @click="openCalendar" width="32" height="32"/>
               <van-calendar v-model:show="state.showCalendar"
                             @confirm="onDateConfirm"
@@ -33,22 +33,22 @@
 
         <Field label="Goals">
           <template #input>
-            <van-stepper v-model="state.goals" :min="0" :max="50" input-width="40px" button-size="32px" theme="round"/>
+            <van-stepper v-model="state.goals" :min="0" :max="50" input-width="50px" button-size="40px" theme="round"/>
           </template>
         </Field>
 
         <Field label="Assists">
           <template #input>
-            <van-stepper v-model="state.assists" :min="0" :max="50" input-width="40px" button-size="32px"
+            <van-stepper v-model="state.assists" :min="0" :max="50" input-width="50px" button-size="40px"
                          theme="round"/>
           </template>
         </Field>
 
-        <Field label="Distance" type="number" placeholder="Distance [km]" v-model="state.distance"/>
+        <Field v-if="settingsStore.settings.showDistance" label="Distance" type="number" placeholder="Distance [km]" v-model="state.distance"/>
 
-        <Field label="Duration" placeholder="Duration [hh:mm:ss]" :maxlength="8" readonly v-model="state.duration">
+        <Field v-if="settingsStore.settings.showDuration" label="Duration" placeholder="Duration [hh:mm:ss]" :maxlength="8" readonly v-model="state.duration">
           <template #right-icon>
-            <div style="display: flex; align-items: center;">
+            <div class="right-icon">
               <ClockIcon @click="showTimePicker" width="32" height="32"/>
               <van-popup v-model:show="state.showTimePicker" position="bottom">
                 <van-time-picker @confirm="onTimePickerConfirm"
@@ -59,7 +59,7 @@
           </template>
         </Field>
 
-        <Field label="Calories" type="digit" placeholder="Calories" v-model="state.calories"/>
+        <Field v-if="settingsStore.settings.showCalories" label="Calories" type="digit" placeholder="Calories" v-model="state.calories"/>
 
       </van-cell-group>
       <Button label="Save" @click="onSave"/>
@@ -69,7 +69,7 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
 import SegmentedControls from '../components/SegmentedControls.vue'
 import GAME_RESULT from '../common/enums/GAME_RESULT.ts'
@@ -80,9 +80,24 @@ import CalendarIcon from '../common/icons/CalendarIcon.vue'
 import Button from '../components/Button.vue'
 import Field from '../components/Field.vue'
 import ClockIcon from '../common/icons/ClockIcon.vue'
+import GAME_RESULT_COLOR from '../common/enums/GAME_RESULT_COLOR.ts'
+import SegmentModel from '../models/SegmentModel.ts'
+import { TimePickerColumnType } from 'vant'
+import useSettingsStore from '../stores/settingsStore.ts'
 
 const gamesStore = useGamesStore()
+const settingsStore = useSettingsStore()
+
 const router = useRouter()
+
+const getIconColor = (gameResult: GAME_RESULT): string => {
+  const key = _.keys(GAME_RESULT)[_.values(GAME_RESULT).indexOf(gameResult)]
+  return GAME_RESULT_COLOR[key]
+}
+
+const gameTypesToSegments = computed(() => _.map(_.values(GAME_TYPE), (type: GAME_TYPE) => new SegmentModel(type)))
+
+const gameResultsToSegments = computed(() => _.map(_.values(GAME_RESULT), (result: GAME_RESULT) => new SegmentModel(result, getIconColor(result))))
 
 const dateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -95,12 +110,13 @@ const formatDate = (date: Date): string => date.toLocaleDateString('en-IN', date
 const openCalendar = () => {
   state.showCalendar = true
 }
+
 const onDateConfirm = (value: any) => {
   state.showCalendar = false
   state.date = formatDate(value)
 }
 
-const timePickerColumnsType = ['hour', 'minute', 'second']
+const timePickerColumnsType: Array<TimePickerColumnType> = ['hour', 'minute', 'second']
 
 const showTimePicker = () => {
   state.showTimePicker = true
@@ -121,9 +137,9 @@ const state = reactive({
   date: formatDate(new Date()),
   goals: 0,
   assists: 0,
-  distance: null,
-  duration: null,
-  calories: null,
+  distance: '',
+  duration: '',
+  calories: '',
   showCalendar: false,
   showTimePicker: false
 })
@@ -151,6 +167,7 @@ const onSave = () => {
 
   --van-cell-value-font-size: 18px;
   --van-cell-group-inset-padding: 0;
+  --van-cell-vertical-padding: 14px;
 
   --van-stepper-input-font-size: 18px;
   --van-stepper-button-round-theme-color: #5DB075;
@@ -159,9 +176,15 @@ const onSave = () => {
   --van-picker-confirm-action-color: #5DB075;
 
 
+
   //.van-field__body {
   //  font-size: 18px;
   //}
+
+  .right-icon {
+    display: flex;
+    align-items: center;
+  }
 
   .button {
     margin: 8px 16px;
