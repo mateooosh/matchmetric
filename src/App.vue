@@ -1,9 +1,9 @@
 <template>
   <div class="app">
     <router-view/>
-    <van-tabbar route v-model="state.activeTab" active-color="#5DB075" inactive-color="grey">
+    <van-tabbar route v-model="state.activeTab" active-color="#5DB075" inactive-color="grey" :fixed="false">
       <van-tabbar-item to="/matchmetric/" icon="wap-nav" color="#5DB075">Games</van-tabbar-item>
-      <van-tabbar-item to="/matchmetric/add-game" icon="add">New</van-tabbar-item>
+      <van-tabbar-item to="/matchmetric/edit-game" icon="add">New</van-tabbar-item>
       <van-tabbar-item to="/matchmetric/settings" icon="setting">Settings</van-tabbar-item>
     </van-tabbar>
   </div>
@@ -24,6 +24,14 @@ const state = reactive({
   --van-tabbar-item-font-size: 16px;
 
   user-select: none;
-  padding-bottom: 68px;
+
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+
+  & div:first-child {
+    flex: 1;
+    overflow: scroll;
+  }
 }
 </style>

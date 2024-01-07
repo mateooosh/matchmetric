@@ -2,8 +2,14 @@
   <div class="game-details-view">
     <van-nav-bar
         title="Game details"
+        right-text="Edit"
         left-arrow
-        @click-left="onClickLeft"/>
+        @click-left="onClickLeft"
+        @click-right="onClickRight">
+      <template #right>
+        <EditIcon color="white" width="28" height="28"/>
+      </template>
+    </van-nav-bar>
     <div class="content">
       <GameHeader :game="game"/>
 
@@ -57,6 +63,7 @@ import TimerIcon from '../common/icons/TimerIcon.vue'
 import FireIcon from '../common/icons/FireIcon.vue'
 import StatsCell from '../components/StatsCell.vue'
 import useSettingsStore from '../stores/settingsStore.ts'
+import EditIcon from '../common/icons/EditIcon.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -68,6 +75,10 @@ const game: GameModel = store.getGameByTimestamp(Number(route.params.id))
 const onClickLeft = () => {
   router.push({ name: 'home' })
 }
+
+const onClickRight = () => {
+  router.push({ name: 'edit-game', params: { id: route.params.id } })
+}
 </script>
 
 <style scoped lang="scss">
@@ -77,11 +88,18 @@ const onClickLeft = () => {
   --van-nav-bar-title-text-color: white;
   --van-nav-bar-arrow-size: 32px;
   --van-nav-bar-icon-color: white;
+  --van-nav-bar-text-color: white;
+  --van-font-size-md: 16px;
+
+  display: flex;
+  flex-direction: column;
 
   > .content {
     padding: 0 $l;
     font-size: 18px;
     font-weight: 600;
+    flex: 1;
+    overflow: scroll;
 
     > .game-row {
       padding: $l 0;

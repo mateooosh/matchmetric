@@ -19,6 +19,12 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       this.setGamesIsLocalStorage()
     },
 
+    editGame(game: GameModel) {
+      const index = _.findIndex(this.games, ['timestamp', game.timestamp])
+      this.games[index] = game
+      this.setGamesIsLocalStorage()
+    },
+
     setGamesIsLocalStorage() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.games))
     },

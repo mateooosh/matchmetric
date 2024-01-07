@@ -4,7 +4,7 @@
         title="Settings"
         left-arrow
         @click-left="onClickLeft"/>
-    <van-cell-group>
+    <van-cell-group class="content">
       <van-collapse v-model="state.selectedCollapseItem">
         <van-collapse-item title="Display attributes" :name="1">
           <van-cell title="Goals">
@@ -97,6 +97,14 @@ const onClickLeft = () => {
 
   --van-cell-font-size: 18px;
   --van-cell-vertical-padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+
+  > .content {
+    flex: 1;
+    overflow: scroll;
+  }
 
   .van-cell{
     align-items: center;
