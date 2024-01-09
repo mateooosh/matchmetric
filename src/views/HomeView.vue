@@ -3,53 +3,50 @@
     <NavBar/>
     <div class="home-view">
       <van-back-top top="12px" bottom="32px"/>
-<!--      <Button label="Add game" @click="addGame"/>-->
+      <van-empty v-if="!hasGames" description="No games found"/>
       <GameHeader v-for="game in games" :key="game.timestamp" :game="game"/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-// import Button from '../components/Button.vue'
 import GameHeader from '../components/GameHeader.vue'
 import useGamesStore from '../stores/gamesStore.ts'
 import GameModel from '../models/GameModel.ts'
-import { useRouter } from 'vue-router'
 import NavBar from '../components/NavBar.vue'
+import { computed } from 'vue'
+import * as _ from 'lodash'
 
 const gamesStore = useGamesStore()
-const router = useRouter()
 
 const games: Array<GameModel> = gamesStore.games
 
-// const addGame = () => {
-//   router.push({ name: 'add-game' })
-// }
+const hasGames = computed(() => _.size(games))
 
 </script>
 
 <style scoped lang="scss">
-@keyframes slide-up {
-  from {
-    margin-top: 50px;
-    opacity: 0;
-  }
-  to {
-    margin-top: 0;
-    opacity: 1;
-  }
-}
-
-@keyframes slide-right {
-  from {
-    margin-right: 10px;
-    opacity: 0;
-  }
-  to {
-    margin-top: 0;
-    opacity: 1;
-  }
-}
+//@keyframes slide-up {
+//  from {
+//    margin-top: 50px;
+//    opacity: 0;
+//  }
+//  to {
+//    margin-top: 0;
+//    opacity: 1;
+//  }
+//}
+//
+//@keyframes slide-right {
+//  from {
+//    margin-right: 10px;
+//    opacity: 0;
+//  }
+//  to {
+//    margin-top: 0;
+//    opacity: 1;
+//  }
+//}
 
 .home-view {
   padding: 0 $l;

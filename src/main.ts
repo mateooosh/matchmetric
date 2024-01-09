@@ -22,7 +22,9 @@ import {
   TimePicker,
   Collapse,
   CollapseItem,
-  Switch
+  Switch,
+  Empty,
+  Notify
 } from 'vant'
 import 'vant/lib/index.css'
 import enUS from 'vant/es/locale/lang/en-US'
@@ -50,4 +52,6 @@ createApp(App)
   .use(Collapse)
   .use(CollapseItem)
   .use(Switch)
+  .use(Empty)
+  .use(Notify)
   .mount('#app')

@@ -99,7 +99,7 @@ const onClickRight = () => {
     font-size: 18px;
     font-weight: 600;
     flex: 1;
-    overflow: scroll;
+    overflow: auto;
 
     > .game-row {
       padding: $l 0;

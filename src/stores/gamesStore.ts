@@ -25,6 +25,12 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       this.setGamesIsLocalStorage()
     },
 
+    concatGames(games: Array<GameModel>) {
+      const filteredGames = _.filter(games, (x) => !_.some(this.games, y => x.timestamp === y.timestamp))
+      this.games = _.concat(this.games, filteredGames)
+      this.setGamesIsLocalStorage()
+    },
+
     setGamesIsLocalStorage() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.games))
     },

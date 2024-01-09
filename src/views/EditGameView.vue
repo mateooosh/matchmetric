@@ -162,17 +162,21 @@ const onTimePickerConfirm = (value: any) => {
 }
 
 const onClickLeft = () => {
-  router.push({ name: 'home' })
+  if (isEdit.value) {
+    router.back()
+  } else {
+    router.push({ name: 'home' })
+  }
 }
 
 const onSave = () => {
   if (isEdit.value) {
-    const modifiedGame: GameModel = new GameModel(state.timestamp, state.type, state.result, state.date, state.goals, state.assists, state.distance, state.duration, state.calories)
+    const modifiedGame: GameModel = GameModel.fromJSON(state)
     gamesStore.editGame(modifiedGame)
     router.push({ name: 'game-details', params: { id: route.params.id } })
 
   } else {
-    const newGame: GameModel = new GameModel(new Date().getTime(), state.type, state.result, state.date, state.goals, state.assists, state.distance, state.duration, state.calories)
+    const newGame: GameModel = GameModel.fromJSON({ ...state, timestamp: new Date().getTime() })
     gamesStore.addGame(newGame)
     router.push({ name: 'home' })
   }
@@ -207,7 +211,7 @@ const onSave = () => {
 
   > .content {
     flex: 1;
-    overflow: scroll;
+    overflow: auto;
   }
 
   .right-icon {

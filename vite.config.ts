@@ -25,5 +25,8 @@ export default defineConfig({
         additionalData: `@import "./src/common/styles/variables.scss";`,
       }
     }
-  }
+  },
+  base: process.env.NODE_ENV === 'production'
+    ? '/matchmetric/'
+    : '/'
 })

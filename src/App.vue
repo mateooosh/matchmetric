@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <router-view/>
+    <router-view :key="$route.path"/>
     <van-tabbar route v-model="state.activeTab" active-color="#5DB075" inactive-color="grey" :fixed="false">
       <van-tabbar-item to="/matchmetric/" icon="wap-nav" color="#5DB075">Games</van-tabbar-item>
       <van-tabbar-item to="/matchmetric/edit-game" icon="add">New</van-tabbar-item>
@@ -31,7 +31,7 @@ const state = reactive({
 
   & div:first-child {
     flex: 1;
-    overflow: scroll;
+    overflow: auto;
   }
 }
 </style>
