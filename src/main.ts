@@ -24,7 +24,8 @@ import {
   CollapseItem,
   Switch,
   Empty,
-  Notify
+  Notify,
+  Dialog
 } from 'vant'
 import 'vant/lib/index.css'
 import enUS from 'vant/es/locale/lang/en-US'
@@ -54,4 +55,5 @@ createApp(App)
   .use(Switch)
   .use(Empty)
   .use(Notify)
+  .use(Dialog)
   .mount('#app')

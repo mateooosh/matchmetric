@@ -1,9 +1,21 @@
 <template>
   <div class="edit-game-view">
+    <van-dialog v-model:show="showDeleteDialog"
+                @confirm="onDeleteGameConfirm"
+                title="Do you want to delete the game?"
+                message="This game will be permanently deleted and you won't be able to see it again."
+                confirm-button-text="Delete"
+                confirm-button-color="red"
+                close-on-click-overlay
+                show-cancel-button/>
     <van-nav-bar
         :title="navBarTitle"
         left-arrow
-        @click-left="onClickLeft"/>
+        @click-left="onClickLeft">
+      <template v-if="isEdit" #right>
+        <TrashIcon color="white" width="28" height="28" @click="deleteGame"/>
+      </template>
+    </van-nav-bar>
     <div class="content">
       <van-cell-group inset>
         <Field label="Type">
@@ -72,7 +84,7 @@
 
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { computed, onMounted, reactive } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
 import SegmentedControls from '../components/SegmentedControls.vue'
 import GAME_RESULT from '../common/enums/GAME_RESULT.ts'
@@ -85,8 +97,9 @@ import Field from '../components/Field.vue'
 import ClockIcon from '../common/icons/ClockIcon.vue'
 import GAME_RESULT_COLOR from '../common/enums/GAME_RESULT_COLOR.ts'
 import SegmentModel from '../models/SegmentModel.ts'
-import { TimePickerColumnType } from 'vant'
+import { showNotify, TimePickerColumnType } from 'vant'
 import useSettingsStore from '../stores/settingsStore.ts'
+import TrashIcon from '../common/icons/TrashIcon.vue'
 
 const gamesStore = useGamesStore()
 const settingsStore = useSettingsStore()
@@ -101,8 +114,10 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 
 const formatDate = (date: Date): string => date.toLocaleDateString('en-IN', dateOptions).replaceAll('/', '-')
 
+const showDeleteDialog = ref(false)
+
 const state = reactive({
-  timestamp: null,
+  timestamp: 0,
   type: GAME_TYPE.OUTSIDE,
   result: GAME_RESULT.DRAW,
   date: formatDate(new Date()),
@@ -169,12 +184,21 @@ const onClickLeft = () => {
   }
 }
 
+const deleteGame = () => {
+  showDeleteDialog.value = true
+}
+
+const onDeleteGameConfirm = () => {
+    gamesStore.deleteGame(state.timestamp)
+    showNotify({ type: 'success', message: 'Game has been deleted', position: 'bottom' })
+    router.push({ name: 'home' })
+}
+
 const onSave = () => {
   if (isEdit.value) {
     const modifiedGame: GameModel = GameModel.fromJSON(state)
     gamesStore.editGame(modifiedGame)
     router.push({ name: 'game-details', params: { id: route.params.id } })
-
   } else {
     const newGame: GameModel = GameModel.fromJSON({ ...state, timestamp: new Date().getTime() })
     gamesStore.addGame(newGame)
@@ -202,9 +226,8 @@ const onSave = () => {
   --van-picker-action-font-size: 18px;
   --van-picker-confirm-action-color: #5DB075;
 
-  //.van-field__body {
-  //  font-size: 18px;
-  //}
+  --van-dialog-font-size: 18px;
+  --van-button-default-font-size: 18px;
 
   display: flex;
   flex-direction: column;
@@ -223,6 +246,4 @@ const onSave = () => {
     margin: 8px 16px;
   }
 }
-
-
 </style>

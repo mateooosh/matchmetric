@@ -25,6 +25,11 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       this.setGamesIsLocalStorage()
     },
 
+    deleteGame(timestamp: number) {
+      this.games = _.filter(this.games, (game: GameModel) => game.timestamp !== timestamp)
+      this.setGamesIsLocalStorage()
+    },
+
     concatGames(games: Array<GameModel>) {
       const filteredGames = _.filter(games, (x) => !_.some(this.games, y => x.timestamp === y.timestamp))
       this.games = _.concat(this.games, filteredGames)
@@ -35,8 +40,8 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.games))
     },
 
-    getGameByTimestamp(timestamp: number) {
-      return this.games.find((game: GameModel): boolean => game.timestamp === timestamp)
+    getGameByTimestamp(timestamp: number): GameModel {
+      return _.find(this.games, (game: GameModel): boolean => game.timestamp === timestamp) as GameModel
     }
   }
 })

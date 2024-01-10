@@ -116,7 +116,6 @@ const exportData = () => {
 }
 
 const importData = () => {
-  // document.getElementById('import-graph').click()
   importInput.value.click()
 }
 
@@ -129,8 +128,6 @@ const exportToJSON = (json: object) => {
   linkElement.setAttribute('href', dataUri)
   linkElement.setAttribute('download', exportFileDefaultName)
   linkElement.click()
-
-  showNotify({ type: 'success', message: 'Imported successfully',position: 'bottom' })
 }
 
 const onImportedFileChange = (event: Event) => {
@@ -145,12 +142,13 @@ const onImportedFileChange = (event: Event) => {
       games = _.map(games, game => GameModel.fromJSON(game))
 
       gamesStore.concatGames(games)
+      settingsStore.assignSettings(settings)
 
-      showNotify({ type: 'success', message: 'Imported successfully',position: 'bottom' })
+      showNotify({ type: 'success', message: 'Imported successfully', position: 'bottom' })
 
       router.push({ name: 'home' })
     } catch {
-      showNotify({ type: 'danger', message: 'Something went wrong',position: 'bottom' })
+      showNotify({ type: 'danger', message: 'Something went wrong', position: 'bottom' })
     }
   }
 

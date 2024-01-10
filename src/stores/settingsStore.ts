@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import SettingsModel from '../models/SettingsModel.ts'
+import * as _ from 'lodash'
 
 const STORAGE_KEY = 'settings'
 
@@ -13,6 +14,10 @@ export const useSettingsStore = defineStore(STORAGE_KEY, {
   }),
 
   actions: {
+    assignSettings(importedSettings: SettingsModel) {
+      _.assign(this.settings, importedSettings)
+    },
+
     setSettingsIsLocalStorage() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.settings))
     }
