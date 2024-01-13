@@ -19,4 +19,5 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
 
 ## To Do
 
- - remove game (in game edit view in right top corner remove icon, then popup)
+- ~~remove game (in game edit view in right top corner remove icon, then popup)~~
+- sorting games by date

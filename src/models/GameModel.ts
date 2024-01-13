@@ -1,5 +1,6 @@
 import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
 import GAME_RESULT from '../common/enums/GAME_RESULT.ts'
+import * as _ from 'lodash'
 
 export default class GameModel {
   timestamp: number
@@ -22,6 +23,10 @@ export default class GameModel {
     this.distance = distance
     this.duration = duration
     this.calories = calories
+  }
+
+  getDate () {
+    return new Date(_.join(_.reverse(_.split(this.date, '-')), '-'))
   }
 
   static fromJSON(json: any): GameModel {

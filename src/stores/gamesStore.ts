@@ -37,7 +37,12 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
     },
 
     setGamesIsLocalStorage() {
+      this.sortGamesByDate()
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.games))
+    },
+
+    sortGamesByDate() {
+      this.games.sort((game1, game2) => game2.getDate().getTime() - game1.getDate().getTime())
     },
 
     getGameByTimestamp(timestamp: number): GameModel {

@@ -7,7 +7,7 @@
     <div class="content">
       <van-cell-group inset>
         <van-collapse v-model="state.selectedCollapseItem">
-          <van-collapse-item title="Display attributes" :name="1">
+          <van-collapse-item title="Attributes" :name="1">
             <van-cell title="Goals">
               <template #icon>
                 <BallIcon color="#333" height="24px" width="24px"/>
@@ -61,7 +61,7 @@
             <ExportIcon color="#969799" height="24px" width="24px"/>
           </template>
         </van-cell>
-        <van-cell @click="importData" title="Import data" label="Import saved games and settings">
+        <van-cell @click="importData" title="Import data" label="Import games and settings">
           <template #right-icon>
             <ImportIcon color="#969799" height="24px" width="24px"/>
             <input @change="onImportedFileChange" type="file" ref="importInput" style="display: none;"/>
