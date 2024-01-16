@@ -3,6 +3,7 @@ import './style.css'
 import App from './App.vue'
 import router from './router/router'
 import { createPinia } from 'pinia'
+import 'vue-data-ui/style.css'
 
 // vant
 import {
@@ -29,7 +30,6 @@ import {
 } from 'vant'
 import 'vant/lib/index.css'
 import enUS from 'vant/es/locale/lang/en-US'
-
 
 Locale.use('en-US', enUS)
 

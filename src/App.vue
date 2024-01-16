@@ -3,7 +3,7 @@
     <router-view :key="$route.path"/>
     <van-tabbar route v-model="state.activeTab" active-color="#5DB075" inactive-color="grey" :fixed="false">
       <van-tabbar-item to="/matchmetric/" icon="wap-nav" color="#5DB075">Games</van-tabbar-item>
-      <van-tabbar-item to="/matchmetric/edit-game" icon="add">New</van-tabbar-item>
+      <van-tabbar-item to="/matchmetric/edit-game" icon="add" data-cy="tab-add-game">New</van-tabbar-item>
       <van-tabbar-item to="/matchmetric/settings" icon="setting">Settings</van-tabbar-item>
     </van-tabbar>
   </div>

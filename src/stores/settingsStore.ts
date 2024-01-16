@@ -20,6 +20,11 @@ export const useSettingsStore = defineStore(STORAGE_KEY, {
 
     setSettingsIsLocalStorage() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.settings))
+    },
+
+    clear() {
+      this.settings = SettingsModel.fromJSON({})
+      this.setSettingsIsLocalStorage()
     }
   }
 })

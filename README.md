@@ -20,4 +20,7 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
 ## To Do
 
 - ~~remove game (in game edit view in right top corner remove icon, then popup)~~
-- sorting games by date
+- ~~sorting games by date~~
+- chart -> https://vue-data-ui.graphieros.com/docs#vue-ui-donut-evolution
+- chart -> https://apexcharts.com/vue-chart-demos/column-charts/stacked/
+- chart -> https://apexcharts.com/vue-chart-demos/mixed-charts/multiple-yaxis/

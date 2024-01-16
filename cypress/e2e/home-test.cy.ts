@@ -3,6 +3,7 @@
 import HomePO from '../page-object/HomePO'
 
 const homePO = new HomePO()
+
 describe('template spec', () => {
 
   beforeEach(() => {
@@ -11,10 +12,6 @@ describe('template spec', () => {
 
   it('passes', () => {
     homePO.getNavBarContent().should('have.text', 'Matchmetric')
-  })
-
-  it('should add to local storage', () => {
-    homePO.setGamesInStorage()
   })
 })
 

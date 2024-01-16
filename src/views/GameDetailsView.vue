@@ -1,11 +1,10 @@
 <template>
   <div class="game-details-view">
-    <van-nav-bar
-        title="Game details"
-        right-text="Edit"
-        left-arrow
-        @click-left="onClickLeft"
-        @click-right="onClickRight">
+    <van-nav-bar title="Game details"
+                 right-text="Edit"
+                 left-arrow
+                 @click-left="onClickLeft"
+                 @click-right="onClickRight">
       <template #right>
         <EditIcon color="white" width="28" height="28"/>
       </template>

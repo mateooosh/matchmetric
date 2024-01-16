@@ -1,26 +1,35 @@
 [
   {
-    "timestamp": 1702333024980,
-    "type": "OUTSIDE",
-    "result": "DRAW",
-    "date": "11-12-2023",
-    "goals": 0,
-    "assists": 0
-  },
-  {
-    "timestamp": 1702333021995,
-    "type": "OUTSIDE",
-    "result": "LOSE",
-    "date": "11-12-2023",
+    "timestamp": 1705148257810,
+    "type": "Inside",
+    "result": "Draw",
+    "date": "13-01-2024",
     "goals": 1,
-    "assists": 1
+    "assists": 1,
+    "distance": "",
+    "duration": "",
+    "calories": ""
   },
   {
-    "timestamp": 1702333014455,
-    "type": "OUTSIDE",
-    "result": "WIN",
-    "date": "11-12-2023",
-    "goals": 7,
-    "assists": 2
+    "timestamp": 1704831309881,
+    "type": "Outside",
+    "result": "Win",
+    "date": "09-11-2023",
+    "goals": 3,
+    "assists": 4,
+    "distance": "",
+    "duration": "00:00:04",
+    "calories": ""
+  },
+  {
+    "timestamp": 1705149005355,
+    "type": "Outside",
+    "result": "Draw",
+    "date": "18-10-2023",
+    "goals": 0,
+    "assists": 0,
+    "distance": "",
+    "duration": "",
+    "calories": ""
   }
 ]

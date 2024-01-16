@@ -1,5 +1,13 @@
 <template>
   <div class="settings-view">
+    <van-dialog v-model:show="state.showDeleteDialog"
+                @confirm="onDeleteDataConfirm"
+                title="Delete saved games and settings?"
+                message="The games and settings will be permanently deleted and you won't be able to revert it."
+                confirm-button-text="Delete"
+                confirm-button-color="red"
+                close-on-click-overlay
+                show-cancel-button/>
     <van-nav-bar
         title="Settings"
         left-arrow
@@ -55,7 +63,17 @@
           </van-collapse-item>
         </van-collapse>
       </van-cell-group>
+
       <van-cell-group inset>
+        <van-cell title="Performance" @click="router.push({ name: 'performance' })"></van-cell>
+      </van-cell-group>
+
+      <van-cell-group inset>
+        <van-cell @click="deleteData" title="Delete data" label="Delete saved games and settings">
+          <template #right-icon>
+            <TrashIcon color="#969799" height="24px" width="24px"/>
+          </template>
+        </van-cell>
         <van-cell @click="exportData" title="Export data" label="Export saved games and settings">
           <template #right-icon>
             <ExportIcon color="#969799" height="24px" width="24px"/>
@@ -87,6 +105,7 @@ import useGamesStore from '../stores/gamesStore.ts'
 import GameModel from '../models/GameModel.ts'
 import * as _ from 'lodash'
 import { showNotify } from 'vant'
+import TrashIcon from '../common/icons/TrashIcon.vue'
 
 const router = useRouter()
 const settingsStore = useSettingsStore()
@@ -95,7 +114,8 @@ const gamesStore = useGamesStore()
 const importInput = ref()
 
 const state = reactive({
-  selectedCollapseItem: []
+  selectedCollapseItem: [],
+  showDeleteDialog: false
 })
 
 watch(settingsStore.settings, () => {
@@ -104,6 +124,16 @@ watch(settingsStore.settings, () => {
 
 const onClickLeft = () => {
   router.push({ name: 'home' })
+}
+
+const deleteData = () => {
+  state.showDeleteDialog = true
+}
+
+const onDeleteDataConfirm = () => {
+  gamesStore.clear()
+  settingsStore.clear()
+  showNotify({ type: 'success', message: 'Games and settings has been deleted', position: 'bottom' })
 }
 
 const exportData = () => {

@@ -47,6 +47,11 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
 
     getGameByTimestamp(timestamp: number): GameModel {
       return _.find(this.games, (game: GameModel): boolean => game.timestamp === timestamp) as GameModel
+    },
+
+    clear() {
+      this.games = []
+      this.setGamesIsLocalStorage()
     }
   }
 })

@@ -1,6 +1,6 @@
 <template>
   <div class="edit-game-view">
-    <van-dialog v-model:show="showDeleteDialog"
+    <van-dialog v-model:show="state.showDeleteDialog"
                 @confirm="onDeleteGameConfirm"
                 title="Do you want to delete the game?"
                 message="This game will be permanently deleted and you won't be able to see it again."
@@ -8,23 +8,22 @@
                 confirm-button-color="red"
                 close-on-click-overlay
                 show-cancel-button/>
-    <van-nav-bar
-        :title="navBarTitle"
-        left-arrow
-        @click-left="onClickLeft">
+    <van-nav-bar :title="navBarTitle"
+                 left-arrow
+                 @click-left="onClickLeft">
       <template v-if="isEdit" #right>
         <TrashIcon color="white" width="28" height="28" @click="deleteGame"/>
       </template>
     </van-nav-bar>
     <div class="content">
       <van-cell-group inset>
-        <Field label="Type">
+        <Field label="Type" data-cy="type">
           <template #input>
             <SegmentedControls v-model="state.type" :segments="gameTypesToSegments"/>
           </template>
         </Field>
 
-        <Field label="Result">
+        <Field label="Result" data-cy="result">
           <template #input>
             <SegmentedControls v-model="state.result" :segments="gameResultsToSegments"/>
           </template>
@@ -43,13 +42,13 @@
           </template>
         </Field>
 
-        <Field label="Goals">
+        <Field label="Goals" data-cy="goals">
           <template #input>
             <van-stepper v-model="state.goals" :min="0" :max="50" input-width="50px" button-size="40px" theme="round"/>
           </template>
         </Field>
 
-        <Field label="Assists">
+        <Field label="Assists" data-cy="assists">
           <template #input>
             <van-stepper v-model="state.assists" :min="0" :max="50" input-width="50px" button-size="40px"
                          theme="round"/>
@@ -57,7 +56,7 @@
         </Field>
 
         <Field v-if="settingsStore.settings.showDistance" label="Distance" type="number" placeholder="Distance [km]"
-               v-model="state.distance"/>
+               v-model="state.distance" data-cy="distance"/>
 
         <Field v-if="settingsStore.settings.showDuration" label="Duration" placeholder="Duration [hh:mm:ss]"
                :maxlength="8" readonly v-model="state.duration">
@@ -74,17 +73,17 @@
         </Field>
 
         <Field v-if="settingsStore.settings.showCalories" label="Calories" type="digit" placeholder="Calories"
-               v-model="state.calories"/>
+               v-model="state.calories" data-cy="calories"/>
 
       </van-cell-group>
-      <Button label="Save" @click="onSave"/>
+      <Button label="Save" @click="onSave" data-cy="save"/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { computed, onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive } from 'vue'
 import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
 import SegmentedControls from '../components/SegmentedControls.vue'
 import GAME_RESULT from '../common/enums/GAME_RESULT.ts'
@@ -114,8 +113,6 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 
 const formatDate = (date: Date): string => date.toLocaleDateString('en-IN', dateOptions).replaceAll('/', '-')
 
-const showDeleteDialog = ref(false)
-
 const state = reactive({
   timestamp: 0,
   type: GAME_TYPE.OUTSIDE,
@@ -127,7 +124,8 @@ const state = reactive({
   duration: '',
   calories: '',
   showCalendar: false,
-  showTimePicker: false
+  showTimePicker: false,
+  showDeleteDialog: false
 })
 
 const isEdit = computed(() => !!route.params.id)
@@ -185,13 +183,13 @@ const onClickLeft = () => {
 }
 
 const deleteGame = () => {
-  showDeleteDialog.value = true
+  state.showDeleteDialog = true
 }
 
 const onDeleteGameConfirm = () => {
-    gamesStore.deleteGame(state.timestamp)
-    showNotify({ type: 'success', message: 'Game has been deleted', position: 'bottom' })
-    router.push({ name: 'home' })
+  gamesStore.deleteGame(state.timestamp)
+  showNotify({ type: 'success', message: 'Game has been deleted', position: 'bottom' })
+  router.push({ name: 'home' })
 }
 
 const onSave = () => {
