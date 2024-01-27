@@ -5,8 +5,7 @@
                  left-arrow
                  @click-left="onClickLeft"/>
     <div class="content">
-      Last 12 months
-      <VueUiXy :dataset="dataset" :config="config"/>
+      <VueUiDonutEvolution :dataset="dataset2" :config="config2"/>
     </div>
   </div>
 </template>
@@ -16,8 +15,9 @@ import { useRouter } from 'vue-router'
 import useGamesStore from '../stores/gamesStore'
 import * as _ from 'lodash'
 
-import { VueUiXy, VueUiXyDatasetItem } from 'vue-data-ui'
+import { VueUiDonutEvolution, VueUiDonutEvolutionConfig, VueUiDonutEvolutionDatasetItem } from 'vue-data-ui'
 import { MONTHS } from '../common/consts/consts.ts'
+import GameModel from '../models/GameModel.ts'
 
 const router = useRouter()
 const gamesStore = useGamesStore()
@@ -39,173 +39,113 @@ const getLastMonths = (): Array<string> => {
   return _.reverse(result)
 }
 
-const dataset: VueUiXyDatasetItem[] = [
-  {
-    name: "Goals",
-    series: [10, 12, 21, 7, 16, 19, 8, 13, 21, 34, 22, 24],
-    type: 'bar',
-    color: "rgb(66,211,146)",
-    dataLabels: false,
-    // useArea: true,
-    smooth: true
-  },
-  {
-    name: "Assists",
-    series: [22, 11, 21, 13, 8, 25, 13, 24, 21, 19, 15, 18],
-    type: 'bar',
-    color: 'rgb(95,139,238)',
-    // useProgression: true,
-    dataLabels: false,
-    // useArea: true,
-    shape: 'triangle',
-    smooth: true
-  },
-  {
-    name: "All",
-    series: [32, 23, 42, 20, 24, 44, 21, 37, 42, 53, 37, 42],
-    type: 'line',
-    color: 'rgb(162,0,225)',
-    // useProgression: true,
-    dataLabels: false,
-    // useArea: true,
-    smooth: true
-  }
-]
+const getStatsForLast12Months = (attribute: 'goals' | 'assists'): Array<number> => {
+  const goalsArray: Array<number> = []
+  const d = new Date()
+  d.setDate(1)
 
-const config = {
-  useCssAnimation: true,
-  useCanvas: false,
-  chart: {
-    // backgroundColor: "#F3F4F6",
-    color: "#1A1A1A",
-    height: 300,
-    width: 400,
-    highlighter: {
-      color: "#1A1A1A",
-      opacity: 10
-    },
-    zoom: {
-      show: true,
-      color: "#42d392"
-    },
-    padding: {
-      top: 16,
-      right: 12,
-      bottom: 36,
-      left: 28
-    },
-    grid: {
-      stroke: "#C4C4C4",
-      labels: {
-        show: true,
-        color: "#1A1A1A",
-        fontSize: 12,
-        axis: {
-          // yLabel: "yLabel",
-          // xLabel: "xLabel",
-          // fontSize: 12
-        },
-        xAxisLabels: {
-          color: "#1A1A1A",
-          show: true,
-          showOnlyFirstAndLast: false,
-          values: getLastMonths(),
-          fontSize: 8
-        }
-      }
-    },
-    labels: {
-      fontSize: 7
-    },
-    legend: {
-      show: true,
-      color: "#1A1A1A",
-      useDiv: true,
-      fontSize: 20
-    },
-    title: {
-      show: true,
-      text: "Performance",
-      color: "#1A1A1A",
-      fontSize: 20,
-      bold: true
-      // subtitle: {
-      //   fontSize: 16,
-      //   color: "#565656",
-      //   text: "Subtitle"
-      // }
-    },
-    tooltip: {
-      color: "#1A1A1A",
-      backgroundColor: "#FFFFFF",
-      show: true,
-      showValue: true,
-      showPercentage: false,
-      roundingValue: 0,
-      roundingPercentage: 0
-    },
-    userOptions: {
-      show: false
-      // title: "options",
-      // labels: {
-      //   dataLabels: "Show datalabels",
-      //   titleInside: "Title inside",
-      //   legendInside: "Legend inside",
-      //   showTable: "Show table"
-      // }
-    }
-  },
-  // bar: {
-  //   borderRadius: 2,
-  //   useGradient: true,
-  //   labels: {
-  //     show: true,
-  //     offsetY: -6,
-  //     rounding: 0,
-  //     color: "#1A1A1A"
-  //   }
-  // },
-  line: {
-    radius: 3,
-    useGradient: true,
-    strokeWidth: 2.5,
-    labels: {
-      show: true,
-      // offsetY: -6,
-      rounding: 0,
-      color: "#1A1A1A"
-    },
-    area: {
-      useGradient: true,
-      opacity: 30
-    }
-  },
-  plot: {
-    radius: 3,
-    useGradient: true,
-    labels: {
-      show: false,
-      offsetY: -6,
-      rounding: 0,
-      color: "#1A1A1A"
-    }
-  }
-  // table: {
-  //   rounding: 0,
-  //   th: {
-  //     backgroundColor: "#F3F4F6",
-  //     color: "#1A1A1A",
-  //     outline: "1px solid #C4C4C4"
-  //   },
-  //   td: {
-  //     backgroundColor: "#F3F4F6",
-  //     color: "#1A1A1A",
-  //     outline: "1px solid #C4C4C4"
-  //   }
-  // }
+  _.forEach(MONTHS, () => {
+    const yearKey = d.getFullYear()
+    const monthKey = _.padStart(_.toString(d.getMonth() + 1), 2, '0')
+    const allGamesInMonth: any = gamesStore.getMappedGames()[yearKey][monthKey]
+
+    const goalsByMonth = _.reduce(allGamesInMonth, (result, game: GameModel) => {
+      return result + game[attribute]
+    }, 0)
+
+    goalsArray.push(goalsByMonth)
+    d.setMonth(d.getMonth() - 1)
+  })
+
+  return _.reverse(goalsArray)
 }
 
 
+const dataset2: VueUiDonutEvolutionDatasetItem[] = [
+  {
+    name: "Goals",
+    values: getStatsForLast12Months('goals'),
+    color: '#3366CC'
+  },
+  {
+    name: "Assists",
+    values: getStatsForLast12Months('assists'),
+    color: '#DC3912'
+  }
+]
+
+const config2: VueUiDonutEvolutionConfig = {
+  style: {
+    fontFamily: "inherit",
+    chart: {
+      backgroundColor: "#ffffff",
+      color: "#2D353C",
+      layout: {
+        height: 316,
+        width: 500,
+        padding: {
+          top: 8,
+          left: 36,
+          right: 28,
+          bottom: 24
+        },
+        grid: {
+          stroke: "#e1e5e8",
+          strokeWidth: 0.7,
+          yAxis: {
+            dataLabels: {
+              show: true,
+              fontSize: 10,
+              color: "#2D353C",
+              roundingValue: 0,
+              offsetX: 0,
+              bold: false,
+              steps: 10
+            }
+          },
+          xAxis: {
+            dataLabels: {
+              show: true,
+              values: getLastMonths(),
+              fontSize: 8,
+              showOnlyFirstAndLast: false
+            }
+          }
+        },
+        line: {
+          show: true,
+          stroke: "#CCCCCC",
+          strokeWidth: 4
+        },
+        highlighter: {
+          color: "#2D353C",
+          opacity: 5
+        },
+        dataLabels: {
+          show: true,
+          fontSize: 10,
+          color: "#2D353C"
+        }
+      },
+      title: {
+        text: "Performance (last 12 months)",
+        color: "#2D353C",
+        fontSize: 20,
+        bold: true
+      },
+      legend: {
+        color: "#2D353C",
+        backgroundColor: "#FFFFFF",
+        bold: true,
+        show: true,
+        fontSize: 16
+      }
+    }
+  },
+  userOptions: {
+    show: true
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -229,6 +169,7 @@ const config = {
   > .content {
     flex: 1;
     overflow: auto;
+    padding: $l 0;
   }
 }
 </style>
