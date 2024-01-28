@@ -26,7 +26,8 @@ import {
   Switch,
   Empty,
   Notify,
-  Dialog
+  Dialog,
+  Picker
 } from 'vant'
 import 'vant/lib/index.css'
 import enUS from 'vant/es/locale/lang/en-US'
@@ -56,4 +57,5 @@ createApp(App)
   .use(Empty)
   .use(Notify)
   .use(Dialog)
+  .use(Picker)
   .mount('#app')

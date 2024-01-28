@@ -21,6 +21,9 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
 
 - ~~remove game (in game edit view in right top corner remove icon, then popup)~~
 - ~~sorting games by date~~
+- choosing period in performance view
+- add chart with all goals/assists
 - chart -> https://vue-data-ui.graphieros.com/docs#vue-ui-donut-evolution
 - chart -> https://apexcharts.com/vue-chart-demos/column-charts/stacked/
 - chart -> https://apexcharts.com/vue-chart-demos/mixed-charts/multiple-yaxis/
+- 
