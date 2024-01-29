@@ -4,7 +4,7 @@
     <van-nav-bar title="Performance"
                  left-arrow
                  @click-left="onClickLeft"/>
-    <div class="content">
+    <div v-if="hasGames" class="content">
       <van-cell-group>
         <Field label="Mode">
           <template #input>
@@ -20,7 +20,7 @@
         />
         <van-popup v-model:show="state.showPicker" round position="bottom">
           <van-picker title="Choose period"
-                      :columns="columns"
+                      :columns="periodDataSource"
                       @cancel="state.showPicker = false"
                       @confirm="onConfirm"
           />
@@ -28,6 +28,7 @@
       </van-cell-group>
       <VueUiDonutEvolution :dataset="dataset" :config="config"/>
     </div>
+    <van-empty v-else description="No games found"/>
   </div>
 </template>
 
@@ -38,7 +39,6 @@ import * as _ from 'lodash'
 
 import { VueUiDonutEvolution } from 'vue-data-ui'
 import { MONTHS } from '../common/consts/consts.ts'
-import GameModel from '../models/GameModel.ts'
 import Field from '../components/Field.vue'
 import SegmentedControls from '../components/SegmentedControls.vue'
 import { computed, reactive } from 'vue'
@@ -62,21 +62,34 @@ const modeSegments = [
   new SegmentModel('Average')
 ]
 
-const columns = [
-  { text: 'Last 12 months', value: 'Last 12 months' },
-  { text: '2024', value: '2024' },
-  { text: '2023', value: '2023' },
-  { text: '2022', value: '2022' },
-  { text: '2021', value: '2021' }
-]
+const hasGames = computed(() => _.size(gamesStore.games))
+
+const availableYears = computed(() => {
+  return _.reverse(_.map(_.keys(gamesStore.getMappedGames()), (year) => {
+    return {
+      text: year,
+      value: year
+    }
+  }))
+})
+
+const periodDataSource = computed(() => {
+  return [
+    {
+      text: 'Last 12 months',
+      value: 'Last 12 months'
+    },
+    ...availableYears.value
+  ]
+})
 
 const onConfirm = ({ selectedOptions }) => {
   state.showPicker = false
   state.period = selectedOptions[0].text
 }
 
-const getLastMonths = (): Array<string> => {
-  const result: Array<string> = []
+const getLastMonths = (): string[] => {
+  const result: string[] = []
   const d = new Date()
   d.setDate(1)
 
@@ -88,40 +101,27 @@ const getLastMonths = (): Array<string> => {
   return _.reverse(result)
 }
 
-const getStatsForLast12Months = (attribute: 'goals' | 'assists'): Array<number> => {
-  const goalsArray: Array<number> = []
-  const d = new Date()
-  d.setDate(1)
+const getStats = (attribute: 'goals' | 'assists'): number[] => {
+  if (state.period === 'Last 12 months')
+    return gamesStore.getStatsForLast12Months(attribute, state.mode)
+  else
+    return gamesStore.getStatsForSelectedYear(attribute, state.period, state.mode)
+}
 
-  _.forEach(MONTHS, () => {
-    const yearKey = d.getFullYear()
-    const monthKey = _.padStart(_.toString(d.getMonth() + 1), 2, '0')
-    const allGamesInMonth: any = gamesStore.getMappedGames()?.[yearKey]?.[monthKey]
-    let valuesByMonth = _.reduce(allGamesInMonth, (result, game: GameModel) => {
-      return result + game[attribute]
-    }, 0)
-
-    if (state.mode === 'Average' && _.size(allGamesInMonth)) {
-      valuesByMonth /= _.size(allGamesInMonth)
-    }
-
-    goalsArray.push(valuesByMonth)
-    d.setMonth(d.getMonth() - 1)
-  })
-
-  return _.reverse(goalsArray)
+const getMonths = () => {
+  return state.period === 'Last 12 months' ? getLastMonths() : MONTHS
 }
 
 const dataset = computed(() => {
   return [
     {
       name: 'Goals',
-      values: getStatsForLast12Months('goals'),
+      values: getStats('goals'),
       color: '#5f8bee'
     },
     {
       name: 'Assists',
-      values: getStatsForLast12Months('assists'),
+      values: getStats('assists'),
       color: '#ff6400'
     }
   ]
@@ -158,7 +158,7 @@ const config = computed(() => {
             xAxis: {
               dataLabels: {
                 show: true,
-                values: getLastMonths(),
+                values: getMonths(),
                 fontSize: 8,
                 showOnlyFirstAndLast: false
               }
@@ -196,7 +196,7 @@ const config = computed(() => {
       }
     },
     userOptions: {
-      show: true
+      show: false
     }
   }
 })
@@ -216,6 +216,9 @@ const config = computed(() => {
   --van-cell-group-inset-padding: 0;
   --van-cell-vertical-padding: 14px;
 
+  --van-picker-action-font-size: 18px;
+  --van-picker-confirm-action-color: #5DB075;
+
   //--van-cell-font-size: 18px;
   //--van-cell-vertical-padding: 16px;
   //
@@ -231,7 +234,7 @@ const config = computed(() => {
     gap: $l;
     flex: 1;
     overflow: auto;
-    padding: 4px 0 $l 0;
+    padding: 0 0 $l 0;
   }
 }
 </style>

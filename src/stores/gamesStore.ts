@@ -5,7 +5,7 @@ import * as _ from 'lodash'
 const STORAGE_KEY = 'games'
 
 interface State {
-  games: Array<GameModel>
+  games: GameModel[]
 }
 
 export const useGamesStore = defineStore(STORAGE_KEY, {
@@ -30,7 +30,7 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       this.setGamesIsLocalStorage()
     },
 
-    concatGames(games: Array<GameModel>) {
+    concatGames(games: GameModel[]) {
       const filteredGames = _.filter(games, (x) => !_.some(this.games, y => x.timestamp === y.timestamp))
       this.games = _.concat(this.games, filteredGames)
       this.setGamesIsLocalStorage()
@@ -53,6 +53,54 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       const groupedByYear = _.groupBy(this.games, (game: GameModel) => _.split(game.date, '-')[2])
       const groupedByYearAndMonth = _.mapValues(groupedByYear, (games) => _.groupBy(games, (game: GameModel) => _.split(game.date, '-')[1]))
       return groupedByYearAndMonth
+    },
+
+    getStatsForSelectedYear(attribute: 'goals' | 'assists', period: string, mode: string): number[] {
+      const result: number[] = []
+
+      if (period === 'Last 12 months') {
+        return result
+      }
+
+      for (let i = 1; i <= 12; i++) {
+        const monthKey = _.padStart(_.toString(i), 2, '0')
+        const allGamesInMonth: any = this.getMappedGames()?.[period]?.[monthKey]
+        let valuesByMonth = _.reduce(allGamesInMonth, (result, game: GameModel) => {
+          return result + game[attribute]
+        }, 0)
+
+        if (mode === 'Average' && _.size(allGamesInMonth)) {
+          valuesByMonth /= _.size(allGamesInMonth)
+        }
+
+        result.push(valuesByMonth)
+      }
+
+      return result
+    },
+
+    getStatsForLast12Months(attribute: 'goals' | 'assists', mode: string): number[] {
+      const result: number[] = []
+      const d = new Date()
+      d.setDate(1)
+
+      for (let i = 0; i < 12; i++) {
+        const yearKey = d.getFullYear()
+        const monthKey = _.padStart(_.toString(d.getMonth() + 1), 2, '0')
+        const allGamesInMonth: any = this.getMappedGames()?.[yearKey]?.[monthKey]
+        let valuesByMonth = _.reduce(allGamesInMonth, (result, game: GameModel) => {
+          return result + game[attribute]
+        }, 0)
+
+        if (mode === 'Average' && _.size(allGamesInMonth)) {
+          valuesByMonth /= _.size(allGamesInMonth)
+        }
+
+        result.push(valuesByMonth)
+        d.setMonth(d.getMonth() - 1)
+      }
+
+      return _.reverse(result)
     },
 
     clear() {

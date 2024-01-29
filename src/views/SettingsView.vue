@@ -65,7 +65,7 @@
       </van-cell-group>
 
       <van-cell-group inset>
-        <van-cell title="Performance" @click="router.push({ name: 'performance' })"></van-cell>
+        <van-cell title="Performance" @click="router.push({ name: 'performance' })" is-link/>
       </van-cell-group>
 
       <van-cell-group inset>
