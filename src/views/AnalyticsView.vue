@@ -1,7 +1,7 @@
 <template>
   <!--  https://vue-data-ui.graphieros.com/docs#vue-ui-xy-->
-  <div class="performance-view">
-    <van-nav-bar title="Performance"
+  <div class="analytics-view">
+    <van-nav-bar title="Analytics"
                  left-arrow
                  @click-left="onClickLeft"/>
     <div v-if="hasGames" class="content">
@@ -181,7 +181,7 @@ const config = computed(() => {
           }
         },
         title: {
-          text: 'Performance',
+          text: 'Analytics',
           color: "#2D353C",
           fontSize: 20,
           bold: true
@@ -204,7 +204,7 @@ const config = computed(() => {
 </script>
 
 <style scoped lang="scss">
-.performance-view {
+.analytics-view {
   --van-nav-bar-height: 60px;
   --van-nav-bar-background: #5DB075;
   --van-nav-bar-title-text-color: white;

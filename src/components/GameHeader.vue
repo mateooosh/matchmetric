@@ -42,8 +42,10 @@ import HallIcon from '../common/icons/HallIcon.vue'
 import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
 import { computed, ref } from 'vue'
 import * as _ from 'lodash'
+import useSettingsStore from '../stores/settingsStore.ts'
 
 const router = useRouter()
+const { settings } = useSettingsStore()
 
 const goals = ref<HTMLElement | null>(null)
 const assists = ref<HTMLElement | null>(null)
@@ -69,11 +71,11 @@ const getIconColor = (gameResult: GAME_RESULT): string => {
 }
 
 const goalsShortForm = computed((): boolean => {
-  return goals.value?.clientHeight > 22
+  return settings.shortFormOfStats && goals.value?.clientHeight > 22
 })
 
 const assistsShortForm = computed((): boolean => {
-  return assists.value?.clientHeight > 22
+  return settings.shortFormOfStats && assists.value?.clientHeight > 22
 })
 
 </script>
@@ -108,7 +110,7 @@ const assistsShortForm = computed((): boolean => {
       display: flex;
       gap: $s;
       flex-wrap: wrap;
-      justify-content: flex-end
+      justify-content: flex-end;
     }
 
     .short-form {

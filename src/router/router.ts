@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import GameDetailsView from '../views/GameDetailsView.vue'
 import EditGameView from '../views/EditGameView.vue'
 import SettingsView from '../views/SettingsView.vue'
-import PerformanceView from '../views/PerformanceView.vue'
+import AnalyticsView from '../views/AnalyticsView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -36,9 +36,9 @@ const routes: Array<RouteRecordRaw> = [
     component: SettingsView
   },
   {
-    path: '/matchmetric/settings/performance',
-    name: 'performance',
-    component: PerformanceView
+    path: '/matchmetric/settings/analytics',
+    name: 'analytics',
+    component: AnalyticsView
   }
 ]
 

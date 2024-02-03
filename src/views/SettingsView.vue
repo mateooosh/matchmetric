@@ -62,10 +62,15 @@
             </van-cell>
           </van-collapse-item>
         </van-collapse>
+        <van-cell title="Short form of stats" label="If there is not enough space, display number of goals/assists">
+          <template #right-icon>
+            <van-switch v-model="settingsStore.settings.shortFormOfStats" active-color="#5DB075" size="30px"/>
+          </template>
+        </van-cell>
       </van-cell-group>
 
       <van-cell-group inset>
-        <van-cell title="Performance" @click="router.push({ name: 'performance' })" is-link/>
+        <van-cell title="Analytics" @click="router.push({ name: 'analytics' })" is-link/>
       </van-cell-group>
 
       <van-cell-group inset>

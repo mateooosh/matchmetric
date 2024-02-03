@@ -9,7 +9,7 @@
         <EditIcon color="white" width="28" height="28"/>
       </template>
     </van-nav-bar>
-    <div class="content">
+    <div class="content" ref="gameDetailsContent">
       <GameHeader :game="game"/>
 
       <div class="stats">
@@ -63,13 +63,32 @@ import FireIcon from '../common/icons/FireIcon.vue'
 import StatsCell from '../components/StatsCell.vue'
 import useSettingsStore from '../stores/settingsStore.ts'
 import EditIcon from '../common/icons/EditIcon.vue'
+import { onMounted, ref } from 'vue'
+import Hammer from 'hammerjs'
 
 const route = useRoute()
 const router = useRouter()
-const store = useGamesStore()
+const gamesStore = useGamesStore()
 const settingsStore = useSettingsStore()
+const gameDetailsContent = ref<HTMLElement | null>(null)
 
-const game: GameModel = store.getGameByTimestamp(Number(route.params.id))
+const game: GameModel = gamesStore.getGameByTimestamp(Number(route.params.id))
+
+onMounted(() => {
+  const hammer = new Hammer(gameDetailsContent.value)
+
+  hammer.on('swipeleft', () => {
+    const previousGameTimestamp: number = gamesStore.getPreviousGameByTimestamp(game.timestamp)?.timestamp
+    if (previousGameTimestamp)
+      router.push({ name: 'game-details', params: { id: previousGameTimestamp } })
+  })
+
+  hammer.on('swiperight', () => {
+    const nextGameTimestamp: number = gamesStore.getNextGameByTimestamp(game.timestamp)?.timestamp
+    if (nextGameTimestamp)
+      router.push({ name: 'game-details', params: { id: nextGameTimestamp } })
+  })
+})
 
 const onClickLeft = () => {
   router.push({ name: 'home' })
@@ -78,6 +97,7 @@ const onClickLeft = () => {
 const onClickRight = () => {
   router.push({ name: 'edit-game', params: { id: route.params.id } })
 }
+
 </script>
 
 <style scoped lang="scss">

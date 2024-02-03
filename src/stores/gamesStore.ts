@@ -49,6 +49,16 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       return _.find(this.games, (game: GameModel): boolean => game.timestamp === timestamp) as GameModel
     },
 
+    getNextGameByTimestamp(timestamp: number): GameModel {
+      const index = _.findIndex(this.games, (game: GameModel): boolean => game.timestamp === timestamp)
+      return this.games[index + 1] as GameModel
+    },
+
+    getPreviousGameByTimestamp(timestamp: number): GameModel {
+      const index = _.findIndex(this.games, (game: GameModel): boolean => game.timestamp === timestamp)
+      return this.games[index - 1] as GameModel
+    },
+
     getMappedGames(): { [key: string]: { [key: string]: GameModel[] } } {
       const groupedByYear = _.groupBy(this.games, (game: GameModel) => _.split(game.date, '-')[2])
       const groupedByYearAndMonth = _.mapValues(groupedByYear, (games) => _.groupBy(games, (game: GameModel) => _.split(game.date, '-')[1]))
