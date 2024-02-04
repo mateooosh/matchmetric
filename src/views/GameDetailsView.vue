@@ -78,15 +78,15 @@ onMounted(() => {
   const hammer = new Hammer(gameDetailsContent.value)
 
   hammer.on('swipeleft', () => {
-    const previousGameTimestamp: number = gamesStore.getPreviousGameByTimestamp(game.timestamp)?.timestamp
-    if (previousGameTimestamp)
-      router.push({ name: 'game-details', params: { id: previousGameTimestamp } })
-  })
-
-  hammer.on('swiperight', () => {
     const nextGameTimestamp: number = gamesStore.getNextGameByTimestamp(game.timestamp)?.timestamp
     if (nextGameTimestamp)
       router.push({ name: 'game-details', params: { id: nextGameTimestamp } })
+  })
+
+  hammer.on('swiperight', () => {
+    const previousGameTimestamp: number = gamesStore.getPreviousGameByTimestamp(game.timestamp)?.timestamp
+    if (previousGameTimestamp)
+      router.push({ name: 'game-details', params: { id: previousGameTimestamp } })
   })
 })
 
