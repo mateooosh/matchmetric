@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <StadiumIcon width="50px" height="50px"/>
-    <div data-cy="header-title">Matchmetric</div>
+    <div data-cy="header-title">MATCHMETRIC</div>
   </div>
 </template>
 
@@ -14,12 +14,14 @@ import StadiumIcon from '../common/icons/StadiumIcon.vue'
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: $m;
+  gap: $l;
   width: 100%;
   background-color: $bc;
   color: $white;
-  font-size: $xxl;
-  font-weight: 500;
+  font-size: $xl;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 1px;
   padding: $xl 0;
 }
 </style>

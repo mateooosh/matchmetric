@@ -1,7 +1,9 @@
 <template>
   <div class="game-row" @click="onGameClick">
-    <HallIcon v-if="props.game.type === GAME_TYPE.INSIDE" :color="getIconColor(props.game.result)"/>
-    <StadiumIcon v-else :color="getIconColor(props.game.result)"/>
+    <div class="icon">
+      <HallIcon v-if="props.game.type === GAME_TYPE.INSIDE" :color="getIconColor(props.game.result)"/>
+      <StadiumIcon v-else :color="getIconColor(props.game.result)"/>
+    </div>
     <div class="date">{{ props.game.date }}</div>
     <div class="stats">
       <div ref="goals">
@@ -89,8 +91,12 @@ const assistsShortForm = computed((): boolean => {
   padding: $m 0;
   background-color: $theme-0;
 
-  > svg {
-    min-width: 36px;
+  > .icon {
+
+
+    > svg {
+      min-width: 36px;
+    }
   }
 
   > .date {
