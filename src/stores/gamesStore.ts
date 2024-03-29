@@ -113,6 +113,12 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       return _.reverse(result)
     },
 
+    getTotalGoals(attribute: 'goals' | 'assists'): number {
+      return _.reduce(this.games, (result, game: GameModel) => {
+        return result + game[attribute]
+      }, 0)
+    },
+
     clear() {
       this.games = []
       this.setGamesIsLocalStorage()

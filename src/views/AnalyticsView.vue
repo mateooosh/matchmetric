@@ -4,7 +4,26 @@
     <van-nav-bar title="Analytics"
                  left-arrow
                  @click-left="onClickLeft"/>
+
     <div v-if="hasGames" class="content">
+
+      <div style="display: flex; margin: 16px 16px 0; gap: 16px; text-align: center;">
+        <div style="display: flex; gap: 8px; align-items: center; justify-content: center; flex: 1; padding: 12px; border-radius: 8px; background-color: white; font-size: 18px; color: #323233;">
+          <BallIcon color="#333" height="32px" width="32px"/>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+            <div style="color: #808080;">Total goals</div>
+            <div style="font-weight: 600;">{{ totalGoals }}</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px; align-items: center; justify-content: center; flex: 1; padding: 12px; border-radius: 8px; background-color: white; font-size: 18px; color: #323233;">
+          <AssistIcon color="#333" height="32px" width="32px"/>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+            <div style="color: #808080;">Total assists</div>
+            <div style="font-weight: 600;">{{ totalAssists }}</div>
+          </div>
+        </div>
+      </div>
+
       <van-cell-group>
         <Field label="Mode">
           <template #input>
@@ -43,6 +62,8 @@ import Field from '../components/Field.vue'
 import SegmentedControls from '../components/SegmentedControls.vue'
 import { computed, reactive } from 'vue'
 import SegmentModel from '../models/SegmentModel.ts'
+import BallIcon from '../common/icons/BallIcon.vue'
+import AssistIcon from '../common/icons/AssistIcon.vue'
 
 const router = useRouter()
 const gamesStore = useGamesStore()
@@ -63,6 +84,8 @@ const modeSegments = [
 ]
 
 const hasGames = computed(() => _.size(gamesStore.games))
+const totalGoals = computed(() => gamesStore.getTotalGoals('goals'))
+const totalAssists = computed(() => gamesStore.getTotalGoals('assists'))
 
 const availableYears = computed(() => {
   return _.reverse(_.map(_.keys(gamesStore.getMappedGames()), (year) => {
@@ -226,6 +249,7 @@ const config = computed(() => {
 
   display: flex;
   flex-direction: column;
+  background-color: #eff2f5;
   //background-color: #eff2f5;
 
   > .content {
