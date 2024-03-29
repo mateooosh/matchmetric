@@ -91,6 +91,9 @@
           </template>
         </van-cell>
       </van-cell-group>
+      <van-cell-group inset>
+        <van-cell title="Version" :value="appVersion"/>
+      </van-cell-group>
     </div>
   </div>
 </template>
@@ -117,6 +120,8 @@ const settingsStore = useSettingsStore()
 const gamesStore = useGamesStore()
 
 const importInput = ref()
+
+const appVersion: string = APP_VERSION
 
 const state = reactive({
   selectedCollapseItem: [],
