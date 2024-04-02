@@ -316,6 +316,7 @@ const datasetTotalAssists = computed(() => {
 
 const configTotalGoals = computed(() => {
   const totalGoals = gamesStore.getStatsAsArray('goals')
+  const totalAssists = gamesStore.getStatsAsArray('assists')
 
   return {
     chart: {
@@ -375,7 +376,7 @@ const configTotalGoals = computed(() => {
     },
     yaxis: {
       min: 0,
-      max: _.max(totalGoals),
+      max: _.max([...totalGoals, ...totalAssists]),
       labels: {
         show: false
       }
@@ -387,6 +388,7 @@ const configTotalGoals = computed(() => {
 })
 
 const configTotalAssists = computed(() => {
+  const totalGoals = gamesStore.getStatsAsArray('goals')
   const totalAssists = gamesStore.getStatsAsArray('assists')
 
   return {
@@ -447,7 +449,7 @@ const configTotalAssists = computed(() => {
     },
     yaxis: {
       min: 0,
-      max: _.max(totalAssists),
+      max: _.max([...totalGoals, ...totalAssists]),
       labels: {
         show: false
       }
