@@ -30,6 +30,8 @@ import {
   Picker
 } from 'vant'
 import 'vant/lib/index.css'
+import VueApexCharts from 'vue3-apexcharts'
+
 import enUS from 'vant/es/locale/lang/en-US'
 
 Locale.use('en-US', enUS)
@@ -58,4 +60,5 @@ createApp(App)
   .use(Notify)
   .use(Dialog)
   .use(Picker)
+  .use(VueApexCharts)
   .mount('#app')

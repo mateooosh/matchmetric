@@ -92,6 +92,11 @@
         </van-cell>
       </van-cell-group>
       <van-cell-group inset>
+        <van-cell title="Dark theme">
+          <template #right-icon>
+            <van-switch active-color="#5DB075" size="30px"/>
+          </template>
+        </van-cell>
         <van-cell title="Version" :value="appVersion"/>
       </van-cell-group>
     </div>

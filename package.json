@@ -1,7 +1,7 @@
 {
   "name": "matchmetric",
   "private": true,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,13 +11,15 @@
     "cypress:open": "cypress open"
   },
   "dependencies": {
+    "apexcharts": "^3.48.0",
     "hammerjs": "^2.0.8",
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",
     "vant": "^4.8.0",
     "vue": "^3.3.4",
     "vue-data-ui": "^1.9.64",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue3-apexcharts": "^1.5.2"
   },
   "devDependencies": {
     "@types/hammerjs": "^2.0.45",

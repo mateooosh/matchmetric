@@ -113,7 +113,11 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       return _.reverse(result)
     },
 
-    getTotalGoals(attribute: 'goals' | 'assists'): number {
+    getStatsAsArray(attribute: 'goals' | 'assists'): number[] {
+      return _.reverse(_.map(this.games, (game: GameModel): number => game[attribute]))
+    },
+
+    getTotalStats(attribute: 'goals' | 'assists'): number {
       return _.reduce(this.games, (result, game: GameModel) => {
         return result + game[attribute]
       }, 0)
