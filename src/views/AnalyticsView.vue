@@ -374,7 +374,7 @@ const configTotalGoals = computed(() => {
       }
     },
     yaxis: {
-      min: _.min(totalGoals),
+      min: 0,
       max: _.max(totalGoals),
       labels: {
         show: false
@@ -446,7 +446,7 @@ const configTotalAssists = computed(() => {
       }
     },
     yaxis: {
-      min: _.min(totalAssists),
+      min: 0,
       max: _.max(totalAssists),
       labels: {
         show: false
