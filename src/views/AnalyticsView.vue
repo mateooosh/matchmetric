@@ -7,48 +7,29 @@
 
     <div v-if="hasGames" class="content">
 
-<!--      <div style="display: flex; margin: 16px 16px 0; gap: 16px; text-align: center;">-->
-<!--        <div-->
-<!--            style="display: flex; gap: 8px; align-items: center; justify-content: center; flex: 1; padding: 12px; border-radius: 8px; background-color: white; font-size: 18px; color: #323233;">-->
-<!--          <BallIcon color="#333" height="32px" width="32px"/>-->
-<!--          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">-->
-<!--            <div style="color: #808080;">Total goals</div>-->
-<!--            <div style="font-weight: 600;">{{ totalGoals }}</div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div-->
-<!--            style="display: flex; gap: 8px; align-items: center; justify-content: center; flex: 1; padding: 12px; border-radius: 8px; background-color: white; font-size: 18px; color: #323233;">-->
-<!--          <AssistIcon color="#333" height="32px" width="32px"/>-->
-<!--          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">-->
-<!--            <div style="color: #808080;">Total assists</div>-->
-<!--            <div style="font-weight: 600;">{{ totalAssists }}</div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div style="display: flex; margin: 16px 16px 0; gap: 16px; text-align: center;">-->
+      <!--        <div-->
+      <!--            style="display: flex; gap: 8px; align-items: center; justify-content: center; flex: 1; padding: 12px; border-radius: 8px; background-color: white; font-size: 18px; color: #323233;">-->
+      <!--          <BallIcon color="#333" height="32px" width="32px"/>-->
+      <!--          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">-->
+      <!--            <div style="color: #808080;">Total goals</div>-->
+      <!--            <div style="font-weight: 600;">{{ totalGoals }}</div>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--        <div-->
+      <!--            style="display: flex; gap: 8px; align-items: center; justify-content: center; flex: 1; padding: 12px; border-radius: 8px; background-color: white; font-size: 18px; color: #323233;">-->
+      <!--          <AssistIcon color="#333" height="32px" width="32px"/>-->
+      <!--          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">-->
+      <!--            <div style="color: #808080;">Total assists</div>-->
+      <!--            <div style="font-weight: 600;">{{ totalAssists }}</div>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
 
 
-      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-column-gap: 16px; margin: 16px 16px 0;">
-<!--        <div style="display: flex; gap: 8px; align-items: center; justify-content: center; padding: 12px; border-radius: 8px; background-color: white; font-size: 18px; color: #323233;">-->
-<!--          <BallIcon color="#333" height="32px" width="32px"/>-->
-<!--          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">-->
-<!--            <div style="color: #808080;">Goals</div>-->
-<!--            <div style="font-weight: 600;">{{ totalGoals }}</div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div style="display: flex; gap: 8px; align-items: center; justify-content: center; padding: 12px; border-radius: 8px; background-color: white; font-size: 18px; color: #323233;">-->
-<!--          <AssistIcon color="#333" height="32px" width="32px"/>-->
-<!--          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">-->
-<!--            <div style="color: #808080;">Assists</div>-->
-<!--            <div style="font-weight: 600;">{{ totalAssists }}</div>-->
-<!--          </div>-->
-<!--        </div>-->
-
-        <div>
-          <apexchart height="185" type="line" :options="configTotalGoals" :series="datasetTotalGoals"></apexchart>
-        </div>
-        <div>
-          <apexchart height="185" type="line" :options="configTotalAssists" :series="datasetTotalAssists"></apexchart>
-        </div>
+      <div class="charts-total">
+        <apexchart height="185" type="line" :options="configTotalGoals" :series="datasetTotalGoals"/>
+        <apexchart height="185" type="line" :options="configTotalAssists" :series="datasetTotalAssists"/>
       </div>
 
       <van-cell-group>
@@ -72,6 +53,7 @@
           />
         </van-popup>
       </van-cell-group>
+      <apexchart type="bar" height="350" :options="barConfig" :series="barSeries"/>
       <VueUiDonutEvolution :dataset="dataset" :config="config"/>
     </div>
     <van-empty v-else description="No games found"/>
@@ -89,6 +71,8 @@ import Field from '../components/Field.vue'
 import SegmentedControls from '../components/SegmentedControls.vue'
 import { computed, reactive } from 'vue'
 import SegmentModel from '../models/SegmentModel.ts'
+import { LineChartConfig } from '../common/configs/LineChartConfig.ts'
+import { ColumnChartConfig } from '../common/configs/ColumnChartConfig.ts'
 // import BallIcon from '../common/icons/BallIcon.vue'
 // import AssistIcon from '../common/icons/AssistIcon.vue'
 
@@ -101,53 +85,6 @@ const state = reactive({
   showPicker: false
 })
 
-// const options = {
-//   chart: {
-//     height: 350,
-//     type: 'line',
-//     zoom: {
-//       enabled: false
-//     }
-//   },
-//   dataLabels: {
-//     enabled: false
-//   },
-//   legend: {
-//     show: false
-//   },
-//   stroke: {
-//     curve: 'smooth'
-//   },
-//   title: {
-//     text: 'Statistics',
-//     align: 'left'
-//   },
-//   grid: {
-//     row: {
-//       colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-//       opacity: 0.5
-//     },
-//   },
-//   xaxis: {
-//     labels: {
-//       show: false
-//     }
-//   },
-//   yaxis: {
-//     min: 33,
-//     max: 75,
-//     labels: {
-//       show: true
-//     }
-//   }
-// }
-
-// const series = [{
-//   name: 'Goals',
-//   type: 'line',
-//   data: [55, 69, 45, 61, 43, 54, 37, 52]
-// }]
-
 const onClickLeft = () => {
   router.push({ name: 'settings' })
 }
@@ -158,8 +95,35 @@ const modeSegments = [
 ]
 
 const hasGames = computed(() => _.size(gamesStore.games))
-// const totalGoals = computed(() => gamesStore.getTotalStats('goals'))
-// const totalAssists = computed(() => gamesStore.getTotalStats('assists'))
+const totalGoals = computed(() => gamesStore.getTotalStats('goals'))
+const totalAssists = computed(() => gamesStore.getTotalStats('assists'))
+const allGoalsArray = computed(() => gamesStore.getAllStatsAsArray('goals'))
+const allAssistsArray = computed(() => gamesStore.getAllStatsAsArray('assists'))
+const maxChartValue = computed(() => _.max([...allGoalsArray.value, ...allAssistsArray.value]) || 0)
+
+const onConfirm = ({ selectedOptions }) => {
+  state.showPicker = false
+  state.period = selectedOptions[0].text
+}
+
+const datasetTotalGoals = computed(() => {
+  return [{
+    name: 'Goals',
+    type: 'line',
+    data: gamesStore.getAllStatsAsArray('goals')
+  }]
+})
+
+const datasetTotalAssists = computed(() => {
+  return [{
+    name: 'Assists',
+    type: 'line',
+    data: gamesStore.getAllStatsAsArray('assists')
+  }]
+})
+
+const configTotalGoals = computed(() => LineChartConfig.getConfig(totalGoals.value, 'Total goals', maxChartValue.value))
+const configTotalAssists = computed(() => LineChartConfig.getConfig(totalAssists.value, 'Total assists', maxChartValue.value, ['#ff6400']))
 
 const availableYears = computed(() => {
   return _.reverse(_.map(_.keys(gamesStore.getMappedGames()), (year) => {
@@ -179,11 +143,6 @@ const periodDataSource = computed(() => {
     ...availableYears.value
   ]
 })
-
-const onConfirm = ({ selectedOptions }) => {
-  state.showPicker = false
-  state.period = selectedOptions[0].text
-}
 
 const getLastMonths = (): string[] => {
   const result: string[] = []
@@ -208,6 +167,20 @@ const getStats = (attribute: 'goals' | 'assists'): number[] => {
 const getMonths = () => {
   return state.period === 'Last 12 months' ? getLastMonths() : MONTHS
 }
+
+
+const barConfig = computed(() => ColumnChartConfig.getConfig(getMonths(), ['#5DB075', '#ff6400']))
+const barSeries = computed(() => [
+  {
+    name: 'Goals',
+    data: getStats('goals')
+  },
+  {
+    name: 'Assists',
+    data: getStats('assists')
+  }
+])
+
 
 const dataset = computed(() => {
   return [
@@ -297,169 +270,6 @@ const config = computed(() => {
     }
   }
 })
-
-const datasetTotalGoals = computed(() => {
-  return [{
-    name: 'Goals',
-    type: 'line',
-    data: gamesStore.getStatsAsArray('goals')
-  }]
-})
-
-const datasetTotalAssists = computed(() => {
-  return [{
-    name: 'Assists',
-    type: 'line',
-    data: gamesStore.getStatsAsArray('assists')
-  }]
-})
-
-const configTotalGoals = computed(() => {
-  const totalGoals = gamesStore.getStatsAsArray('goals')
-  const totalAssists = gamesStore.getStatsAsArray('assists')
-
-  return {
-    chart: {
-      type: 'line',
-      background: '#fff',
-      width: '100%',
-      zoom: {
-        enabled: false
-      },
-      toolbar: {
-        show: false
-      }
-    },
-    title: {
-      text: gamesStore.getTotalStats('goals'),
-      offsetX: 10,
-      offsetY: 4,
-      style: {
-        fontSize: '24px',
-        align: 'center',
-      }
-    },
-    subtitle: {
-      text: 'Total goals',
-      offsetX: 10,
-      style: {
-        fontSize: '14px',
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    legend: {
-      show: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    colors: ['#5DB075'],
-    grid: {
-      borderColor: '#eee',
-      padding: {
-        top: -20,
-        left: 0
-      }
-    },
-    xaxis: {
-      labels: {
-        show: false
-      },
-      axisBorder: {
-        show: false
-      },
-      axisTicks: {
-        show: false
-      }
-    },
-    yaxis: {
-      min: 0,
-      max: _.max([...totalGoals, ...totalAssists]),
-      labels: {
-        show: false
-      }
-    },
-    tooltip: {
-      show: false
-    }
-  }
-})
-
-const configTotalAssists = computed(() => {
-  const totalGoals = gamesStore.getStatsAsArray('goals')
-  const totalAssists = gamesStore.getStatsAsArray('assists')
-
-  return {
-    chart: {
-      type: 'line',
-      background: '#fff',
-      width: '100%',
-      zoom: {
-        enabled: false
-      },
-      toolbar: {
-        show: false
-      }
-    },
-    title: {
-      text: gamesStore.getTotalStats('assists'),
-      offsetX: 10,
-      offsetY: 4,
-      style: {
-        fontSize: '24px',
-        align: 'center',
-      }
-    },
-    subtitle: {
-      text: 'Total assists',
-      offsetX: 10,
-      style: {
-        fontSize: '14px',
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    legend: {
-      show: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    colors: ['#ff6400'],
-    grid: {
-      borderColor: '#eee',
-      padding: {
-        top: -20,
-        left: 0
-      }
-    },
-    xaxis: {
-      labels: {
-        show: false
-      },
-      axisBorder: {
-        show: false
-      },
-      axisTicks: {
-        show: false
-      }
-    },
-    yaxis: {
-      min: 0,
-      max: _.max([...totalGoals, ...totalAssists]),
-      labels: {
-        show: false
-      }
-    },
-    tooltip: {
-      show: false
-    }
-  }
-})
-
 </script>
 
 <style scoped lang="scss">
@@ -478,15 +288,9 @@ const configTotalAssists = computed(() => {
   --van-picker-action-font-size: 18px;
   --van-picker-confirm-action-color: #5DB075;
 
-  //--van-cell-font-size: 18px;
-  //--van-cell-vertical-padding: 16px;
-  //
-  //--van-cell-group-inset-padding: 16px;
-
   display: flex;
   flex-direction: column;
   background-color: #eff2f5;
-  //background-color: #eff2f5;
 
   > .content {
     display: flex;
@@ -495,6 +299,13 @@ const configTotalAssists = computed(() => {
     flex: 1;
     overflow: auto;
     padding: 0 0 $l 0;
+
+    > .charts-total {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-column-gap: 16px;
+      margin: 16px 16px 0;
+    }
   }
 }
 </style>

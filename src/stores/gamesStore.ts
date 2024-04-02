@@ -106,14 +106,14 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
           valuesByMonth /= _.size(allGamesInMonth)
         }
 
-        result.push(valuesByMonth)
+        result.push(_.round(valuesByMonth, 2))
         d.setMonth(d.getMonth() - 1)
       }
 
       return _.reverse(result)
     },
 
-    getStatsAsArray(attribute: 'goals' | 'assists'): number[] {
+    getAllStatsAsArray(attribute: 'goals' | 'assists'): number[] {
       return _.reverse(_.map(this.games, (game: GameModel): number => game[attribute]))
     },
 
