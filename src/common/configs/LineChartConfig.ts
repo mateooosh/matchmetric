@@ -43,6 +43,8 @@ export class LineChartConfig {
         padding: {
           top: -20,
           left: 0
+          // left: -10,
+          // right: -10
         }
       },
       xaxis: {

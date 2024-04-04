@@ -50,7 +50,13 @@ export class ColumnChartConfig {
         }
       },
       legend: {
-        position: 'bottom'
+        position: 'bottom',
+        fontSize: '14px',
+        fontWeight: 600,
+        offsetY: -1,
+        itemMargin: {
+          vertical: 6
+        }
       },
       fill: {
         opacity: 1

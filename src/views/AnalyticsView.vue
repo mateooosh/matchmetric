@@ -73,6 +73,7 @@ import { computed, reactive } from 'vue'
 import SegmentModel from '../models/SegmentModel.ts'
 import { LineChartConfig } from '../common/configs/LineChartConfig.ts'
 import { ColumnChartConfig } from '../common/configs/ColumnChartConfig.ts'
+import GAME_ATTRIBUTE from '../common/enums/GAME_ATTRIBUTE.ts'
 // import BallIcon from '../common/icons/BallIcon.vue'
 // import AssistIcon from '../common/icons/AssistIcon.vue'
 
@@ -95,10 +96,10 @@ const modeSegments = [
 ]
 
 const hasGames = computed(() => _.size(gamesStore.games))
-const totalGoals = computed(() => gamesStore.getTotalStats('goals'))
-const totalAssists = computed(() => gamesStore.getTotalStats('assists'))
-const allGoalsArray = computed(() => gamesStore.getAllStatsAsArray('goals'))
-const allAssistsArray = computed(() => gamesStore.getAllStatsAsArray('assists'))
+const totalGoals = computed(() => gamesStore.getTotalStats(GAME_ATTRIBUTE.GOALS))
+const totalAssists = computed(() => gamesStore.getTotalStats(GAME_ATTRIBUTE.ASSISTS))
+const allGoalsArray = computed(() => gamesStore.getAllStatsAsArray(GAME_ATTRIBUTE.GOALS))
+const allAssistsArray = computed(() => gamesStore.getAllStatsAsArray(GAME_ATTRIBUTE.ASSISTS))
 const maxChartValue = computed(() => _.max([...allGoalsArray.value, ...allAssistsArray.value]) || 0)
 
 const onConfirm = ({ selectedOptions }) => {
@@ -110,7 +111,7 @@ const datasetTotalGoals = computed(() => {
   return [{
     name: 'Goals',
     type: 'line',
-    data: gamesStore.getAllStatsAsArray('goals')
+    data: gamesStore.getAllStatsAsArray(GAME_ATTRIBUTE.GOALS)
   }]
 })
 
@@ -118,7 +119,7 @@ const datasetTotalAssists = computed(() => {
   return [{
     name: 'Assists',
     type: 'line',
-    data: gamesStore.getAllStatsAsArray('assists')
+    data: gamesStore.getAllStatsAsArray(GAME_ATTRIBUTE.ASSISTS)
   }]
 })
 
@@ -157,7 +158,7 @@ const getLastMonths = (): string[] => {
   return _.reverse(result)
 }
 
-const getStats = (attribute: 'goals' | 'assists'): number[] => {
+const getStats = (attribute: GAME_ATTRIBUTE): number[] => {
   if (state.period === 'Last 12 months')
     return gamesStore.getStatsForLast12Months(attribute, state.mode)
   else
@@ -173,11 +174,11 @@ const barConfig = computed(() => ColumnChartConfig.getConfig(getMonths(), ['#5DB
 const barSeries = computed(() => [
   {
     name: 'Goals',
-    data: getStats('goals')
+    data: getStats(GAME_ATTRIBUTE.GOALS)
   },
   {
     name: 'Assists',
-    data: getStats('assists')
+    data: getStats(GAME_ATTRIBUTE.ASSISTS)
   }
 ])
 
@@ -186,12 +187,12 @@ const dataset = computed(() => {
   return [
     {
       name: 'Goals',
-      values: getStats('goals'),
+      values: getStats(GAME_ATTRIBUTE.GOALS),
       color: '#5f8bee'
     },
     {
       name: 'Assists',
-      values: getStats('assists'),
+      values: getStats(GAME_ATTRIBUTE.ASSISTS),
       color: '#ff6400'
     }
   ]
@@ -305,6 +306,10 @@ const config = computed(() => {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-column-gap: 16px;
       margin: 16px 16px 0;
+    }
+
+    .vue-apexcharts {
+      min-height: auto !important;
     }
   }
 }

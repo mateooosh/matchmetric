@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import GameModel from '../models/GameModel.ts'
 import * as _ from 'lodash'
+import GAME_ATTRIBUTE from '../common/enums/GAME_ATTRIBUTE.ts'
 
 const STORAGE_KEY = 'games'
 
@@ -65,7 +66,7 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       return groupedByYearAndMonth
     },
 
-    getStatsForSelectedYear(attribute: 'goals' | 'assists', period: string, mode: string): number[] {
+    getStatsForSelectedYear(attribute: GAME_ATTRIBUTE, period: string, mode: string): number[] {
       const result: number[] = []
 
       if (period === 'Last 12 months') {
@@ -89,7 +90,7 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       return result
     },
 
-    getStatsForLast12Months(attribute: 'goals' | 'assists', mode: string): number[] {
+    getStatsForLast12Months(attribute: GAME_ATTRIBUTE, mode: string): number[] {
       const result: number[] = []
       const d = new Date()
       d.setDate(1)
@@ -113,11 +114,11 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       return _.reverse(result)
     },
 
-    getAllStatsAsArray(attribute: 'goals' | 'assists'): number[] {
+    getAllStatsAsArray(attribute: GAME_ATTRIBUTE): number[] {
       return _.reverse(_.map(this.games, (game: GameModel): number => game[attribute]))
     },
 
-    getTotalStats(attribute: 'goals' | 'assists'): number {
+    getTotalStats(attribute: GAME_ATTRIBUTE): number {
       return _.reduce(this.games, (result, game: GameModel) => {
         return result + game[attribute]
       }, 0)
