@@ -291,7 +291,7 @@ const config = computed(() => {
 
   display: flex;
   flex-direction: column;
-  background-color: #eff2f5;
+  background-color: var(--theme-1);
 
   > .content {
     display: flex;

@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="app" :class="{ 'dark': settingsStore.settings.darkTheme }">
     <router-view :key="$route.path"/>
     <van-tabbar route v-model="state.activeTab" active-color="#5DB075" inactive-color="grey" :fixed="false">
       <van-tabbar-item to="/matchmetric/" icon="wap-nav" color="#5DB075">Games</van-tabbar-item>
@@ -11,10 +11,14 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue'
+import useSettingsStore from './stores/settingsStore.ts'
 
 const state = reactive({
   activeTab: 0
 })
+
+const settingsStore = useSettingsStore()
+
 </script>
 
 <style lang="scss" scoped>
@@ -32,6 +36,11 @@ const state = reactive({
   & div:first-child {
     flex: 1;
     overflow: auto;
+  }
+
+  .van-tabbar {
+    --van-tabbar-background: var(--theme-1);
+    --van-tabbar-item-active-background: var(--theme-1);
   }
 }
 </style>

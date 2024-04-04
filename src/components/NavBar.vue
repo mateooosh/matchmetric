@@ -16,7 +16,7 @@ import StadiumIcon from '../common/icons/StadiumIcon.vue'
   align-items: center;
   gap: $l;
   width: 100%;
-  background-color: $bc;
+  background-color: var(--primary-color);
   color: $white;
   font-size: $xl;
   font-weight: 700;

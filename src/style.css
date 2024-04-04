@@ -8,6 +8,28 @@
   -webkit-text-size-adjust: 100%;
 }
 
+:root {
+  --primary-color: #5DB075;
+  --theme-0: #fff;
+  --theme-1: #eff2f5;
+
+
+  --background-color-primary: #ebebeb;
+  --background-color-secondary: #fafafa;
+  --accent-color: #cacaca;
+  --text-primary-color: #222;
+  --element-size: 4rem;
+}
+
+:root .dark {
+  --theme-0: #121212;
+  --theme-1: #212121;
+  --theme-2: #323232;
+
+
+  /*--van-cell-background: var(--theme-2);*/
+}
+
 body {
   margin: 0;
   width: 100%;
