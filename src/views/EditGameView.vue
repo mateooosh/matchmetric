@@ -229,6 +229,7 @@ const onSave = () => {
 
   display: flex;
   flex-direction: column;
+  background-color: var(--theme-0);
 
   > .content {
     flex: 1;

@@ -27,6 +27,22 @@ const settingsStore = useSettingsStore()
   --van-tabbar-height: 68px;
   --van-tabbar-item-font-size: 16px;
 
+  // cell
+  --van-cell-background: var(--theme-0);
+  --van-cell-text-color: var(--primary);
+  --van-cell-label-color: var(--secondary);
+  --van-field-label-color: var(--primary);
+
+  // cell group
+  --van-cell-group-background: var(--theme-0);
+
+  // collapse
+  --van-collapse-item-content-background: var(--theme-0);
+
+  // dialog
+  --van-dialog-background: var(--theme-0);
+  --van-button-default-background: var(--theme-0);
+
   user-select: none;
 
   display: flex;
@@ -39,8 +55,8 @@ const settingsStore = useSettingsStore()
   }
 
   .van-tabbar {
-    --van-tabbar-background: var(--theme-1);
-    --van-tabbar-item-active-background: var(--theme-1);
+    --van-tabbar-background: var(--theme-0);
+    --van-tabbar-item-active-background: var(--theme-0);
   }
 }
 </style>
