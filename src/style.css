@@ -12,12 +12,12 @@
   --primary-color: #5DB075;
   --theme-0: #fff;
   --theme-1: #eff2f5;
-  /*--theme-2: #323232;*/
+  --theme-2: #d2d2d2;
 
 
   --primary: #000;
   --secondary: #969799;
-  /*--tertiary: #969799;*/
+  --tertiary: #808080;
 
 
   --background-color-primary: #ebebeb;
@@ -34,7 +34,7 @@
 
   --primary: #dcdcdc;
   --secondary: #969799;
-  /*--tertiary: #969799;*/
+  --tertiary: #808080;
 
 }
 

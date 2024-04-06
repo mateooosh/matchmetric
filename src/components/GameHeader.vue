@@ -89,11 +89,9 @@ const assistsShortForm = computed((): boolean => {
   gap: $m;
   align-items: center;
   padding: $m 0;
-  background-color: $theme-0;
+  background-color: var(--theme-0);
 
   > .icon {
-
-
     > svg {
       min-width: 36px;
     }
@@ -104,6 +102,7 @@ const assistsShortForm = computed((): boolean => {
     text-wrap: nowrap;
     font-weight: 500;
     font-size: 20px;
+    color: var(--primary);
   }
 
   > .stats {

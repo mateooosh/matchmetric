@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="home-view">
     <NavBar/>
-    <div class="home-view">
+    <div class="content">
       <van-back-top top="12px" bottom="32px"/>
       <van-empty v-if="!hasGames" description="No games found"/>
       <GameHeader v-for="game in games" :key="game.timestamp" :game="game"/>
@@ -49,14 +49,18 @@ const hasGames = computed(() => _.size(games))
 //}
 
 .home-view {
-  padding: 0 $l;
+  background-color: var(--theme-0);
 
-  > .button {
-    margin-bottom: $m;
-  }
+  .content {
+    padding: 0 $l;
 
-  .game-row:not(:last-child) {
-    border-bottom: 1px solid $theme-1;
+    > .button {
+      margin-bottom: $m;
+    }
+
+    .game-row:not(:last-child) {
+      border-bottom: 1px solid $theme-1;
+    }
   }
 }
 </style>

@@ -27,6 +27,8 @@ const settingsStore = useSettingsStore()
   --van-tabbar-height: 68px;
   --van-tabbar-item-font-size: 16px;
 
+  --van-cell-border-color: var(--theme-1);
+
   // cell
   --van-cell-background: var(--theme-0);
   --van-cell-text-color: var(--primary);

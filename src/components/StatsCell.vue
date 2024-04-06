@@ -35,7 +35,8 @@ const props = defineProps({
   }
 
   .label {
-    color: $theme-3;
+    color: var(--tertiary);
+    //color: $theme-3;
     font-weight: 400;
     //font-size: 16px;
   }
@@ -44,12 +45,13 @@ const props = defineProps({
     display: flex;
     align-items: center;
     gap: $s;
+    color: var(--primary);
   }
 
   .unit {
     font-weight: 400;
     //font-size: 16px;
-    color: $theme-3;
+    color: var(--tertiary);
   }
 }
 </style>

@@ -112,6 +112,7 @@ const onClickRight = () => {
 
   display: flex;
   flex-direction: column;
+  background-color: var(--theme-0);
 
   > .content {
     padding: 0 $l;
