@@ -17,6 +17,7 @@ export default defineConfig({
         short_name: 'Matchmetric',
         description: 'Track your performance.',
         theme_color: '#5DB075',
+        display: 'standalone',
         icons: [
           {
             "src": "windows11/SmallTile.scale-100.png",
