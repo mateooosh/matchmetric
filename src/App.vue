@@ -48,7 +48,7 @@ const settingsStore = useSettingsStore()
 
   // dialog
   --van-dialog-background: var(--theme-0);
-  --van-dialog-has-title-message-text-color: var(--primary);
+  --van-dialog-has-title-message-text-color: var(--secondary);
 
   // button
   --van-button-default-background: var(--theme-0);
@@ -70,7 +70,9 @@ const settingsStore = useSettingsStore()
   --van-popup-background: var(--theme-0);
 
   // picker
-  //--van-picker-background: var(--theme-0);
+  --van-picker-background: var(--theme-0);
+  --van-picker-mask-color: var(--theme-0);
+  --van-picker-option-text-color: var(--primary);
 
   user-select: none;
 

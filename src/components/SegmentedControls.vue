@@ -10,6 +10,7 @@
 <script setup lang="ts">
 import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
 import SegmentModel from '../models/SegmentModel.ts'
+import CSSVars from '../models/CSSVars.ts'
 
 const props = defineProps({
   segments: Array<SegmentModel>,
@@ -28,8 +29,8 @@ const onSegmentClick = (segment: SegmentModel) => {
 const getStylesForSegment = (segment: SegmentModel) => {
   const isActive = props.modelValue === segment.value
 
-  const primaryCSS = getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--primary')
-  const primaryColorCSS = getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--primary-color')
+  const primaryCSS = CSSVars.getPrimary()
+  const primaryColorCSS = CSSVars.getMain()
 
   return {
     backgroundColor: isActive ? segment.color : 'transparent',
@@ -50,7 +51,7 @@ const getStylesForSegment = (segment: SegmentModel) => {
   .segment {
     flex: 1;
     padding: 12px $m;
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--main);
     transition: all .2s;
     user-select: none;
 

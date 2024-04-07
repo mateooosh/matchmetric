@@ -1,9 +1,10 @@
+import CSSVars from '../../models/CSSVars.ts'
+
 export class LineChartConfig {
   static getConfig (title: string | number, subtitle: string | number, max: number, colors: Array<string> = ['#5DB075']): object {
-    const computedStyle = getComputedStyle(document.getElementsByClassName('app')[0])
-    const theme0 = computedStyle.getPropertyValue('--theme-0')
-    const theme2 = computedStyle.getPropertyValue('--theme-2')
-    const primary = computedStyle.getPropertyValue('--primary')
+    const theme0 = CSSVars.getTheme0()
+    const theme2 = CSSVars.getTheme2()
+    const primary = CSSVars.getPrimary()
 
     return {
       chart: {

@@ -65,6 +65,7 @@ import useSettingsStore from '../stores/settingsStore.ts'
 import EditIcon from '../common/icons/EditIcon.vue'
 import { computed, onMounted, ref } from 'vue'
 import Hammer from 'hammerjs'
+import CSSVars from '../models/CSSVars.ts'
 
 const route = useRoute()
 const router = useRouter()
@@ -98,8 +99,8 @@ const onClickRight = () => {
   router.push({ name: 'edit-game', params: { id: route.params.id } })
 }
 
-const primary = computed(() => getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--primary'))
-const theme0 = computed(() => getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--theme-0'))
+const primary = computed(() => CSSVars.getPrimary())
+const theme0 = computed(() => CSSVars.getTheme0())
 
 </script>
 

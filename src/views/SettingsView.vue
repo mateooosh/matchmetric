@@ -119,6 +119,7 @@ import GameModel from '../models/GameModel.ts'
 import * as _ from 'lodash'
 import { showNotify } from 'vant'
 import TrashIcon from '../common/icons/TrashIcon.vue'
+import CSSVars from '../models/CSSVars.ts'
 
 const router = useRouter()
 const settingsStore = useSettingsStore()
@@ -200,15 +201,19 @@ const onImportedFileChange = (event: Event) => {
   fr.readAsText(file)
 }
 
-const primary = computed(() => getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--primary'))
-const theme0 = computed(() => getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--theme-0'))
+const primary = computed(() => CSSVars.getPrimary())
+const theme0 = computed(() => CSSVars.getTheme0())
 
 </script>
 
 <style scoped lang="scss">
 .settings-view {
+  //--theme-0: #212121;
+  //--theme-1: #121212;
+  //--van-cell-background: var(--theme-0);
+
   --van-nav-bar-height: 60px;
-  --van-nav-bar-background: var(--primary-color);
+  --van-nav-bar-background: var(--main);
   --van-nav-bar-title-text-color: white;
   --van-nav-bar-arrow-size: 32px;
   --van-nav-bar-icon-color: white;

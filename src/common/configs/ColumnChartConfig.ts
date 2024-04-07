@@ -1,12 +1,12 @@
 import * as _ from 'lodash'
+import CSSVars from '../../models/CSSVars.ts'
 
 export class ColumnChartConfig {
   static getConfig(categories: Array<string>, colors: Array<string> = []): object {
-    const computedStyle = getComputedStyle(document.getElementsByClassName('app')[0])
-    const theme0 = computedStyle.getPropertyValue('--theme-0')
-    const theme2 = computedStyle.getPropertyValue('--theme-2')
-    const primary = computedStyle.getPropertyValue('--primary')
-    const secondary = computedStyle.getPropertyValue('--secondary')
+    const theme0 = CSSVars.getTheme0()
+    const theme2 = CSSVars.getTheme2()
+    const primary = CSSVars.getPrimary()
+    const secondary = CSSVars.getSecondary()
 
     return {
       chart: {

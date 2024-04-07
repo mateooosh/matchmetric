@@ -45,6 +45,7 @@ import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
 import { computed, ref } from 'vue'
 import * as _ from 'lodash'
 import useSettingsStore from '../stores/settingsStore.ts'
+import CSSVars from '../models/CSSVars.ts'
 
 const router = useRouter()
 const { settings } = useSettingsStore()
@@ -80,8 +81,8 @@ const assistsShortForm = computed((): boolean => {
   return settings.shortFormOfStats && assists.value?.clientHeight > 22
 })
 
-const primary = computed(() => getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--primary'))
-const theme0 = computed(() => getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--theme-0'))
+const primary = computed(() => CSSVars.getPrimary())
+const theme0 = computed(() => CSSVars.getTheme0())
 </script>
 
 <style lang="scss" scoped>

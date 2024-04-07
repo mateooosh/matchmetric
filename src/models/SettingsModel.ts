@@ -12,7 +12,7 @@ export default class SettingsModel {
     this.showDuration = _.isNil(showDuration) || showDuration
     this.showCalories = _.isNil(showCalories) || showCalories
     this.shortFormOfStats = _.isNil(shortFormOfStats) || shortFormOfStats
-    this.darkTheme = _.isNil(darkTheme) || darkTheme
+    this.darkTheme = !_.isNil(darkTheme) && darkTheme // false as default
   }
 
   static fromJSON(json: any): SettingsModel {

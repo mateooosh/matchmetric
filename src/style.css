@@ -9,7 +9,8 @@
 }
 
 :root {
-  --primary-color: #5DB075;
+  --main: #5DB075;
+
   --theme-0: #fff;
   --theme-1: #eff2f5;
   /*--theme-0: #eff2f5;*/

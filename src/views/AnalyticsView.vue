@@ -276,7 +276,7 @@ const config = computed(() => {
 <style scoped lang="scss">
 .analytics-view {
   --van-nav-bar-height: 60px;
-  --van-nav-bar-background: var(--primary-color);
+  --van-nav-bar-background: var(--main);
   --van-nav-bar-title-text-color: white;
   --van-nav-bar-arrow-size: 32px;
   --van-nav-bar-icon-color: white;
@@ -287,7 +287,7 @@ const config = computed(() => {
   --van-cell-vertical-padding: 14px;
 
   --van-picker-action-font-size: 18px;
-  --van-picker-confirm-action-color: var(--primary-color);
+  --van-picker-confirm-action-color: var(--main);
 
   display: flex;
   flex-direction: column;

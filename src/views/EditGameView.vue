@@ -99,6 +99,7 @@ import SegmentModel from '../models/SegmentModel.ts'
 import { showNotify, TimePickerColumnType } from 'vant'
 import useSettingsStore from '../stores/settingsStore.ts'
 import TrashIcon from '../common/icons/TrashIcon.vue'
+import CSSVars from '../models/CSSVars.ts'
 
 const gamesStore = useGamesStore()
 const settingsStore = useSettingsStore()
@@ -148,7 +149,7 @@ const gameTypesToSegments = computed(() => _.map(_.values(GAME_TYPE), (type: GAM
 
 const gameResultsToSegments = computed(() => _.map(_.values(GAME_RESULT), (result: GAME_RESULT) => new SegmentModel(result, getIconColor(result))))
 
-const iconColor = computed(() => getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--primary'))
+const iconColor = computed(() => CSSVars.getPrimary())
 
 const openCalendar = () => {
   state.showCalendar = true
@@ -209,7 +210,7 @@ const onSave = () => {
 <style scoped lang="scss">
 .edit-game-view {
   --van-nav-bar-height: 60px;
-  --van-nav-bar-background: var(--primary-color);
+  --van-nav-bar-background: var(--main);
   --van-nav-bar-title-text-color: white;
   --van-nav-bar-arrow-size: 32px;
   --van-nav-bar-icon-color: white;
@@ -219,13 +220,15 @@ const onSave = () => {
   --van-cell-vertical-padding: 14px;
 
   --van-stepper-input-font-size: 18px;
-  --van-stepper-button-round-theme-color: var(--primary-color);
+  --van-stepper-button-round-theme-color: var(--main);
 
   --van-picker-action-font-size: 18px;
-  --van-picker-confirm-action-color: var(--primary-color);
+  --van-picker-confirm-action-color: var(--main);
 
   --van-dialog-font-size: 18px;
   --van-button-default-font-size: 18px;
+
+  //--van-border-color: var(--primary);
 
   display: flex;
   flex-direction: column;
