@@ -10,10 +10,10 @@
         <span v-if="!props.game.goals">-</span>
         <div v-else-if="goalsShortForm" class="short-form">
           <span>{{ props.game.goals }}</span>
-          <BallIcon color="#333" height="22px" width="22px"/>
+          <BallIcon :color="primary" height="22px" width="22px"/>
         </div>
         <template v-else>
-          <BallIcon v-for="j in createArrayFromN(props.game.goals)" :key="j" color="#333" height="22px"
+          <BallIcon v-for="j in createArrayFromN(props.game.goals)" :key="j" :color="primary" height="22px"
                     width="22px"/>
         </template>
       </div>
@@ -21,10 +21,10 @@
         <span v-if="!props.game.assists">-</span>
         <div v-else-if="assistsShortForm" class="short-form">
           <span>{{ props.game.assists }}</span>
-          <AssistIcon color="#333" height="22px" width="22px"/>
+          <AssistIcon :color="primary" :letter-color="theme0" height="22px" width="22px"/>
         </div>
         <template v-else>
-          <AssistIcon v-for="k in createArrayFromN(props.game.assists)" :key="k" color="#333" height="22px"
+          <AssistIcon v-for="k in createArrayFromN(props.game.assists)" :key="k" :color="primary" :letter-color="theme0" height="22px"
                       width="22px"/>
         </template>
       </div>
@@ -80,11 +80,13 @@ const assistsShortForm = computed((): boolean => {
   return settings.shortFormOfStats && assists.value?.clientHeight > 22
 })
 
+const primary = computed(() => getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--primary'))
+const theme0 = computed(() => getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--theme-0'))
 </script>
 
 <style lang="scss" scoped>
 .game-row {
-  animation: 1s slide-up;
+  //animation: 1s slide-up;
   display: flex;
   gap: $m;
   align-items: center;
@@ -110,6 +112,7 @@ const assistsShortForm = computed((): boolean => {
     flex-direction: column;
     gap: $m;
     align-items: flex-end;
+    color: var(--primary);
 
     > div {
       display: flex;

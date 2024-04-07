@@ -18,7 +18,7 @@ const onClick = () => {
 <style lang="scss" scoped>
 .button {
   padding: $l $xl;
-  background-color: $bc;
+  background-color: var(--primary-color);
   color: $white;
   text-align: center;
   font-size: 16px;

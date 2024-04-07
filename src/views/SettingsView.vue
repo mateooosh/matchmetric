@@ -18,7 +18,7 @@
           <van-collapse-item title="Attributes" :name="1">
             <van-cell title="Goals">
               <template #icon>
-                <BallIcon color="#333" height="24px" width="24px"/>
+                <BallIcon :color="primary" height="24px" width="24px"/>
               </template>
               <template #right-icon>
                 <van-switch :model-value="true" active-color="#5DB075" size="30px" disabled/>
@@ -27,7 +27,7 @@
 
             <van-cell title="Assists">
               <template #icon>
-                <AssistIcon color="#333" height="24px" width="24px"/>
+                <AssistIcon :color="primary" :letter-color="theme0" height="24px" width="24px"/>
               </template>
               <template #right-icon>
                 <van-switch :model-value="true" active-color="#5DB075" size="30px" disabled/>
@@ -105,7 +105,7 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { reactive, ref, watch } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import useSettingsStore from '../stores/settingsStore.ts'
 import BallIcon from '../common/icons/BallIcon.vue'
 import AssistIcon from '../common/icons/AssistIcon.vue'
@@ -199,6 +199,9 @@ const onImportedFileChange = (event: Event) => {
 
   fr.readAsText(file)
 }
+
+const primary = computed(() => getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--primary'))
+const theme0 = computed(() => getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--theme-0'))
 
 </script>
 

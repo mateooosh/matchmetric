@@ -27,10 +27,14 @@ const onSegmentClick = (segment: SegmentModel) => {
 
 const getStylesForSegment = (segment: SegmentModel) => {
   const isActive = props.modelValue === segment.value
+
+  const primaryCSS = getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--primary')
+  const primaryColorCSS = getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--primary-color')
+
   return {
     backgroundColor: isActive ? segment.color : 'transparent',
-    color: isActive ? 'white' : '#323233',
-    borderColor: isActive ? segment.color : '#5DB075'
+    color: isActive ? 'white' : primaryCSS,
+    borderColor: isActive ? segment.color : primaryColorCSS
   }
 }
 </script>
@@ -46,7 +50,7 @@ const getStylesForSegment = (segment: SegmentModel) => {
   .segment {
     flex: 1;
     padding: 12px $m;
-    border: 1px solid $bc;
+    border: 1px solid var(--primary-color);
     transition: all .2s;
     user-select: none;
 

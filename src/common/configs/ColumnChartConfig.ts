@@ -2,11 +2,17 @@ import * as _ from 'lodash'
 
 export class ColumnChartConfig {
   static getConfig(categories: Array<string>, colors: Array<string> = []): object {
+    const computedStyle = getComputedStyle(document.getElementsByClassName('app')[0])
+    const theme0 = computedStyle.getPropertyValue('--theme-0')
+    const theme2 = computedStyle.getPropertyValue('--theme-2')
+    const primary = computedStyle.getPropertyValue('--primary')
+    const secondary = computedStyle.getPropertyValue('--secondary')
+
     return {
       chart: {
         type: 'bar',
         height: 350,
-        background: '#fff',
+        background: theme0,
         stacked: true,
         toolbar: {
           show: true
@@ -22,7 +28,8 @@ export class ColumnChartConfig {
         align: 'center',
         style: {
           fontSize: '24px',
-          align: 'center'
+          align: 'center',
+          color: primary
         }
       },
       plotOptions: {
@@ -34,19 +41,31 @@ export class ColumnChartConfig {
               enabled: true,
               style: {
                 fontSize: '13px',
-                fontWeight: 800
+                fontWeight: 800,
+                color: primary
               }
             }
           }
         }
       },
       colors: colors,
+      grid: {
+        borderColor: theme2
+      },
       xaxis: {
-        categories: categories
+        categories: categories,
+        labels: {
+          style: {
+            colors: secondary
+          }
+        }
       },
       yaxis: {
         labels: {
-          formatter: (value: number) => _.round(value, 2)
+          formatter: (value: number) => _.round(value, 2),
+          style: {
+            colors: secondary
+          }
         }
       },
       legend: {
@@ -56,6 +75,9 @@ export class ColumnChartConfig {
         offsetY: -1,
         itemMargin: {
           vertical: 6
+        },
+        labels: {
+          colors: primary
         }
       },
       fill: {

@@ -15,13 +15,13 @@
       <div class="stats">
         <StatsCell label="Goals" :value="game.goals">
           <template #icon>
-            <BallIcon color="#333" height="32px" width="32px"/>
+            <BallIcon :color="primary" height="32px" width="32px"/>
           </template>
         </StatsCell>
 
         <StatsCell label="Assists" :value="game.assists">
           <template #icon>
-            <AssistIcon color="#333" height="32px" width="32px"/>
+            <AssistIcon :color="primary" :letter-color="theme0" height="32px" width="32px"/>
           </template>
         </StatsCell>
 
@@ -63,7 +63,7 @@ import FireIcon from '../common/icons/FireIcon.vue'
 import StatsCell from '../components/StatsCell.vue'
 import useSettingsStore from '../stores/settingsStore.ts'
 import EditIcon from '../common/icons/EditIcon.vue'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import Hammer from 'hammerjs'
 
 const route = useRoute()
@@ -98,6 +98,9 @@ const onClickRight = () => {
   router.push({ name: 'edit-game', params: { id: route.params.id } })
 }
 
+const primary = computed(() => getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--primary'))
+const theme0 = computed(() => getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--theme-0'))
+
 </script>
 
 <style scoped lang="scss">
@@ -123,7 +126,7 @@ const onClickRight = () => {
 
     > .game-row {
       padding: $l 0;
-      border-bottom: 1px solid $theme-1;
+      border-bottom: 1px solid var(--theme-1);
     }
 
     > .stats {

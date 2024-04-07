@@ -12,30 +12,25 @@
   --primary-color: #5DB075;
   --theme-0: #fff;
   --theme-1: #eff2f5;
+  /*--theme-0: #eff2f5;*/
+  /*--theme-1: #fff;*/
   --theme-2: #d2d2d2;
-
 
   --primary: #000;
   --secondary: #969799;
   --tertiary: #808080;
-
-
-  --background-color-primary: #ebebeb;
-  --background-color-secondary: #fafafa;
-  --accent-color: #cacaca;
-  --text-primary-color: #222;
-  --element-size: 4rem;
 }
 
 :root .dark {
   --theme-0: #121212;
   --theme-1: #212121;
+  /*--theme-0: #212121;*/
+  /*--theme-1: #121212;*/
   --theme-2: #323232;
 
   --primary: #dcdcdc;
   --secondary: #969799;
   --tertiary: #808080;
-
 }
 
 body {

@@ -59,7 +59,7 @@ const hasGames = computed(() => _.size(games))
     }
 
     .game-row:not(:last-child) {
-      border-bottom: 1px solid $theme-1;
+      border-bottom: 1px solid var(--theme-1);
     }
   }
 }

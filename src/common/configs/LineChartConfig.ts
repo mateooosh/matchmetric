@@ -1,9 +1,14 @@
 export class LineChartConfig {
   static getConfig (title: string | number, subtitle: string | number, max: number, colors: Array<string> = ['#5DB075']): object {
+    const computedStyle = getComputedStyle(document.getElementsByClassName('app')[0])
+    const theme0 = computedStyle.getPropertyValue('--theme-0')
+    const theme2 = computedStyle.getPropertyValue('--theme-2')
+    const primary = computedStyle.getPropertyValue('--primary')
+
     return {
       chart: {
         type: 'line',
-        background: '#fff',
+        background: theme0,
         width: '100%',
         zoom: {
           enabled: false
@@ -18,14 +23,16 @@ export class LineChartConfig {
         offsetY: 4,
         style: {
           fontSize: '24px',
-          align: 'center'
+          align: 'center',
+          color: primary
         }
       },
       subtitle: {
         text: subtitle,
         offsetX: 10,
         style: {
-          fontSize: '14px'
+          fontSize: '14px',
+          color: primary
         }
       },
       dataLabels: {
@@ -39,7 +46,7 @@ export class LineChartConfig {
       },
       colors: colors,
       grid: {
-        borderColor: '#eee',
+        borderColor: theme2,
         padding: {
           top: -20,
           left: 0

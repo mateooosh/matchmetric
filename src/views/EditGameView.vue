@@ -32,7 +32,7 @@
         <Field label="Date" placeholder="Choose date..." readonly v-model="state.date">
           <template #right-icon>
             <div class="right-icon">
-              <CalendarIcon @click="openCalendar" width="32" height="32"/>
+              <CalendarIcon @click="openCalendar" width="32" height="32" :stroke="iconColor"/>
               <van-calendar v-model:show="state.showCalendar"
                             @confirm="onDateConfirm"
                             :show-confirm="false"
@@ -62,7 +62,7 @@
                :maxlength="8" readonly v-model="state.duration">
           <template #right-icon>
             <div class="right-icon">
-              <ClockIcon @click="showTimePicker" width="32" height="32"/>
+              <ClockIcon @click="showTimePicker" width="32" height="32" :color="iconColor"/>
               <van-popup v-model:show="state.showTimePicker" position="bottom">
                 <van-time-picker @confirm="onTimePickerConfirm"
                                  @cancel="onTimePickerCancel"
@@ -130,9 +130,7 @@ const state = reactive({
 
 const isEdit = computed(() => !!route.params.id)
 
-const navBarTitle = computed(() => {
-  return isEdit.value ? 'Edit game' : 'Add new game'
-})
+const navBarTitle = computed(() => isEdit.value ? 'Edit game' : 'Add new game')
 
 onMounted(() => {
   if (isEdit.value) {
@@ -149,6 +147,8 @@ const getIconColor = (gameResult: GAME_RESULT): string => {
 const gameTypesToSegments = computed(() => _.map(_.values(GAME_TYPE), (type: GAME_TYPE) => new SegmentModel(type)))
 
 const gameResultsToSegments = computed(() => _.map(_.values(GAME_RESULT), (result: GAME_RESULT) => new SegmentModel(result, getIconColor(result))))
+
+const iconColor = computed(() => getComputedStyle(document.getElementsByClassName('app')[0]).getPropertyValue('--primary'))
 
 const openCalendar = () => {
   state.showCalendar = true
@@ -209,7 +209,7 @@ const onSave = () => {
 <style scoped lang="scss">
 .edit-game-view {
   --van-nav-bar-height: 60px;
-  --van-nav-bar-background: #5DB075;
+  --van-nav-bar-background: var(--primary-color);
   --van-nav-bar-title-text-color: white;
   --van-nav-bar-arrow-size: 32px;
   --van-nav-bar-icon-color: white;
@@ -219,10 +219,10 @@ const onSave = () => {
   --van-cell-vertical-padding: 14px;
 
   --van-stepper-input-font-size: 18px;
-  --van-stepper-button-round-theme-color: #5DB075;
+  --van-stepper-button-round-theme-color: var(--primary-color);
 
   --van-picker-action-font-size: 18px;
-  --van-picker-confirm-action-color: #5DB075;
+  --van-picker-confirm-action-color: var(--primary-color);
 
   --van-dialog-font-size: 18px;
   --van-button-default-font-size: 18px;
