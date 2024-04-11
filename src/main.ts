@@ -7,27 +7,28 @@ import 'vue-data-ui/style.css'
 
 // vant
 import {
+  ActionSheet,
   BackTop,
   Calendar,
   Cell,
   CellGroup,
+  Collapse,
+  CollapseItem,
+  Dialog,
+  Empty,
   Field,
   Locale,
   NavBar,
+  Notify,
+  Picker,
   Popup,
   Stepper,
+  Switch,
   Tab,
   Tabbar,
   TabbarItem,
   Tabs,
-  TimePicker,
-  Collapse,
-  CollapseItem,
-  Switch,
-  Empty,
-  Notify,
-  Dialog,
-  Picker
+  TimePicker
 } from 'vant'
 import 'vant/lib/index.css'
 import VueApexCharts from 'vue3-apexcharts'
@@ -60,5 +61,6 @@ createApp(App)
   .use(Notify)
   .use(Dialog)
   .use(Picker)
+  .use(ActionSheet)
   .use(VueApexCharts)
   .mount('#app')

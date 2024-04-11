@@ -74,6 +74,11 @@ const settingsStore = useSettingsStore()
   --van-picker-mask-color: var(--theme-0);
   --van-picker-option-text-color: var(--primary);
 
+  // action sheet
+  --van-action-sheet-item-background: var(--theme-0);
+  --van-action-sheet-item-text-color: var(--primary);
+  --van-action-sheet-item-font-size: 18px;
+
   user-select: none;
 
   display: flex;

@@ -45,13 +45,15 @@
                placeholder="Choose period"
                @click="state.showPicker = true"
         />
-        <van-popup v-model:show="state.showPicker" round position="bottom">
-          <van-picker title="Choose period"
-                      :columns="periodDataSource"
-                      @cancel="state.showPicker = false"
-                      @confirm="onConfirm"
-          />
-        </van-popup>
+<!--        <van-popup v-model:show="state.showPicker" round position="bottom">-->
+<!--          <van-picker title="Choose period"-->
+<!--                      :columns="periodDataSource"-->
+<!--                      @cancel="state.showPicker = false"-->
+<!--                      @confirm="onConfirm"-->
+<!--          />-->
+<!--        </van-popup>-->
+
+        <van-action-sheet v-model:show="state.showPicker" :actions="periodDataSource" @select="onConfirm" />
       </van-cell-group>
       <apexchart type="bar" height="350" :options="barConfig" :series="barSeries"/>
       <VueUiDonutEvolution :dataset="dataset" :config="config"/>
@@ -102,9 +104,9 @@ const allGoalsArray = computed(() => gamesStore.getAllStatsAsArray(GAME_ATTRIBUT
 const allAssistsArray = computed(() => gamesStore.getAllStatsAsArray(GAME_ATTRIBUTE.ASSISTS))
 const maxChartValue = computed(() => _.max([...allGoalsArray.value, ...allAssistsArray.value]) || 0)
 
-const onConfirm = ({ selectedOptions }) => {
+const onConfirm = ({ name }) => {
   state.showPicker = false
-  state.period = selectedOptions[0].text
+  state.period = name
 }
 
 const datasetTotalGoals = computed(() => {
@@ -129,8 +131,7 @@ const configTotalAssists = computed(() => LineChartConfig.getConfig(totalAssists
 const availableYears = computed(() => {
   return _.reverse(_.map(_.keys(gamesStore.getMappedGames()), (year) => {
     return {
-      text: year,
-      value: year
+      name: year
     }
   }))
 })
@@ -138,8 +139,7 @@ const availableYears = computed(() => {
 const periodDataSource = computed(() => {
   return [
     {
-      text: 'Last 12 months',
-      value: 'Last 12 months'
+      name: 'Last 12 months'
     },
     ...availableYears.value
   ]
