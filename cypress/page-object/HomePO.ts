@@ -1,21 +1,19 @@
-import BaseTestPO from './BaseTestPO'
+const selectors = {
+  headerTitle: 'header-title',
+  gameRow: 'div.game-row'
+}
 
-class HomePO extends BaseTestPO {
-
-  constructor() {
-    super()
-  }
-
+class HomePO {
   getNavBarContent() {
-    return cy.dataCy('header-title')
+    return cy.dataCy(selectors.headerTitle)
   }
 
   getGameRows() {
-    return cy.get('div.game-row')
+    return cy.get(selectors.gameRow)
   }
 
   getGameRowByIndex(index: number) {
-    return cy.get('div.game-row').eq(index)
+    return cy.get(selectors.gameRow).eq(index)
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="game-row" @click="onGameClick">
+  <div class="game-row" data-cy="game-row" @click="onGameClick">
     <div class="icon">
       <HallIcon v-if="props.game.type === GAME_TYPE.INSIDE" :color="getIconColor(props.game.result)"/>
       <StadiumIcon v-else :color="getIconColor(props.game.result)"/>

@@ -13,19 +13,19 @@
       <GameHeader :game="game"/>
 
       <div class="stats">
-        <StatsCell label="Goals" :value="game.goals">
+        <StatsCell label="Goals" :value="game.goals" data-cy="goals">
           <template #icon>
             <BallIcon :color="primary" height="32px" width="32px"/>
           </template>
         </StatsCell>
 
-        <StatsCell label="Assists" :value="game.assists">
+        <StatsCell label="Assists" :value="game.assists" data-cy="assists">
           <template #icon>
             <AssistIcon :color="primary" :letter-color="theme0" height="32px" width="32px"/>
           </template>
         </StatsCell>
 
-        <StatsCell v-if="settingsStore.settings.showDistance" label="Distance" :value="game.distance">
+        <StatsCell v-if="settingsStore.settings.showDistance" label="Distance" :value="game.distance" data-cy="distance">
           <template #icon>
             <MeasureIcon color="green" height="32px" width="32px"/>
           </template>
@@ -34,13 +34,13 @@
           </template>
         </StatsCell>
 
-        <StatsCell v-if="settingsStore.settings.showDuration" label="Duration" :value="game.duration">
+        <StatsCell v-if="settingsStore.settings.showDuration" label="Duration" :value="game.duration" data-cy="duration">
           <template #icon>
             <TimerIcon color="green" height="32px" width="32px"/>
           </template>
         </StatsCell>
 
-        <StatsCell v-if="settingsStore.settings.showCalories" label="Calories" :value="game.calories">
+        <StatsCell v-if="settingsStore.settings.showCalories" label="Calories" :value="game.calories" data-cy="calories">
           <template #icon>
             <FireIcon color="#F29D38" height="32px" width="32px"/>
           </template>

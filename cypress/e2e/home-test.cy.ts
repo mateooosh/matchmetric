@@ -4,9 +4,9 @@ import HomePO from '../page-object/HomePO'
 
 const homePO = new HomePO()
 
-describe('template spec', () => {
+describe('Home test', () => {
 
-  beforeEach(() => {
+  before(() => {
     cy.visit('http://localhost:5173/')
   })
 
