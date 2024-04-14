@@ -94,7 +94,7 @@
       <van-cell-group inset>
         <van-cell title="Dark theme">
           <template #right-icon>
-            <van-switch v-model="settingsStore.settings.darkTheme" active-color="#5DB075" size="30px"/>
+            <van-switch v-model="settingsStore.settings.darkTheme" active-color="#5DB075" size="30px" data-cy="dark-theme"/>
           </template>
         </van-cell>
         <van-cell title="Version" :value="appVersion"/>

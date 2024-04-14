@@ -13,35 +13,35 @@ const selectors = {
 }
 
 class EditGamePO {
-  navigateToCreateGame () {
+  navigateToCreateGame() {
     cy.dataCy(selectors.tabAddGame).click()
   }
 
-  changeTypeOfGame (type: GAME_TYPE) {
+  changeTypeOfGame(type: GAME_TYPE) {
     cy.dataCy(selectors.type).find('.segment').contains(type).click()
   }
 
-  changeResultOfGame (type: GAME_RESULT) {
+  changeResultOfGame(type: GAME_RESULT) {
     cy.dataCy(selectors.result).find('.segment').contains(type).click()
   }
 
-  setGoals (goals: number) {
+  setGoals(goals: number) {
     cy.dataCy(selectors.goals).find('input').clear().type(goals.toString())
   }
 
-  setAssists (assists: number) {
+  setAssists(assists: number) {
     cy.dataCy(selectors.assists).find('input').clear().type(assists.toString())
   }
 
-  setDistance (distance: number) {
+  setDistance(distance: number) {
     cy.dataCy(selectors.distance).find('input').clear().type(distance.toString())
   }
 
-  setCalories (calories: number) {
+  setCalories(calories: number) {
     cy.dataCy(selectors.calories).find('input').clear().type(calories.toString())
   }
 
-  saveGame () {
+  saveGame() {
     cy.dataCy(selectors.save).click()
   }
 }
