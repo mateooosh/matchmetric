@@ -11,7 +11,7 @@ describe('Home test', () => {
   })
 
   it('passes', () => {
-    homePO.getNavBarContent().should('have.text', 'Matchmetric')
+    homePO.getNavBarContent().should('have.text', 'MATCHMETRIC')
   })
 })
 
