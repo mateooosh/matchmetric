@@ -83,7 +83,7 @@
 
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { computed, onMounted, reactive } from 'vue'
+import { computed, onBeforeMount, reactive } from 'vue'
 import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
 import SegmentedControls from '../components/SegmentedControls.vue'
 import GAME_RESULT from '../common/enums/GAME_RESULT.ts'
@@ -133,7 +133,7 @@ const isEdit = computed(() => !!route.params.id)
 
 const navBarTitle = computed(() => isEdit.value ? 'Edit game' : 'Add new game')
 
-onMounted(() => {
+onBeforeMount(() => {
   if (isEdit.value) {
     const game: GameModel = gamesStore.getGameByTimestamp(Number(route.params.id))
     _.assign(state, game)
