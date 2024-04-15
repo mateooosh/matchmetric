@@ -1,32 +1,10 @@
 <template>
-  <!--  https://vue-data-ui.graphieros.com/docs#vue-ui-xy-->
   <div class="analytics-view">
     <van-nav-bar title="Analytics"
                  left-arrow
                  @click-left="onClickLeft"/>
 
     <div v-if="hasGames" class="content">
-
-      <!--      <div style="display: flex; margin: 16px 16px 0; gap: 16px; text-align: center;">-->
-      <!--        <div-->
-      <!--            style="display: flex; gap: 8px; align-items: center; justify-content: center; flex: 1; padding: 12px; border-radius: 8px; background-color: white; font-size: 18px; color: #323233;">-->
-      <!--          <BallIcon color="#333" height="32px" width="32px"/>-->
-      <!--          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">-->
-      <!--            <div style="color: #808080;">Total goals</div>-->
-      <!--            <div style="font-weight: 600;">{{ totalGoals }}</div>-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--        <div-->
-      <!--            style="display: flex; gap: 8px; align-items: center; justify-content: center; flex: 1; padding: 12px; border-radius: 8px; background-color: white; font-size: 18px; color: #323233;">-->
-      <!--          <AssistIcon color="#333" height="32px" width="32px"/>-->
-      <!--          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">-->
-      <!--            <div style="color: #808080;">Total assists</div>-->
-      <!--            <div style="font-weight: 600;">{{ totalAssists }}</div>-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-
-
       <div class="charts-total">
         <apexchart height="185" type="line" :options="configTotalGoals" :series="datasetTotalGoals"/>
         <apexchart height="185" type="line" :options="configTotalAssists" :series="datasetTotalAssists"/>
@@ -43,20 +21,11 @@
                readonly
                label="Period"
                placeholder="Choose period"
-               @click="state.showPicker = true"
-        />
-<!--        <van-popup v-model:show="state.showPicker" round position="bottom">-->
-<!--          <van-picker title="Choose period"-->
-<!--                      :columns="periodDataSource"-->
-<!--                      @cancel="state.showPicker = false"-->
-<!--                      @confirm="onConfirm"-->
-<!--          />-->
-<!--        </van-popup>-->
+               @click="state.showPicker = true"/>
 
         <van-action-sheet v-model:show="state.showPicker" :actions="periodDataSource" @select="onConfirm" />
       </van-cell-group>
       <apexchart type="bar" height="350" :options="barConfig" :series="barSeries"/>
-      <VueUiDonutEvolution :dataset="dataset" :config="config"/>
     </div>
     <van-empty v-else description="No games found"/>
   </div>
@@ -67,7 +36,6 @@ import { useRouter } from 'vue-router'
 import useGamesStore from '../stores/gamesStore'
 import * as _ from 'lodash'
 
-import { VueUiDonutEvolution } from 'vue-data-ui'
 import { MONTHS } from '../common/consts/consts.ts'
 import Field from '../components/Field.vue'
 import SegmentedControls from '../components/SegmentedControls.vue'
@@ -76,8 +44,6 @@ import SegmentModel from '../models/SegmentModel.ts'
 import { LineChartConfig } from '../common/configs/LineChartConfig.ts'
 import { ColumnChartConfig } from '../common/configs/ColumnChartConfig.ts'
 import GAME_ATTRIBUTE from '../common/enums/GAME_ATTRIBUTE.ts'
-// import BallIcon from '../common/icons/BallIcon.vue'
-// import AssistIcon from '../common/icons/AssistIcon.vue'
 
 const router = useRouter()
 const gamesStore = useGamesStore()
@@ -169,7 +135,6 @@ const getMonths = () => {
   return state.period === 'Last 12 months' ? getLastMonths() : MONTHS
 }
 
-
 const barConfig = computed(() => ColumnChartConfig.getConfig(getMonths(), ['#5DB075', '#ff6400']))
 const barSeries = computed(() => [
   {
@@ -181,96 +146,6 @@ const barSeries = computed(() => [
     data: getStats(GAME_ATTRIBUTE.ASSISTS)
   }
 ])
-
-
-const dataset = computed(() => {
-  return [
-    {
-      name: 'Goals',
-      values: getStats(GAME_ATTRIBUTE.GOALS),
-      color: '#5f8bee'
-    },
-    {
-      name: 'Assists',
-      values: getStats(GAME_ATTRIBUTE.ASSISTS),
-      color: '#ff6400'
-    }
-  ]
-})
-
-const config = computed(() => {
-  return {
-    style: {
-      fontFamily: 'inherit',
-      chart: {
-        backgroundColor: "#ffffff",
-        color: "#2D353C",
-        layout: {
-          height: 316,
-          width: 500,
-          padding: {
-            top: 8,
-            left: 36,
-            right: 28,
-            bottom: 24
-          },
-          grid: {
-            stroke: "#e1e5e8",
-            strokeWidth: 0.7,
-            yAxis: {
-              dataLabels: {
-                show: true,
-                fontSize: 10,
-                color: "#2D353C",
-                bold: false,
-                steps: 5
-              }
-            },
-            xAxis: {
-              dataLabels: {
-                show: true,
-                values: getMonths(),
-                fontSize: 8,
-                showOnlyFirstAndLast: false
-              }
-            }
-          },
-          line: {
-            show: true,
-            stroke: "#CCCCCC",
-            strokeWidth: 4
-          },
-          highlighter: {
-            color: "#2D353C",
-            opacity: 5
-          },
-          dataLabels: {
-            show: true,
-            fontSize: 10,
-            color: "#2D353C",
-            rounding: 2
-          }
-        },
-        title: {
-          text: 'Analytics',
-          color: "#2D353C",
-          fontSize: 20,
-          bold: true
-        },
-        legend: {
-          color: "#2D353C",
-          backgroundColor: "#FFFFFF",
-          bold: true,
-          show: true,
-          fontSize: 16
-        }
-      }
-    },
-    userOptions: {
-      show: false
-    }
-  }
-})
 </script>
 
 <style scoped lang="scss">

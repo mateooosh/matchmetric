@@ -6,9 +6,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-}
 
-:root {
   --main: #5DB075;
 
   --theme-0: #fff;
@@ -38,4 +36,8 @@ body {
   margin: 0;
   width: 100%;
   min-height: 100vh;
+
+  .van-back-top {
+    background-color: var(--main);
+  }
 }

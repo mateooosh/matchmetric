@@ -2,7 +2,7 @@
   <div class="home-view">
     <NavBar/>
     <div class="content">
-      <van-back-top top="12px" bottom="32px"/>
+      <van-back-top bottom="88px" right="16px"/>
       <van-empty v-if="!hasGames" description="No games found"/>
       <GameHeader v-for="game in games" :key="game.timestamp" :game="game"/>
     </div>

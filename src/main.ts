@@ -3,7 +3,6 @@ import './style.css'
 import App from './App.vue'
 import router from './router/router'
 import { createPinia } from 'pinia'
-import 'vue-data-ui/style.css'
 
 // vant
 import {

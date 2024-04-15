@@ -1,7 +1,7 @@
 {
   "name": "matchmetric",
   "private": true,
-  "version": "0.0.16",
+  "version": "0.0.17",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,7 +17,6 @@
     "pinia": "^2.1.7",
     "vant": "^4.8.0",
     "vue": "^3.3.4",
-    "vue-data-ui": "^1.9.64",
     "vue-router": "^4.2.5",
     "vue3-apexcharts": "^1.5.2"
   },
