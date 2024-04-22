@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import GameModel from '../models/GameModel.ts'
 import * as _ from 'lodash'
 import GAME_ATTRIBUTE from '../common/enums/GAME_ATTRIBUTE.ts'
+import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
 
 const STORAGE_KEY = 'games'
 
@@ -66,7 +67,7 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       return groupedByYearAndMonth
     },
 
-    getStatsForSelectedYear(attribute: GAME_ATTRIBUTE, period: string, mode: string): number[] {
+    getStatsForSelectedYear(attribute: GAME_ATTRIBUTE, period: string, type: string, mode: string): number[] {
       const result: number[] = []
 
       if (period === 'Last 12 months') {
@@ -75,7 +76,12 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
 
       for (let i = 1; i <= 12; i++) {
         const monthKey = _.padStart(_.toString(i), 2, '0')
-        const allGamesInMonth: any = this.getMappedGames()?.[period]?.[monthKey]
+        let allGamesInMonth: any = this.getMappedGames()?.[period]?.[monthKey]
+
+        if (type === GAME_TYPE.INSIDE || type === GAME_TYPE.OUTSIDE) {
+          allGamesInMonth = _.filter(allGamesInMonth, ['type', type])
+        }
+
         let valuesByMonth = _.reduce(allGamesInMonth, (result, game: GameModel) => {
           return result + game[attribute]
         }, 0)
@@ -90,7 +96,7 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       return result
     },
 
-    getStatsForLast12Months(attribute: GAME_ATTRIBUTE, mode: string): number[] {
+    getStatsForLast12Months(attribute: GAME_ATTRIBUTE, type: string, mode: string): number[] {
       const result: number[] = []
       const d = new Date()
       d.setDate(1)
@@ -98,7 +104,12 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       for (let i = 0; i < 12; i++) {
         const yearKey = d.getFullYear()
         const monthKey = _.padStart(_.toString(d.getMonth() + 1), 2, '0')
-        const allGamesInMonth: any = this.getMappedGames()?.[yearKey]?.[monthKey]
+        let allGamesInMonth: any = this.getMappedGames()?.[yearKey]?.[monthKey]
+
+        if (type === GAME_TYPE.INSIDE || type === GAME_TYPE.OUTSIDE) {
+          allGamesInMonth = _.filter(allGamesInMonth, ['type', type])
+        }
+
         let valuesByMonth = _.reduce(allGamesInMonth, (result, game: GameModel) => {
           return result + game[attribute]
         }, 0)
@@ -107,7 +118,7 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
           valuesByMonth /= _.size(allGamesInMonth)
         }
 
-        result.push(_.round(valuesByMonth, 2))
+        result.push(_.round(valuesByMonth, 1))
         d.setMonth(d.getMonth() - 1)
       }
 

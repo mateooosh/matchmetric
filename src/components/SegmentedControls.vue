@@ -50,7 +50,7 @@ const getStylesForSegment = (segment: SegmentModel) => {
 
   .segment {
     flex: 1;
-    padding: 12px $m;
+    padding: 10px $m;
     border: 1px solid var(--main);
     transition: all .2s;
     user-select: none;

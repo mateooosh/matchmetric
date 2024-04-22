@@ -11,19 +11,25 @@
       </div>
 
       <van-cell-group>
-        <Field label="Mode">
-          <template #input>
-            <SegmentedControls v-model="state.mode" :segments="modeSegments"/>
-          </template>
-        </Field>
         <Field v-model="state.period"
                is-link
                readonly
                label="Period"
                placeholder="Choose period"
                @click="state.showPicker = true"/>
+        <van-action-sheet v-model:show="state.showPicker" :actions="periodDataSource" @select="onConfirm"/>
 
-        <van-action-sheet v-model:show="state.showPicker" :actions="periodDataSource" @select="onConfirm" />
+        <Field label="Type">
+          <template #input>
+            <SegmentedControls v-model="state.type" :segments="typeSegments"/>
+          </template>
+        </Field>
+        <Field label="Mode">
+          <template #input>
+            <SegmentedControls v-model="state.mode" :segments="modeSegments"/>
+          </template>
+        </Field>
+
       </van-cell-group>
       <apexchart type="bar" height="350" :options="barConfig" :series="barSeries"/>
     </div>
@@ -44,13 +50,15 @@ import SegmentModel from '../models/SegmentModel.ts'
 import { LineChartConfig } from '../common/configs/LineChartConfig.ts'
 import { ColumnChartConfig } from '../common/configs/ColumnChartConfig.ts'
 import GAME_ATTRIBUTE from '../common/enums/GAME_ATTRIBUTE.ts'
+import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
 
 const router = useRouter()
 const gamesStore = useGamesStore()
 
 const state = reactive({
-  mode: 'Total',
   period: 'Last 12 months',
+  type: 'All',
+  mode: 'Total',
   showPicker: false
 })
 
@@ -58,7 +66,13 @@ const onClickLeft = () => {
   router.push({ name: 'settings' })
 }
 
-const modeSegments = [
+const typeSegments: Array<SegmentModel> = [
+  new SegmentModel('All'),
+  new SegmentModel(GAME_TYPE.INSIDE),
+  new SegmentModel(GAME_TYPE.OUTSIDE)
+]
+
+const modeSegments: Array<SegmentModel> = [
   new SegmentModel('Total'),
   new SegmentModel('Average')
 ]
@@ -126,9 +140,9 @@ const getLastMonths = (): string[] => {
 
 const getStats = (attribute: GAME_ATTRIBUTE): number[] => {
   if (state.period === 'Last 12 months')
-    return gamesStore.getStatsForLast12Months(attribute, state.mode)
+    return gamesStore.getStatsForLast12Months(attribute, state.type, state.mode)
   else
-    return gamesStore.getStatsForSelectedYear(attribute, state.period, state.mode)
+    return gamesStore.getStatsForSelectedYear(attribute, state.period, state.type, state.mode)
 }
 
 const getMonths = () => {
