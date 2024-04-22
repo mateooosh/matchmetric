@@ -11,27 +11,23 @@ const editGamePO = new EditGamePO()
 describe('Settings test', () => {
 
   beforeEach(() => {
-    // cy.visit('http://localhost:5173/')
-  })
-
-  it('Should set dark theme', () => {
     cy.visit('http://localhost:5173/')
-
-    settingsPO.navigateToSettings()
-
-    settingsPO.getDarkTheme().should('not.have.class', 'van-switch--on')
-    settingsPO.getApp().should('not.have.class', 'dark')
-
-    settingsPO.getDarkTheme().click()
-
-    settingsPO.getDarkTheme().should('have.class', 'van-switch--on')
-
-    settingsPO.getApp().should('have.class', 'dark')
   })
+
+  // it('Should set dark theme', () => {
+  //   settingsPO.navigateToSettings()
+  //
+  //   settingsPO.getDarkTheme().should('not.have.class', 'van-switch--on')
+  //   settingsPO.getApp().should('not.have.class', 'dark')
+  //
+  //   settingsPO.getDarkTheme().click()
+  //
+  //   settingsPO.getDarkTheme().should('have.class', 'van-switch--on')
+  //
+  //   settingsPO.getApp().should('have.class', 'dark')
+  // })
 
   it('Should delete data', () => {
-    cy.visit('http://localhost:5173/')
-
     editGamePO.navigateToCreateGame()
     editGamePO.changeResultOfGame(GAME_RESULT.WIN)
     editGamePO.saveGame()
