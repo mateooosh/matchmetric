@@ -1,6 +1,6 @@
 enum GAME_RESULT_COLOR {
   LOSE = '#DC143C',
-  DRAW = '#afafaf',
+  DRAW = '#AFAFAF',
   WIN = '#5DB075'
 }
 

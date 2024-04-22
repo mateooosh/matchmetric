@@ -7,7 +7,8 @@
                 confirm-button-text="Delete"
                 confirm-button-color="red"
                 close-on-click-overlay
-                show-cancel-button/>
+                show-cancel-button
+                data-cy="delete-dialog"/>
     <van-nav-bar
         title="Settings"
         left-arrow
@@ -74,7 +75,7 @@
       </van-cell-group>
 
       <van-cell-group inset>
-        <van-cell @click="deleteData" title="Delete data" label="Delete saved games and settings">
+        <van-cell @click="deleteData" title="Delete data" label="Delete saved games and settings" data-cy="delete-cell">
           <template #right-icon>
             <TrashIcon color="#969799" height="24px" width="24px"/>
           </template>

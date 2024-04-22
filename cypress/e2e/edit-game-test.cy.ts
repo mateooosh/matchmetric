@@ -20,7 +20,7 @@ const formatDate = (date: Date): string => date.toLocaleDateString('en-IN', date
 
 describe('Add game test', () => {
 
-  before(() => {
+  beforeEach(() => {
     cy.visit('http://localhost:5173/')
   })
 
@@ -46,6 +46,26 @@ describe('Add game test', () => {
     gameDetailsPO.getAssists().find('.value').should('have.text', 4)
     gameDetailsPO.getDistance().find('.value').should('have.text', '4.32km')
     gameDetailsPO.getCalories().find('.value').should('have.text', 523)
+  })
+
+  it('Should display icons with proper color', () => {
+    editGamePO.navigateToCreateGame()
+    editGamePO.changeResultOfGame(GAME_RESULT.WIN)
+    editGamePO.saveGame()
+
+    editGamePO.navigateToCreateGame()
+    editGamePO.changeResultOfGame(GAME_RESULT.DRAW)
+    editGamePO.saveGame()
+
+    editGamePO.navigateToCreateGame()
+    editGamePO.changeResultOfGame(GAME_RESULT.LOSE)
+    editGamePO.saveGame()
+
+    homePO.getGameRows().should('have.length', 3)
+
+    homePO.getGameRowByIndex(0).find('svg').should('have.attr', 'fill').and('equal', '#DC143C')
+    homePO.getGameRowByIndex(1).find('svg').should('have.attr', 'fill').and('equal', '#AFAFAF')
+    homePO.getGameRowByIndex(2).find('svg').should('have.attr', 'fill').and('equal', '#5DB075')
   })
 })
 

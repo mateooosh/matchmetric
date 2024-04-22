@@ -1,9 +1,14 @@
 const selectors = {
+  tabHome: 'tab-home',
   headerTitle: 'header-title',
   gameRow: 'div.game-row'
 }
 
 class HomePO {
+  navigateToHome() {
+    cy.dataCy(selectors.tabHome).click()
+  }
+
   getNavBarContent() {
     return cy.dataCy(selectors.headerTitle)
   }
