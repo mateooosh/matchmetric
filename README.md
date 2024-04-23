@@ -1,29 +1,25 @@
-# Vue 3 + TypeScript + Vite
+# Matchmetric
+MatchMetric is a Progressive Web Application that allows users to store and analyze their football match statistics with ease and efficiency.
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Functions
+* Create/Edit/Delete game
+* Display all games
+* Store statistics of game (game type, result, goals, assists, distance, duration, calories)
+* Define which attributes should be displayed
+* Analyze performance using charts
+* Delete/Export/Import data
+* Toggle theme
+* Calculate rating for game
 
-## Recommended IDE Setup
+## Technologies
+Project is created with:
+* Vue 3 (Composition API)
+* Pinia
+* HTML, SCSS
+* JavaScript (TypeScript)
+* Lodash
+* Vite
+* Apex Charts
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Type Support For `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## To Do
-
-- ~~remove game (in game edit view in right top corner remove icon, then popup)~~
-- ~~sorting games by date~~
-- ~~choosing period in performance view~~
-- add chart with all goals/assists
-- chart -> https://vue-data-ui.graphieros.com/docs#vue-ui-donut-evolution
-- chart -> https://apexcharts.com/vue-chart-demos/column-charts/stacked/
-- chart -> https://apexcharts.com/vue-chart-demos/mixed-charts/multiple-yaxis/
-- 
+## Demo
+Here is a working live demo: [Matchmetric](https://mateooosh.github.io/matchmetric/#/matchmetric/)
