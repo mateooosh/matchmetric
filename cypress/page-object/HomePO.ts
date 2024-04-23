@@ -1,7 +1,8 @@
 const selectors = {
   tabHome: 'tab-home',
   headerTitle: 'header-title',
-  gameRow: 'div.game-row'
+  gameRow: 'div.game-row',
+  rating: '.rating'
 }
 
 class HomePO {
@@ -19,6 +20,10 @@ class HomePO {
 
   getGameRowByIndex(index: number) {
     return cy.get(selectors.gameRow).eq(index)
+  }
+
+  getGameRatingByIndex(index: number) {
+    return this.getGameRowByIndex(index).find(selectors.rating)
   }
 }
 

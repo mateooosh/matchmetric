@@ -67,6 +67,41 @@ describe('Add game test', () => {
     homePO.getGameRowByIndex(1).find('svg').should('have.attr', 'fill').and('equal', '#AFAFAF')
     homePO.getGameRowByIndex(2).find('svg').should('have.attr', 'fill').and('equal', '#5DB075')
   })
+
+  it('Should calculate rating', () => {
+    editGamePO.navigateToCreateGame()
+    editGamePO.setGoals(1)
+    editGamePO.saveGame()
+
+    editGamePO.navigateToCreateGame()
+    editGamePO.setGoals(2)
+    editGamePO.saveGame()
+
+    editGamePO.navigateToCreateGame()
+    editGamePO.setGoals(3)
+    editGamePO.saveGame()
+
+    editGamePO.navigateToCreateGame()
+    editGamePO.setGoals(4)
+    editGamePO.saveGame()
+
+    editGamePO.navigateToCreateGame()
+    editGamePO.setGoals(4)
+    editGamePO.setAssists(2)
+    editGamePO.saveGame()
+
+    homePO.getGameRatingByIndex(0).should('have.text', 10)
+    homePO.getGameRatingByIndex(0).should('have.css', 'background-color', 'rgb(11, 121, 42)')
+    homePO.getGameRatingByIndex(1).should('have.text', 6.5)
+    homePO.getGameRatingByIndex(1).should('have.css', 'background-color', 'rgb(118, 177, 0)')
+    homePO.getGameRatingByIndex(2).should('have.text', 4.9)
+    homePO.getGameRatingByIndex(2).should('have.css', 'background-color', 'rgb(243, 160, 0)')
+    homePO.getGameRatingByIndex(3).should('have.text', 3.3)
+    homePO.getGameRatingByIndex(3).should('have.css', 'background-color', 'rgb(236, 107, 7)')
+    homePO.getGameRatingByIndex(4).should('have.text', 1.6)
+    homePO.getGameRatingByIndex(4).should('have.css', 'background-color', 'rgb(220, 0, 0)')
+
+  })
 })
 
 // https://docs.cypress.io/guides/tooling/typescript-support
