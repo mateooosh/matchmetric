@@ -18,6 +18,12 @@
   --primary: #000;
   --secondary: #969799;
   --tertiary: #808080;
+
+  --rating-lowest: #DC0000;
+  --rating-low: #EC6B07;
+  --rating-medium: #F3A000;
+  --rating-high: #76B100;
+  --rating-highest: #0B792A;
 }
 
 :root .dark {

@@ -24,11 +24,13 @@
           <AssistIcon :color="primary" :letter-color="theme0" height="22px" width="22px"/>
         </div>
         <template v-else>
-          <AssistIcon v-for="k in createArrayFromN(props.game.assists)" :key="k" :color="primary" :letter-color="theme0" height="22px"
+          <AssistIcon v-for="k in createArrayFromN(props.game.assists)" :key="k" :color="primary" :letter-color="theme0"
+                      height="22px"
                       width="22px"/>
         </template>
       </div>
     </div>
+    <div v-if="rating" class="rating" :class="ratingClass">{{ rating }}</div>
   </div>
 </template>
 
@@ -46,9 +48,11 @@ import { computed, ref } from 'vue'
 import * as _ from 'lodash'
 import useSettingsStore from '../stores/settingsStore.ts'
 import CSSVars from '../models/CSSVars.ts'
+import useGamesStore from '../stores/gamesStore.ts'
 
 const router = useRouter()
 const { settings } = useSettingsStore()
+const gamesStore = useGamesStore()
 
 const goals = ref<HTMLElement | null>(null)
 const assists = ref<HTMLElement | null>(null)
@@ -73,12 +77,28 @@ const getIconColor = (gameResult: GAME_RESULT): string => {
   return GAME_RESULT_COLOR[key]
 }
 
+const rating = computed((): number => gamesStore.getRatingForGame(props.game.timestamp))
+
 const goalsShortForm = computed((): boolean => {
   return settings.shortFormOfStats && goals.value?.clientHeight > 22
 })
 
 const assistsShortForm = computed((): boolean => {
   return settings.shortFormOfStats && assists.value?.clientHeight > 22
+})
+
+const ratingClass = computed((): string => {
+  if (rating.value < 2) {
+    return 'rating-lowest'
+  } else if (rating.value < 4) {
+    return 'rating-low'
+  } else if (rating.value < 6) {
+    return 'rating-medium'
+  } else if (rating.value < 8) {
+    return 'rating-high'
+  } else {
+    return 'rating-highest'
+  }
 })
 
 const primary = computed(() => CSSVars.getPrimary())
@@ -93,6 +113,7 @@ const theme0 = computed(() => CSSVars.getTheme0())
   align-items: center;
   padding: $m 0;
   background-color: var(--theme-0);
+  color: var(--primary);
 
   > .icon {
     > svg {
@@ -105,7 +126,6 @@ const theme0 = computed(() => CSSVars.getTheme0())
     text-wrap: nowrap;
     font-weight: 500;
     font-size: 20px;
-    color: var(--primary);
   }
 
   > .stats {
@@ -113,7 +133,6 @@ const theme0 = computed(() => CSSVars.getTheme0())
     flex-direction: column;
     gap: $m;
     align-items: flex-end;
-    color: var(--primary);
 
     > div {
       display: flex;
@@ -128,6 +147,40 @@ const theme0 = computed(() => CSSVars.getTheme0())
       gap: $s;
       font-weight: 600;
       font-size: 20px;
+    }
+  }
+
+  > .rating {
+    width: 30px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: $m;
+    font-weight: 600;
+    font-size: 15px;
+    background-color: #76b100;
+    color: white;
+    border-radius: $m;
+
+    &.rating-lowest {
+      background-color: var(--rating-lowest);
+    }
+
+    &.rating-low {
+      background-color: var(--rating-low);
+    }
+
+    &.rating-medium {
+      background-color: var(--rating-medium);
+    }
+
+    &.rating-high {
+      background-color: var(--rating-high);
+    }
+
+    &.rating-highest {
+      background-color: var(--rating-highest);
     }
   }
 }

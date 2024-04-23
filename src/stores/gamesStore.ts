@@ -51,6 +51,43 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       return _.find(this.games, (game: GameModel): boolean => game.timestamp === timestamp) as GameModel
     },
 
+    getRatingForGame(timestamp: number): number {
+      const game: GameModel = this.getGameByTimestamp(timestamp)
+
+      const normGoals = game.goals / this.getMaxGoals() || 0
+      const normAssists = game.assists / this.getMaxAssists() || 0
+      const normDistance = game.distance / this.getMaxDistance() || 0
+      const normCalories = game.calories / this.getMaxCalories() || 0
+
+      // sum is equal to 1.1 to prevent situation when only one max rating is possible
+      let weightGoals = 0.5
+      let weightAssists = 0.3
+      let weightDistance = 0.15
+      let weightCalories = 0.15
+
+      if (_.isEmpty(game.distance)) {
+        weightGoals += weightDistance / 3
+        weightAssists += weightDistance / 3
+        weightCalories += weightDistance / 3
+        weightDistance = 0
+      }
+
+      if (_.isEmpty(game.calories)) {
+        const divider = weightDistance ? 3 : 2
+        weightGoals += weightCalories / divider
+        weightAssists += weightCalories / divider
+        if (weightDistance) {
+          weightDistance += weightCalories / divider
+        }
+
+        weightCalories = 0
+      }
+
+      const weighted_sum = (normGoals * weightGoals) + (normAssists * weightAssists) + (normDistance * weightDistance) + (normCalories * weightCalories)
+
+      return _.min([_.round(weighted_sum * 10, 1), 10]) || 1
+    },
+
     getNextGameByTimestamp(timestamp: number): GameModel {
       const index = _.findIndex(this.games, (game: GameModel): boolean => game.timestamp === timestamp)
       return this.games[index + 1] as GameModel
@@ -127,6 +164,22 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
 
     getAllStatsAsArray(attribute: GAME_ATTRIBUTE): number[] {
       return _.reverse(_.map(this.games, (game: GameModel): number => game[attribute]))
+    },
+
+    getMaxGoals(): number {
+      return _.max(_.map(this.games, (game: GameModel): number => game[GAME_ATTRIBUTE.GOALS])) || 0
+    },
+
+    getMaxAssists(): number {
+      return _.max(_.map(this.games, (game: GameModel): number => game[GAME_ATTRIBUTE.ASSISTS])) || 0
+    },
+
+    getMaxDistance(): number {
+      return _.max(_.map(this.games, (game: GameModel): number => game[GAME_ATTRIBUTE.DISTANCE])) || 0
+    },
+
+    getMaxCalories(): number {
+      return _.max(_.map(this.games, (game: GameModel): number => game[GAME_ATTRIBUTE.CALORIES])) || 0
     },
 
     getTotalStats(attribute: GAME_ATTRIBUTE): number {

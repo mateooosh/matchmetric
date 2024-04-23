@@ -1,6 +1,8 @@
 enum GAME_ATTRIBUTE {
   GOALS = 'goals',
-  ASSISTS = 'assists'
+  ASSISTS = 'assists',
+  DISTANCE = 'distance',
+  CALORIES = 'calories'
 }
 
 export default GAME_ATTRIBUTE

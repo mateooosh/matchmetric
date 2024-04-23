@@ -3,7 +3,7 @@
     <NavBar/>
     <div class="content">
       <van-back-top bottom="88px" right="16px"/>
-      <van-empty v-if="!hasGames" description="No games found"/>
+      <van-empty v-if="!_.size(games)" description="No games found"/>
       <GameHeader v-for="game in games" :key="game.timestamp" :game="game"/>
     </div>
   </div>
@@ -19,10 +19,7 @@ import * as _ from 'lodash'
 
 const gamesStore = useGamesStore()
 
-const games: Array<GameModel> = gamesStore.games
-
-const hasGames = computed(() => _.size(games))
-
+const games = computed((): Array<GameModel> => gamesStore.games)
 </script>
 
 <style scoped lang="scss">
