@@ -1,8 +1,9 @@
 <template>
   <div class="game-row" data-cy="game-row" @click="onGameClick">
-    <div class="icon">
+    <div class="type">
       <HallIcon v-if="props.game.type === GameType.INSIDE" :color="getIconColor(props.game.result)"/>
       <StadiumIcon v-else :color="getIconColor(props.game.result)"/>
+      <div class="rating" :class="ratingClass">{{ rating }}</div>
     </div>
     <div class="date">{{ props.game.date }}</div>
     <div class="stats">
@@ -30,7 +31,6 @@
         </template>
       </div>
     </div>
-    <div v-if="rating" class="rating" :class="ratingClass">{{ rating }}</div>
   </div>
 </template>
 
@@ -115,9 +115,50 @@ const theme0 = computed(() => CSSVars.getTheme0())
   background-color: var(--theme-0);
   color: var(--primary);
 
-  > .icon {
+  > .type {
+    position: relative;
+
     > svg {
       min-width: 36px;
+    }
+
+    > .rating {
+      position: absolute;
+      left: 20px;
+      top: -8px;
+
+      width: 30px;
+      min-width: 30px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: $s;
+      font-weight: 600;
+      font-size: 15px;
+      background-color: #76b100;
+      color: white;
+      border-radius: $m;
+
+      &.rating-lowest {
+        background-color: var(--rating-lowest);
+      }
+
+      &.rating-low {
+        background-color: var(--rating-low);
+      }
+
+      &.rating-medium {
+        background-color: var(--rating-medium);
+      }
+
+      &.rating-high {
+        background-color: var(--rating-high);
+      }
+
+      &.rating-highest {
+        background-color: var(--rating-highest);
+      }
     }
   }
 
@@ -126,6 +167,7 @@ const theme0 = computed(() => CSSVars.getTheme0())
     text-wrap: nowrap;
     font-weight: 500;
     font-size: 20px;
+    margin-left: 16px;
   }
 
   > .stats {
@@ -147,41 +189,6 @@ const theme0 = computed(() => CSSVars.getTheme0())
       gap: $s;
       font-weight: 600;
       font-size: 20px;
-    }
-  }
-
-  > .rating {
-    width: 30px;
-    min-width: 30px;
-    height: 26px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: $s;
-    font-weight: 600;
-    font-size: 15px;
-    background-color: #76b100;
-    color: white;
-    border-radius: $m;
-
-    &.rating-lowest {
-      background-color: var(--rating-lowest);
-    }
-
-    &.rating-low {
-      background-color: var(--rating-low);
-    }
-
-    &.rating-medium {
-      background-color: var(--rating-medium);
-    }
-
-    &.rating-high {
-      background-color: var(--rating-high);
-    }
-
-    &.rating-highest {
-      background-color: var(--rating-highest);
     }
   }
 }
