@@ -152,11 +152,12 @@ const theme0 = computed(() => CSSVars.getTheme0())
 
   > .rating {
     width: 30px;
+    min-width: 30px;
     height: 26px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: $m;
+    margin-left: $s;
     font-weight: 600;
     font-size: 15px;
     background-color: #76b100;
