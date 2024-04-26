@@ -8,14 +8,14 @@
 </template>
 
 <script setup lang="ts">
-import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
+import GameType from '../common/enums/GameType.ts'
 import SegmentModel from '../models/SegmentModel.ts'
 import CSSVars from '../models/CSSVars.ts'
 
 const props = defineProps({
   segments: Array<SegmentModel>,
   modelValue: {
-    default: GAME_TYPE.OUTSIDE,
+    default: GameType.OUTSIDE,
     type: String
   }
 })

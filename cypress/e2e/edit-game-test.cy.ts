@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-import GAME_TYPE from '../../src/common/enums/GAME_TYPE'
-import GAME_RESULT from '../../src/common/enums/GAME_RESULT'
+import GameType from '../../src/common/enums/GameType.ts'
+import GameResult from '../../src/common/enums/GameResult.ts'
 import EditGamePO from '../page-object/EditGamePO'
 import HomePO from '../page-object/HomePO'
 import GameDetailsPO from '../page-object/GameDetailsPO'
@@ -27,8 +27,8 @@ describe('Add game test', () => {
   it('Should create game', () => {
     editGamePO.navigateToCreateGame()
 
-    editGamePO.changeTypeOfGame(GAME_TYPE.INSIDE)
-    editGamePO.changeResultOfGame(GAME_RESULT.WIN)
+    editGamePO.changeTypeOfGame(GameType.INSIDE)
+    editGamePO.changeResultOfGame(GameResult.WIN)
     editGamePO.setGoals(3)
     editGamePO.setAssists(4)
     editGamePO.setDistance(4.32)
@@ -50,15 +50,15 @@ describe('Add game test', () => {
 
   it('Should display icons with proper color', () => {
     editGamePO.navigateToCreateGame()
-    editGamePO.changeResultOfGame(GAME_RESULT.WIN)
+    editGamePO.changeResultOfGame(GameResult.WIN)
     editGamePO.saveGame()
 
     editGamePO.navigateToCreateGame()
-    editGamePO.changeResultOfGame(GAME_RESULT.DRAW)
+    editGamePO.changeResultOfGame(GameResult.DRAW)
     editGamePO.saveGame()
 
     editGamePO.navigateToCreateGame()
-    editGamePO.changeResultOfGame(GAME_RESULT.LOSE)
+    editGamePO.changeResultOfGame(GameResult.LOSE)
     editGamePO.saveGame()
 
     homePO.getGameRows().should('have.length', 3)

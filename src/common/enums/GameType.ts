@@ -1,5 +1,5 @@
-enum GAME_TYPE {
+enum GameType {
   INSIDE = 'Inside',
   OUTSIDE = 'Outside'
 }
-export default GAME_TYPE
+export default GameType

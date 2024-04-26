@@ -1,7 +1,7 @@
 <template>
   <div class="game-row" data-cy="game-row" @click="onGameClick">
     <div class="icon">
-      <HallIcon v-if="props.game.type === GAME_TYPE.INSIDE" :color="getIconColor(props.game.result)"/>
+      <HallIcon v-if="props.game.type === GameType.INSIDE" :color="getIconColor(props.game.result)"/>
       <StadiumIcon v-else :color="getIconColor(props.game.result)"/>
     </div>
     <div class="date">{{ props.game.date }}</div>
@@ -40,10 +40,10 @@ import BallIcon from '../common/icons/BallIcon.vue'
 import StadiumIcon from '../common/icons/StadiumIcon.vue'
 import GameModel from '../models/GameModel.ts'
 import { useRouter } from 'vue-router'
-import GAME_RESULT_COLOR from '../common/enums/GAME_RESULT_COLOR.ts'
-import GAME_RESULT from '../common/enums/GAME_RESULT.ts'
+import GameResultColor from '../common/enums/GameResultColor.ts'
+import GameResult from '../common/enums/GameResult.ts'
 import HallIcon from '../common/icons/HallIcon.vue'
-import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
+import GameType from '../common/enums/GameType.ts'
 import { computed, ref } from 'vue'
 import * as _ from 'lodash'
 import useSettingsStore from '../stores/settingsStore.ts'
@@ -72,9 +72,9 @@ const createArrayFromN = (n: number): Array<number> => {
   return Array.from(Array(n).keys())
 }
 
-const getIconColor = (gameResult: GAME_RESULT): string => {
-  const key = _.keys(GAME_RESULT)[_.values(GAME_RESULT).indexOf(gameResult)]
-  return GAME_RESULT_COLOR[key]
+const getIconColor = (gameResult: GameResult): string => {
+  const key = _.keys(GameResult)[_.values(GameResult).indexOf(gameResult)]
+  return GameResultColor[key]
 }
 
 const rating = computed((): number => gamesStore.getRatingForGame(props.game.timestamp))

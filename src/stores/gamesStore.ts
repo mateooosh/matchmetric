@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import GameModel from '../models/GameModel.ts'
 import * as _ from 'lodash'
-import GAME_ATTRIBUTE from '../common/enums/GAME_ATTRIBUTE.ts'
-import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
+import GameAttribute from '../common/enums/GameAttribute.ts'
+import GameType from '../common/enums/GameType.ts'
 
 const STORAGE_KEY = 'games'
 
@@ -104,7 +104,7 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       return groupedByYearAndMonth
     },
 
-    getStatsForSelectedYear(attribute: GAME_ATTRIBUTE, period: string, type: string, mode: string): number[] {
+    getStatsForSelectedYear(attribute: GameAttribute, period: string, type: string, mode: string): number[] {
       const result: number[] = []
 
       if (period === 'Last 12 months') {
@@ -115,7 +115,7 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
         const monthKey = _.padStart(_.toString(i), 2, '0')
         let allGamesInMonth: any = this.getMappedGames()?.[period]?.[monthKey]
 
-        if (type === GAME_TYPE.INSIDE || type === GAME_TYPE.OUTSIDE) {
+        if (type === GameType.INSIDE || type === GameType.OUTSIDE) {
           allGamesInMonth = _.filter(allGamesInMonth, ['type', type])
         }
 
@@ -133,7 +133,7 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       return result
     },
 
-    getStatsForLast12Months(attribute: GAME_ATTRIBUTE, type: string, mode: string): number[] {
+    getStatsForLast12Months(attribute: GameAttribute, type: string, mode: string): number[] {
       const result: number[] = []
       const d = new Date()
       d.setDate(1)
@@ -143,7 +143,7 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
         const monthKey = _.padStart(_.toString(d.getMonth() + 1), 2, '0')
         let allGamesInMonth: any = this.getMappedGames()?.[yearKey]?.[monthKey]
 
-        if (type === GAME_TYPE.INSIDE || type === GAME_TYPE.OUTSIDE) {
+        if (type === GameType.INSIDE || type === GameType.OUTSIDE) {
           allGamesInMonth = _.filter(allGamesInMonth, ['type', type])
         }
 
@@ -162,27 +162,27 @@ export const useGamesStore = defineStore(STORAGE_KEY, {
       return _.reverse(result)
     },
 
-    getAllStatsAsArray(attribute: GAME_ATTRIBUTE): number[] {
+    getAllStatsAsArray(attribute: GameAttribute): number[] {
       return _.reverse(_.map(this.games, (game: GameModel): number => game[attribute]))
     },
 
     getMaxGoals(): number {
-      return _.max(_.map(this.games, (game: GameModel): number => game[GAME_ATTRIBUTE.GOALS])) || 0
+      return _.max(_.map(this.games, (game: GameModel): number => game[GameAttribute.GOALS])) || 0
     },
 
     getMaxAssists(): number {
-      return _.max(_.map(this.games, (game: GameModel): number => game[GAME_ATTRIBUTE.ASSISTS])) || 0
+      return _.max(_.map(this.games, (game: GameModel): number => game[GameAttribute.ASSISTS])) || 0
     },
 
     getMaxDistance(): number {
-      return _.max(_.map(this.games, (game: GameModel): number => game[GAME_ATTRIBUTE.DISTANCE])) || 0
+      return _.max(_.map(this.games, (game: GameModel): number => game[GameAttribute.DISTANCE])) || 0
     },
 
     getMaxCalories(): number {
-      return _.max(_.map(this.games, (game: GameModel): number => game[GAME_ATTRIBUTE.CALORIES])) || 0
+      return _.max(_.map(this.games, (game: GameModel): number => game[GameAttribute.CALORIES])) || 0
     },
 
-    getTotalStats(attribute: GAME_ATTRIBUTE): number {
+    getTotalStats(attribute: GameAttribute): number {
       return _.reduce(this.games, (result, game: GameModel) => {
         return result + game[attribute]
       }, 0)

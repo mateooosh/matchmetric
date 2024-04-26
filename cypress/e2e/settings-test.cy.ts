@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 import SettingsPO from '../page-object/SettingsPO'
-import GAME_RESULT from '../../src/common/enums/GAME_RESULT.ts'
+import GameResult from '../../src/common/enums/GameResult.ts'
 import EditGamePO from '../page-object/EditGamePO.ts'
 import HomePO from '../page-object/HomePO.ts'
 
@@ -29,11 +29,11 @@ describe('Settings test', () => {
 
   it('Should delete data', () => {
     editGamePO.navigateToCreateGame()
-    editGamePO.changeResultOfGame(GAME_RESULT.WIN)
+    editGamePO.changeResultOfGame(GameResult.WIN)
     editGamePO.saveGame()
 
     editGamePO.navigateToCreateGame()
-    editGamePO.changeResultOfGame(GAME_RESULT.DRAW)
+    editGamePO.changeResultOfGame(GameResult.DRAW)
     editGamePO.saveGame()
 
     settingsPO.navigateToSettings()

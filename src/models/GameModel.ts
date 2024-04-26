@@ -1,11 +1,11 @@
-import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
-import GAME_RESULT from '../common/enums/GAME_RESULT.ts'
+import GameType from '../common/enums/GameType.ts'
+import GameResult from '../common/enums/GameResult.ts'
 import * as _ from 'lodash'
 
 export default class GameModel {
   timestamp: number
-  type: GAME_TYPE
-  result: GAME_RESULT
+  type: GameType
+  result: GameResult
   date: string
   goals: number
   assists: number
@@ -13,7 +13,7 @@ export default class GameModel {
   duration: string
   calories: number
 
-  constructor(timestamp: number, type: GAME_TYPE, result: GAME_RESULT, date: string, goals: number, assists: number, distance: number, duration: string, calories: number) {
+  constructor(timestamp: number, type: GameType, result: GameResult, date: string, goals: number, assists: number, distance: number, duration: string, calories: number) {
     this.timestamp = timestamp
     this.type = type
     this.result = result

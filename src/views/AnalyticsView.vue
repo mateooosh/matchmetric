@@ -49,8 +49,8 @@ import { computed, reactive } from 'vue'
 import SegmentModel from '../models/SegmentModel.ts'
 import { LineChartConfig } from '../common/configs/LineChartConfig.ts'
 import { ColumnChartConfig } from '../common/configs/ColumnChartConfig.ts'
-import GAME_ATTRIBUTE from '../common/enums/GAME_ATTRIBUTE.ts'
-import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
+import GameAttribute from '../common/enums/GameAttribute.ts'
+import GameType from '../common/enums/GameType.ts'
 
 const router = useRouter()
 const gamesStore = useGamesStore()
@@ -68,8 +68,8 @@ const onClickLeft = () => {
 
 const typeSegments: Array<SegmentModel> = [
   new SegmentModel('All'),
-  new SegmentModel(GAME_TYPE.INSIDE),
-  new SegmentModel(GAME_TYPE.OUTSIDE)
+  new SegmentModel(GameType.INSIDE),
+  new SegmentModel(GameType.OUTSIDE)
 ]
 
 const modeSegments: Array<SegmentModel> = [
@@ -78,10 +78,10 @@ const modeSegments: Array<SegmentModel> = [
 ]
 
 const hasGames = computed(() => _.size(gamesStore.games))
-const totalGoals = computed(() => gamesStore.getTotalStats(GAME_ATTRIBUTE.GOALS))
-const totalAssists = computed(() => gamesStore.getTotalStats(GAME_ATTRIBUTE.ASSISTS))
-const allGoalsArray = computed(() => gamesStore.getAllStatsAsArray(GAME_ATTRIBUTE.GOALS))
-const allAssistsArray = computed(() => gamesStore.getAllStatsAsArray(GAME_ATTRIBUTE.ASSISTS))
+const totalGoals = computed(() => gamesStore.getTotalStats(GameAttribute.GOALS))
+const totalAssists = computed(() => gamesStore.getTotalStats(GameAttribute.ASSISTS))
+const allGoalsArray = computed(() => gamesStore.getAllStatsAsArray(GameAttribute.GOALS))
+const allAssistsArray = computed(() => gamesStore.getAllStatsAsArray(GameAttribute.ASSISTS))
 const maxChartValue = computed(() => _.max([...allGoalsArray.value, ...allAssistsArray.value]) || 0)
 
 const onConfirm = ({ name }) => {
@@ -93,7 +93,7 @@ const datasetTotalGoals = computed(() => {
   return [{
     name: 'Goals',
     type: 'line',
-    data: gamesStore.getAllStatsAsArray(GAME_ATTRIBUTE.GOALS)
+    data: gamesStore.getAllStatsAsArray(GameAttribute.GOALS)
   }]
 })
 
@@ -101,7 +101,7 @@ const datasetTotalAssists = computed(() => {
   return [{
     name: 'Assists',
     type: 'line',
-    data: gamesStore.getAllStatsAsArray(GAME_ATTRIBUTE.ASSISTS)
+    data: gamesStore.getAllStatsAsArray(GameAttribute.ASSISTS)
   }]
 })
 
@@ -138,7 +138,7 @@ const getLastMonths = (): string[] => {
   return _.reverse(result)
 }
 
-const getStats = (attribute: GAME_ATTRIBUTE): number[] => {
+const getStats = (attribute: GameAttribute): number[] => {
   if (state.period === 'Last 12 months')
     return gamesStore.getStatsForLast12Months(attribute, state.type, state.mode)
   else
@@ -153,11 +153,11 @@ const barConfig = computed(() => ColumnChartConfig.getConfig(getMonths(), ['#5DB
 const barSeries = computed(() => [
   {
     name: 'Goals',
-    data: getStats(GAME_ATTRIBUTE.GOALS)
+    data: getStats(GameAttribute.GOALS)
   },
   {
     name: 'Assists',
-    data: getStats(GAME_ATTRIBUTE.ASSISTS)
+    data: getStats(GameAttribute.ASSISTS)
   }
 ])
 </script>

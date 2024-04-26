@@ -1,5 +1,5 @@
-import GAME_TYPE from '../../src/common/enums/GAME_TYPE.ts'
-import GAME_RESULT from '../../src/common/enums/GAME_RESULT.ts'
+import GameType from '../../src/common/enums/GameType.ts'
+import GameResult from '../../src/common/enums/GameResult.ts'
 
 const selectors = {
   tabAddGame: 'tab-add-game',
@@ -17,11 +17,11 @@ class EditGamePO {
     cy.dataCy(selectors.tabAddGame).click()
   }
 
-  changeTypeOfGame(type: GAME_TYPE) {
+  changeTypeOfGame(type: GameType) {
     cy.dataCy(selectors.type).find('.segment').contains(type).click()
   }
 
-  changeResultOfGame(type: GAME_RESULT) {
+  changeResultOfGame(type: GameResult) {
     cy.dataCy(selectors.result).find('.segment').contains(type).click()
   }
 

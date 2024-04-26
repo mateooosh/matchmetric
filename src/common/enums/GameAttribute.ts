@@ -1,8 +1,8 @@
-enum GAME_ATTRIBUTE {
+enum GameAttribute {
   GOALS = 'goals',
   ASSISTS = 'assists',
   DISTANCE = 'distance',
   CALORIES = 'calories'
 }
 
-export default GAME_ATTRIBUTE
+export default GameAttribute

@@ -84,9 +84,9 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import { computed, onBeforeMount, reactive } from 'vue'
-import GAME_TYPE from '../common/enums/GAME_TYPE.ts'
+import GameType from '../common/enums/GameType.ts'
 import SegmentedControls from '../components/SegmentedControls.vue'
-import GAME_RESULT from '../common/enums/GAME_RESULT.ts'
+import GameResult from '../common/enums/GameResult.ts'
 import * as _ from 'lodash'
 import GameModel from '../models/GameModel.ts'
 import useGamesStore from '../stores/gamesStore.ts'
@@ -94,7 +94,7 @@ import CalendarIcon from '../common/icons/CalendarIcon.vue'
 import Button from '../components/Button.vue'
 import Field from '../components/Field.vue'
 import ClockIcon from '../common/icons/ClockIcon.vue'
-import GAME_RESULT_COLOR from '../common/enums/GAME_RESULT_COLOR.ts'
+import GameResultColor from '../common/enums/GameResultColor.ts'
 import SegmentModel from '../models/SegmentModel.ts'
 import { showNotify, TimePickerColumnType } from 'vant'
 import useSettingsStore from '../stores/settingsStore.ts'
@@ -116,8 +116,8 @@ const formatDate = (date: Date): string => date.toLocaleDateString('en-IN', date
 
 const state = reactive({
   timestamp: 0,
-  type: GAME_TYPE.OUTSIDE,
-  result: GAME_RESULT.DRAW,
+  type: GameType.OUTSIDE,
+  result: GameResult.DRAW,
   date: formatDate(new Date()),
   goals: 0,
   assists: 0,
@@ -140,14 +140,14 @@ onBeforeMount(() => {
   }
 })
 
-const getIconColor = (gameResult: GAME_RESULT): string => {
-  const key = _.keys(GAME_RESULT)[_.values(GAME_RESULT).indexOf(gameResult)]
-  return GAME_RESULT_COLOR[key]
+const getIconColor = (gameResult: GameResult): string => {
+  const key = _.keys(GameResult)[_.values(GameResult).indexOf(gameResult)]
+  return GameResultColor[key]
 }
 
-const gameTypesToSegments = computed(() => _.map(_.values(GAME_TYPE), (type: GAME_TYPE) => new SegmentModel(type)))
+const gameTypesToSegments = computed(() => _.map(_.values(GameType), (type: GameType) => new SegmentModel(type)))
 
-const gameResultsToSegments = computed(() => _.map(_.values(GAME_RESULT), (result: GAME_RESULT) => new SegmentModel(result, getIconColor(result))))
+const gameResultsToSegments = computed(() => _.map(_.values(GameResult), (result: GameResult) => new SegmentModel(result, getIconColor(result))))
 
 const iconColor = computed(() => CSSVars.getPrimary())
 

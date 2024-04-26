@@ -1,7 +1,7 @@
-enum GAME_RESULT {
+enum GameResult {
   LOSE = 'Lose',
   DRAW = 'Draw',
   WIN = 'Win'
 }
 
-export default GAME_RESULT
+export default GameResult
