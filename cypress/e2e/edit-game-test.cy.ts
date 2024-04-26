@@ -100,7 +100,6 @@ describe('Add game test', () => {
     homePO.getGameRatingByIndex(3).should('have.css', 'background-color', 'rgb(236, 107, 7)')
     homePO.getGameRatingByIndex(4).should('have.text', 1.6)
     homePO.getGameRatingByIndex(4).should('have.css', 'background-color', 'rgb(220, 0, 0)')
-
   })
 })
 

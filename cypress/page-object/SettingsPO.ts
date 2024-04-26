@@ -1,6 +1,7 @@
 const selectors = {
   tabSettings: 'tab-settings',
-  darkTheme: 'dark-theme',
+  shortFormOfStatsSwitch: 'short-form-of-stats-switch',
+  darkThemeSwitch: 'dark-theme-switch',
   deleteCell: 'delete-cell',
   deleteDialog: 'delete-dialog',
   deleteDialogHeader: '.van-dialog__header',
@@ -14,8 +15,12 @@ class SettingsPO {
     cy.dataCy(selectors.tabSettings).click()
   }
 
-  getDarkTheme() {
-    return cy.dataCy(selectors.darkTheme)
+  getShortFormOfStatsSwitch() {
+    return cy.dataCy(selectors.shortFormOfStatsSwitch)
+  }
+
+  getDarkThemeSwitch() {
+    return cy.dataCy(selectors.darkThemeSwitch)
   }
 
   getDeleteCell() {

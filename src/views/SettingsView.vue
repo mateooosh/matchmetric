@@ -65,7 +65,8 @@
         </van-collapse>
         <van-cell title="Short form of stats" label="If there is not enough space, display number of goals/assists">
           <template #right-icon>
-            <van-switch v-model="settingsStore.settings.shortFormOfStats" active-color="#5DB075" size="30px"/>
+            <van-switch v-model="settingsStore.settings.shortFormOfStats" active-color="#5DB075" size="30px"
+                        data-cy="short-form-of-stats-switch"/>
           </template>
         </van-cell>
       </van-cell-group>
@@ -95,7 +96,8 @@
       <van-cell-group inset>
         <van-cell title="Dark theme">
           <template #right-icon>
-            <van-switch v-model="settingsStore.settings.darkTheme" active-color="#5DB075" size="30px" data-cy="dark-theme"/>
+            <van-switch v-model="settingsStore.settings.darkTheme" active-color="#5DB075" size="30px"
+                        data-cy="dark-theme-switch"/>
           </template>
         </van-cell>
         <van-cell title="Version" :value="appVersion"/>
