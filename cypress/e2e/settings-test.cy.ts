@@ -3,6 +3,7 @@ import SettingsPO from '../page-object/SettingsPO'
 import GameResult from '../../src/common/enums/GameResult.ts'
 import EditGamePO from '../page-object/EditGamePO.ts'
 import HomePO from '../page-object/HomePO.ts'
+import * as _ from 'lodash'
 
 const homePO = new HomePO()
 const settingsPO = new SettingsPO()
@@ -71,6 +72,26 @@ describe('Settings test', () => {
     homePO.navigateToHome()
     homePO.getGameRowByIndex(0).find('.stats').find('.ball-icon').should('have.length', 40)
     homePO.getGameRowByIndex(0).find('.stats').find('.assist-icon').should('have.length', 44)
+  })
+
+  it('Should import and export data', async () => {
+    settingsPO.navigateToSettings()
+    settingsPO.getImportCell().selectFile('cypress/fixtures/matchmetric.json', { force: true })
+
+    settingsPO.getApp().should('have.class', 'dark')
+    homePO.navigateToHome()
+    homePO.getGameRows().should('have.length', 6)
+    homePO.getGameRatingByIndex(0).should('have.text', 9.4)
+    homePO.getGameRatingByIndex(0).should('have.css', 'background-color', 'rgb(11, 121, 42)')
+
+    settingsPO.navigateToSettings()
+    settingsPO.getExportCell().click()
+
+    cy.fixture('matchmetric.json').then(importedFile => {
+      cy.readFile('cypress/downloads/matchmetric.json').then(exportedFile => {
+        assert(_.isEqual(exportedFile, importedFile), 'Files are equal')
+      })
+    })
   })
 })
 

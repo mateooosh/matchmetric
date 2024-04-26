@@ -114,6 +114,7 @@ const theme0 = computed(() => CSSVars.getTheme0())
   padding: $m 0;
   background-color: var(--theme-0);
   color: var(--primary);
+  min-height: 68px;
 
   > .type {
     position: relative;

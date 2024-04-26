@@ -1,0 +1,77 @@
+{
+  "games": [
+    {
+      "timestamp": 1714142184561,
+      "type": "Inside",
+      "result": "Win",
+      "date": "26-04-2024",
+      "goals": 3,
+      "assists": 5,
+      "distance": "",
+      "duration": "",
+      "calories": ""
+    },
+    {
+      "timestamp": 1713903332631,
+      "type": "Outside",
+      "result": "Draw",
+      "date": "23-04-2024",
+      "goals": 1,
+      "assists": 1,
+      "distance": "",
+      "duration": "",
+      "calories": ""
+    },
+    {
+      "timestamp": 1713903325315,
+      "type": "Outside",
+      "result": "Draw",
+      "date": "23-04-2024",
+      "goals": 2,
+      "assists": 1,
+      "distance": "",
+      "duration": "",
+      "calories": ""
+    },
+    {
+      "timestamp": 1713903322755,
+      "type": "Outside",
+      "result": "Draw",
+      "date": "23-04-2024",
+      "goals": 0,
+      "assists": 0,
+      "distance": "",
+      "duration": "",
+      "calories": ""
+    },
+    {
+      "timestamp": 1713901950316,
+      "type": "Outside",
+      "result": "Draw",
+      "date": "23-04-2024",
+      "goals": 3,
+      "assists": 2,
+      "distance": "",
+      "duration": "",
+      "calories": ""
+    },
+    {
+      "timestamp": 1713901909914,
+      "type": "Outside",
+      "result": "Win",
+      "date": "23-04-2024",
+      "goals": 4,
+      "assists": 5,
+      "distance": "",
+      "duration": "",
+      "calories": ""
+    }
+  ],
+  "settings": {
+    "showDistance": true,
+    "showDuration": true,
+    "showCalories": true,
+    "shortFormOfStats": true,
+    "darkTheme": true
+  }
+}

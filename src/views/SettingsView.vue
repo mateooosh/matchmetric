@@ -81,12 +81,12 @@
             <TrashIcon color="#969799" height="24px" width="24px"/>
           </template>
         </van-cell>
-        <van-cell @click="exportData" title="Export data" label="Export saved games and settings">
+        <van-cell @click="exportData" title="Export data" label="Export saved games and settings" data-cy="export-cell">
           <template #right-icon>
             <ExportIcon color="#969799" height="24px" width="24px"/>
           </template>
         </van-cell>
-        <van-cell @click="importData" title="Import data" label="Import games and settings">
+        <van-cell @click="importData" title="Import data" label="Import games and settings" data-cy="import-cell">
           <template #right-icon>
             <ImportIcon color="#969799" height="24px" width="24px"/>
             <input @change="onImportedFileChange" type="file" ref="importInput" style="display: none;"/>

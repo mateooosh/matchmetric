@@ -3,6 +3,8 @@ const selectors = {
   shortFormOfStatsSwitch: 'short-form-of-stats-switch',
   darkThemeSwitch: 'dark-theme-switch',
   deleteCell: 'delete-cell',
+  exportCell: 'export-cell',
+  importCell: 'import-cell',
   deleteDialog: 'delete-dialog',
   deleteDialogHeader: '.van-dialog__header',
   deleteDialogMessage: '.van-dialog__message',
@@ -25,6 +27,14 @@ class SettingsPO {
 
   getDeleteCell() {
     return cy.dataCy(selectors.deleteCell)
+  }
+
+  getExportCell() {
+    return cy.dataCy(selectors.exportCell)
+  }
+
+  getImportCell() {
+    return cy.dataCy(selectors.importCell).get('input[type=file]')
   }
 
   getDeleteDialog() {
