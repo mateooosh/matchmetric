@@ -19,7 +19,7 @@ const onClick = () => {
 .button {
   padding: $l $xl;
   background-color: var(--main);
-  color: $white;
+  color: white;
   text-align: center;
   font-size: 16px;
   font-weight: 600;

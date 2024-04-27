@@ -18,14 +18,13 @@ describe('Settings test', () => {
   it('Should set dark theme', () => {
     settingsPO.navigateToSettings()
 
-    settingsPO.getDarkThemeSwitch().should('not.have.class', 'van-switch--on')
-    settingsPO.getApp().should('not.have.class', 'dark')
+    settingsPO.verifyDarkThemeSwitchOff()
+    settingsPO.verifyTheme(false)
 
     settingsPO.getDarkThemeSwitch().click()
 
-    settingsPO.getDarkThemeSwitch().should('have.class', 'van-switch--on')
-
-    settingsPO.getApp().should('have.class', 'dark')
+    settingsPO.verifyDarkThemeSwitchOn()
+    settingsPO.verifyTheme(true)
   })
 
   it('Should delete data', () => {
@@ -42,16 +41,16 @@ describe('Settings test', () => {
     settingsPO.getDarkThemeSwitch().click()
 
     settingsPO.getDeleteCell().click()
-    settingsPO.getDeleteDialog().should('be.visible', true)
-    settingsPO.getDeleteDialogHeader().should('have.text', 'Delete saved games and settings?')
-    settingsPO.getDeleteDialogMessage().should('have.text', 'The games and settings will be permanently deleted and you won\'t be able to revert it.')
+    settingsPO.verifyDeleteDialogVisible()
+    settingsPO.verifyDeleteDialogHeaderText('Delete saved games and settings?')
+    settingsPO.verifyDeleteDialogMessageText('The games and settings will be permanently deleted and you won\'t be able to revert it.')
     settingsPO.getDeleteDialogConfirmButton().click()
 
-    settingsPO.getDarkThemeSwitch().should('not.have.class', 'van-switch--on')
-    settingsPO.getApp().should('not.have.class', 'dark')
+    settingsPO.verifyDarkThemeSwitchOff()
+    settingsPO.verifyTheme(false)
 
     homePO.navigateToHome()
-    homePO.getGameRows().should('have.length', 0)
+    homePO.verifyGameRowsCount(0)
   })
 
   it('Should set short form of stats', () => {
@@ -61,28 +60,28 @@ describe('Settings test', () => {
     editGamePO.saveGame()
 
     homePO.navigateToHome()
-    homePO.getGameRowByIndex(0).find('.stats').find('.short-form').eq(0).should('have.text', 40)
-    homePO.getGameRowByIndex(0).find('.stats').find('.short-form').eq(1).should('have.text', 44)
+    homePO.verifyShortFormGoalsNumber(0, 40)
+    homePO.verifyShortFormAssistsNumber(0, 44)
 
     settingsPO.navigateToSettings()
-    settingsPO.getShortFormOfStatsSwitch().should('have.class', 'van-switch--on')
+    settingsPO.verifyShortFormOfStatsSwitchOn()
     settingsPO.getShortFormOfStatsSwitch().click()
-    settingsPO.getShortFormOfStatsSwitch().should('not.have.class', 'van-switch--on')
+    settingsPO.verifyShortFormOfStatsSwitchOff()
 
     homePO.navigateToHome()
-    homePO.getGameRowByIndex(0).find('.stats').find('.ball-icon').should('have.length', 40)
-    homePO.getGameRowByIndex(0).find('.stats').find('.assist-icon').should('have.length', 44)
+    homePO.verifyGoalIconsCount(0, 40)
+    homePO.verifyAssistIconsCount(0, 44)
   })
 
   it('Should import and export data', async () => {
     settingsPO.navigateToSettings()
-    settingsPO.getImportCell().selectFile('cypress/fixtures/matchmetric.json', { force: true })
+    settingsPO.importFile('cypress/fixtures/matchmetric.json')
 
-    settingsPO.getApp().should('have.class', 'dark')
+    settingsPO.verifyTheme(true)
     homePO.navigateToHome()
-    homePO.getGameRows().should('have.length', 6)
-    homePO.getGameRatingByIndex(0).should('have.text', 9.4)
-    homePO.getGameRatingByIndex(0).should('have.css', 'background-color', 'rgb(11, 121, 42)')
+    homePO.verifyGameRowsCount(6)
+    homePO.verifyRating(0, 9.4)
+    homePO.verifyRatingBackgroundColor(0, 'rgb(11, 121, 42)')
 
     settingsPO.navigateToSettings()
     settingsPO.getExportCell().click()

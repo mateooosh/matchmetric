@@ -35,17 +35,17 @@ describe('Add game test', () => {
     editGamePO.setCalories(523)
 
     editGamePO.saveGame()
-    homePO.getGameRows().should('have.length', 1)
-    homePO.getGameRowByIndex(0).find('.date').should('have.text', formatDate(new Date()))
+    homePO.verifyGameRowsCount(1)
+    homePO.verifyDateByIndex(0, formatDate(new Date()))
 
     homePO.getGameRowByIndex(0).click()
 
-    gameDetailsPO.getGoalIcons().should('have.length', 3)
-    gameDetailsPO.getAssistIcons().should('have.length', 4)
-    gameDetailsPO.getGoals().find('.value').should('have.text', 3)
-    gameDetailsPO.getAssists().find('.value').should('have.text', 4)
-    gameDetailsPO.getDistance().find('.value').should('have.text', '4.32km')
-    gameDetailsPO.getCalories().find('.value').should('have.text', 523)
+    gameDetailsPO.verifyGoalIconsCount(3)
+    gameDetailsPO.verifyAssistIconsCount(4)
+    gameDetailsPO.verifyGoalsCount(3)
+    gameDetailsPO.verifyAssistsCount(4)
+    gameDetailsPO.verifyDistanceCount('4.32km')
+    gameDetailsPO.verifyCaloriesCount(523)
   })
 
   it('Should display icons with proper color', () => {
@@ -61,11 +61,11 @@ describe('Add game test', () => {
     editGamePO.changeResultOfGame(GameResult.LOSE)
     editGamePO.saveGame()
 
-    homePO.getGameRows().should('have.length', 3)
+    homePO.verifyGameRowsCount(3)
 
-    homePO.getGameRowByIndex(0).find('svg').should('have.attr', 'fill').and('equal', '#DC143C')
-    homePO.getGameRowByIndex(1).find('svg').should('have.attr', 'fill').and('equal', '#AFAFAF')
-    homePO.getGameRowByIndex(2).find('svg').should('have.attr', 'fill').and('equal', '#5DB075')
+    homePO.verifyGameTypeIconColor(0, '#DC143C')
+    homePO.verifyGameTypeIconColor(1, '#AFAFAF')
+    homePO.verifyGameTypeIconColor(2, '#5DB075')
   })
 
   it('Should calculate rating', () => {
@@ -90,16 +90,16 @@ describe('Add game test', () => {
     editGamePO.setAssists(2)
     editGamePO.saveGame()
 
-    homePO.getGameRatingByIndex(0).should('have.text', 10)
-    homePO.getGameRatingByIndex(0).should('have.css', 'background-color', 'rgb(11, 121, 42)')
-    homePO.getGameRatingByIndex(1).should('have.text', 6.5)
-    homePO.getGameRatingByIndex(1).should('have.css', 'background-color', 'rgb(118, 177, 0)')
-    homePO.getGameRatingByIndex(2).should('have.text', 4.9)
-    homePO.getGameRatingByIndex(2).should('have.css', 'background-color', 'rgb(243, 160, 0)')
-    homePO.getGameRatingByIndex(3).should('have.text', 3.3)
-    homePO.getGameRatingByIndex(3).should('have.css', 'background-color', 'rgb(236, 107, 7)')
-    homePO.getGameRatingByIndex(4).should('have.text', 1.6)
-    homePO.getGameRatingByIndex(4).should('have.css', 'background-color', 'rgb(220, 0, 0)')
+    homePO.verifyRating(0, 10)
+    homePO.verifyRatingBackgroundColor(0, 'rgb(11, 121, 42)')
+    homePO.verifyRating(1, 6.5)
+    homePO.verifyRatingBackgroundColor(1, 'rgb(118, 177, 0)')
+    homePO.verifyRating(2, 4.9)
+    homePO.verifyRatingBackgroundColor(2, 'rgb(243, 160, 0)')
+    homePO.verifyRating(3, 3.3)
+    homePO.verifyRatingBackgroundColor(3, 'rgb(236, 107, 7)')
+    homePO.verifyRating(4, 1.6)
+    homePO.verifyRatingBackgroundColor(4, 'rgb(220, 0, 0)')
   })
 })
 

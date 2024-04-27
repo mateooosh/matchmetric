@@ -107,7 +107,7 @@ const theme0 = computed(() => CSSVars.getTheme0())
 <style scoped lang="scss">
 .game-details-view {
   --van-nav-bar-height: 60px;
-  --van-nav-bar-background: #5DB075;
+  --van-nav-bar-background: var(--main);
   --van-nav-bar-title-text-color: white;
   --van-nav-bar-arrow-size: 32px;
   --van-nav-bar-icon-color: white;

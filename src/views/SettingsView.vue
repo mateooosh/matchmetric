@@ -22,7 +22,7 @@
                 <BallIcon :color="primary" height="24px" width="24px"/>
               </template>
               <template #right-icon>
-                <van-switch :model-value="true" active-color="#5DB075" size="30px" disabled/>
+                <van-switch :model-value="true" :active-color="main" size="30px" disabled/>
               </template>
             </van-cell>
 
@@ -31,7 +31,7 @@
                 <AssistIcon :color="primary" :letter-color="theme0" height="24px" width="24px"/>
               </template>
               <template #right-icon>
-                <van-switch :model-value="true" active-color="#5DB075" size="30px" disabled/>
+                <van-switch :model-value="true" :active-color="main" size="30px" disabled/>
               </template>
             </van-cell>
 
@@ -40,7 +40,7 @@
                 <MeasureIcon color="green" height="24px" width="24px"/>
               </template>
               <template #right-icon>
-                <van-switch v-model="settingsStore.settings.showDistance" active-color="#5DB075" size="30px"/>
+                <van-switch v-model="settingsStore.settings.showDistance" :active-color="main" size="30px"/>
               </template>
             </van-cell>
 
@@ -49,7 +49,7 @@
                 <TimerIcon color="green" height="24px" width="24px"/>
               </template>
               <template #right-icon>
-                <van-switch v-model="settingsStore.settings.showDuration" active-color="#5DB075" size="30px"/>
+                <van-switch v-model="settingsStore.settings.showDuration" :active-color="main" size="30px"/>
               </template>
             </van-cell>
 
@@ -58,14 +58,14 @@
                 <FireIcon color="#F29D38" height="24px" width="24px"/>
               </template>
               <template #right-icon>
-                <van-switch v-model="settingsStore.settings.showCalories" active-color="#5DB075" size="30px"/>
+                <van-switch v-model="settingsStore.settings.showCalories" :active-color="main" size="30px"/>
               </template>
             </van-cell>
           </van-collapse-item>
         </van-collapse>
         <van-cell title="Short form of stats" label="If there is not enough space, display number of goals/assists">
           <template #right-icon>
-            <van-switch v-model="settingsStore.settings.shortFormOfStats" active-color="#5DB075" size="30px"
+            <van-switch v-model="settingsStore.settings.shortFormOfStats" :active-color="main" size="30px"
                         data-cy="short-form-of-stats-switch"/>
           </template>
         </van-cell>
@@ -96,7 +96,7 @@
       <van-cell-group inset>
         <van-cell title="Dark theme">
           <template #right-icon>
-            <van-switch v-model="settingsStore.settings.darkTheme" active-color="#5DB075" size="30px"
+            <van-switch v-model="settingsStore.settings.darkTheme" :active-color="main" size="30px"
                         data-cy="dark-theme-switch"/>
           </template>
         </van-cell>
@@ -204,6 +204,7 @@ const onImportedFileChange = (event: Event) => {
   fr.readAsText(file)
 }
 
+const main = computed(() => CSSVars.getMain())
 const primary = computed(() => CSSVars.getPrimary())
 const theme0 = computed(() => CSSVars.getTheme0())
 

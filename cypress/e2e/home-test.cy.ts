@@ -3,7 +3,6 @@
 import HomePO from '../page-object/HomePO'
 
 const homePO = new HomePO()
-
 describe('Home test', () => {
 
   before(() => {
@@ -11,7 +10,7 @@ describe('Home test', () => {
   })
 
   it('passes', () => {
-    homePO.getNavBarContent().should('have.text', 'MATCHMETRIC')
+    homePO.verifyNavBarContent()
   })
 })
 

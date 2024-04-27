@@ -37,7 +37,7 @@
                             @confirm="onDateConfirm"
                             :show-confirm="false"
                             :first-day-of-week="1"
-                            :min-date="new Date(1970, 0, 0)" color="#5DB075"/>
+                            :min-date="new Date(1970, 0, 0)" :color="CSSVars.getMain()"/>
             </div>
           </template>
         </Field>

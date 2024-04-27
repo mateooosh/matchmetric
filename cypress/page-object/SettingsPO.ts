@@ -5,6 +5,7 @@ const selectors = {
   deleteCell: 'delete-cell',
   exportCell: 'export-cell',
   importCell: 'import-cell',
+  fileInput: 'input[type=file]',
   deleteDialog: 'delete-dialog',
   deleteDialogHeader: '.van-dialog__header',
   deleteDialogMessage: '.van-dialog__message',
@@ -21,8 +22,24 @@ class SettingsPO {
     return cy.dataCy(selectors.shortFormOfStatsSwitch)
   }
 
+  verifyShortFormOfStatsSwitchOn() {
+    return this.getShortFormOfStatsSwitch().should('have.class', 'van-switch--on')
+  }
+
+  verifyShortFormOfStatsSwitchOff() {
+    return this.getShortFormOfStatsSwitch().should('not.have.class', 'van-switch--on')
+  }
+
   getDarkThemeSwitch() {
     return cy.dataCy(selectors.darkThemeSwitch)
+  }
+
+  verifyDarkThemeSwitchOn() {
+    return this.getDarkThemeSwitch().should('have.class', 'van-switch--on')
+  }
+
+  verifyDarkThemeSwitchOff() {
+    return this.getDarkThemeSwitch().should('not.have.class', 'van-switch--on')
   }
 
   getDeleteCell() {
@@ -33,24 +50,33 @@ class SettingsPO {
     return cy.dataCy(selectors.exportCell)
   }
 
-  getImportCell() {
-    return cy.dataCy(selectors.importCell).get('input[type=file]')
+  importFile(path: string) {
+    return cy.dataCy(selectors.importCell).get(selectors.fileInput).selectFile(path, { force: true })
   }
 
   getDeleteDialog() {
     return cy.dataCy(selectors.deleteDialog)
   }
 
-  getDeleteDialogHeader() {
-    return this.getDeleteDialog().find(selectors.deleteDialogHeader)
+  verifyDeleteDialogVisible() {
+    return cy.dataCy(selectors.deleteDialog).should('be.visible', true)
   }
 
-  getDeleteDialogMessage() {
-    return this.getDeleteDialog().find(selectors.deleteDialogMessage)
+  verifyDeleteDialogHeaderText(content: string) {
+    return this.getDeleteDialog().find(selectors.deleteDialogHeader).should('have.text', content)
+  }
+
+  verifyDeleteDialogMessageText(content: string) {
+    return this.getDeleteDialog().find(selectors.deleteDialogMessage).should('have.text', content)
   }
 
   getDeleteDialogConfirmButton() {
     return this.getDeleteDialog().find(selectors.deleteDialogConfirmButton)
+  }
+
+  verifyTheme(isDark: boolean) {
+    const chainer = isDark ? 'have.class' : 'not.have.class'
+    this.getApp().should(chainer, 'dark')
   }
 
   getApp() {

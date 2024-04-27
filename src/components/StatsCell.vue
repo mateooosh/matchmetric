@@ -36,7 +36,6 @@ const props = defineProps({
 
   .label {
     color: var(--tertiary);
-    //color: $theme-3;
     font-weight: 400;
     //font-size: 16px;
   }
