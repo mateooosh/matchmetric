@@ -3,11 +3,13 @@ import SettingsPO from '../page-object/SettingsPO'
 import GameResult from '../../src/common/enums/GameResult.ts'
 import EditGamePO from '../page-object/EditGamePO.ts'
 import HomePO from '../page-object/HomePO.ts'
+import GameDetailsPO from '../page-object/GameDetailsPO.ts'
 import * as _ from 'lodash'
 
 const homePO = new HomePO()
 const settingsPO = new SettingsPO()
 const editGamePO = new EditGamePO()
+const gameDetailsPO = new GameDetailsPO()
 
 describe('Settings test', () => {
 
@@ -91,6 +93,35 @@ describe('Settings test', () => {
         assert(_.isEqual(exportedFile, importedFile), 'Files are equal')
       })
     })
+  })
+
+  it('Should toggle attributes', async () => {
+    settingsPO.navigateToSettings()
+    settingsPO.importFile('cypress/fixtures/matchmetric.json')
+    settingsPO.navigateToSettings()
+    settingsPO.getAttributesCollapse().click()
+
+    settingsPO.verifyShowGoalsSwitchIsOnAndDisabled()
+    settingsPO.verifyShowAssistsSwitchIsOnAndDisabled()
+    settingsPO.verifyShowDistanceSwitch(true)
+    settingsPO.verifyShowDurationSwitch(true)
+    settingsPO.verifyShowCaloriesSwitch(true)
+
+    settingsPO.getShowDistanceSwitch().click()
+    settingsPO.getShowDurationSwitch().click()
+    settingsPO.getShowCaloriesSwitch().click()
+
+    settingsPO.verifyShowDistanceSwitch(false)
+    settingsPO.verifyShowDurationSwitch(false)
+    settingsPO.verifyShowCaloriesSwitch(false)
+
+
+    homePO.navigateToHome()
+    homePO.getGameRowByIndex(0).click()
+
+    gameDetailsPO.getDistance().should('not.exist')
+    gameDetailsPO.getDuration().should('not.exist')
+    gameDetailsPO.getCalories().should('not.exist')
   })
 })
 

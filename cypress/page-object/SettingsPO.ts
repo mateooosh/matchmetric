@@ -1,5 +1,11 @@
 const selectors = {
   tabSettings: 'tab-settings',
+  attributesCollapse: 'attributes-collapse',
+  showGoalsSwitch: 'show-goals-switch',
+  showAssistsSwitch: 'show-assists-switch',
+  showDistanceSwitch: 'show-distance-switch',
+  showDurationSwitch: 'show-duration-switch',
+  showCaloriesSwitch: 'show-calories-switch',
   shortFormOfStatsSwitch: 'short-form-of-stats-switch',
   darkThemeSwitch: 'dark-theme-switch',
   deleteCell: 'delete-cell',
@@ -16,6 +22,45 @@ const selectors = {
 class SettingsPO {
   navigateToSettings() {
     cy.dataCy(selectors.tabSettings).click()
+  }
+
+  getAttributesCollapse() {
+    return cy.dataCy(selectors.attributesCollapse)
+  }
+
+  verifyShowGoalsSwitchIsOnAndDisabled() {
+    return this.getAttributesCollapse().dataCy(selectors.showGoalsSwitch).should('have.class', 'van-switch--on van-switch--disabled')
+  }
+
+  verifyShowAssistsSwitchIsOnAndDisabled() {
+    return this.getAttributesCollapse().dataCy(selectors.showAssistsSwitch).should('have.class', 'van-switch--on van-switch--disabled')
+  }
+
+  getShowDistanceSwitch() {
+    return this.getAttributesCollapse().dataCy(selectors.showDistanceSwitch)
+  }
+
+  verifyShowDistanceSwitch(isOn: boolean) {
+    const chainer = isOn ? 'have.class' : 'not.have.class'
+    return this.getShowDistanceSwitch().should(chainer, 'van-switch--on')
+  }
+
+  getShowDurationSwitch() {
+    return this.getAttributesCollapse().dataCy(selectors.showDurationSwitch)
+  }
+
+  verifyShowDurationSwitch(isOn: boolean) {
+    const chainer = isOn ? 'have.class' : 'not.have.class'
+    return this.getShowDurationSwitch().should(chainer, 'van-switch--on')
+  }
+
+  getShowCaloriesSwitch() {
+    return this.getAttributesCollapse().dataCy(selectors.showCaloriesSwitch)
+  }
+
+  verifyShowCaloriesSwitch(isOn: boolean) {
+    const chainer = isOn ? 'have.class' : 'not.have.class'
+    return this.getShowCaloriesSwitch().should(chainer, 'van-switch--on')
   }
 
   getShortFormOfStatsSwitch() {

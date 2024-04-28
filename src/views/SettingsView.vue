@@ -16,13 +16,14 @@
     <div class="content">
       <van-cell-group inset>
         <van-collapse v-model="state.selectedCollapseItem">
-          <van-collapse-item title="Attributes" :name="1">
+          <van-collapse-item title="Attributes" :name="1" data-cy="attributes-collapse">
             <van-cell title="Goals">
               <template #icon>
                 <BallIcon :color="primary" height="24px" width="24px"/>
               </template>
               <template #right-icon>
-                <van-switch :model-value="true" :active-color="main" size="30px" disabled/>
+                <van-switch :model-value="true" :active-color="main" size="30px" disabled
+                            data-cy="show-goals-switch"/>
               </template>
             </van-cell>
 
@@ -31,7 +32,8 @@
                 <AssistIcon :color="primary" :letter-color="theme0" height="24px" width="24px"/>
               </template>
               <template #right-icon>
-                <van-switch :model-value="true" :active-color="main" size="30px" disabled/>
+                <van-switch :model-value="true" :active-color="main" size="30px" disabled
+                            data-cy="show-assists-switch"/>
               </template>
             </van-cell>
 
@@ -40,7 +42,8 @@
                 <MeasureIcon color="green" height="24px" width="24px"/>
               </template>
               <template #right-icon>
-                <van-switch v-model="settingsStore.settings.showDistance" :active-color="main" size="30px"/>
+                <van-switch v-model="settingsStore.settings.showDistance" :active-color="main" size="30px"
+                            data-cy="show-distance-switch"/>
               </template>
             </van-cell>
 
@@ -49,7 +52,8 @@
                 <TimerIcon color="green" height="24px" width="24px"/>
               </template>
               <template #right-icon>
-                <van-switch v-model="settingsStore.settings.showDuration" :active-color="main" size="30px"/>
+                <van-switch v-model="settingsStore.settings.showDuration" :active-color="main" size="30px"
+                            data-cy="show-duration-switch"/>
               </template>
             </van-cell>
 
@@ -58,7 +62,8 @@
                 <FireIcon color="#F29D38" height="24px" width="24px"/>
               </template>
               <template #right-icon>
-                <van-switch v-model="settingsStore.settings.showCalories" :active-color="main" size="30px"/>
+                <van-switch v-model="settingsStore.settings.showCalories" :active-color="main" size="30px"
+                            data-cy="show-calories-switch"/>
               </template>
             </van-cell>
           </van-collapse-item>

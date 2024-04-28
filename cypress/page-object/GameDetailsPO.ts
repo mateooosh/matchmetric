@@ -2,6 +2,7 @@ const selectors = {
   goals: 'goals',
   assists: 'assists',
   distance: 'distance',
+  duration: 'duration',
   calories: 'calories',
   gameRow: 'game-row',
   stats: '.stats',
@@ -48,6 +49,10 @@ class GameDetailsPO {
 
   verifyDistanceCount(count: string) {
     return this.getDistance().find('.value').should('have.text', count)
+  }
+
+  getDuration() {
+    return cy.dataCy(selectors.duration)
   }
 
   getCalories() {
