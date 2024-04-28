@@ -212,20 +212,8 @@ const theme0 = computed(() => CSSVars.getTheme0())
 
 <style scoped lang="scss">
 .settings-view {
-  //--theme-0: #212121;
-  //--theme-1: #121212;
-  //--van-cell-background: var(--theme-0);
-
-  --van-nav-bar-height: 60px;
-  --van-nav-bar-background: var(--main);
-  --van-nav-bar-title-text-color: white;
-  --van-nav-bar-arrow-size: 32px;
-  --van-nav-bar-icon-color: white;
-  --van-collapse-item-content-padding: 0 0 0 16px;
-
   --van-cell-font-size: 18px;
   --van-cell-vertical-padding: 16px;
-
   --van-cell-group-inset-padding: 16px;
 
   display: flex;

@@ -209,26 +209,8 @@ const onSave = () => {
 
 <style scoped lang="scss">
 .edit-game-view {
-  --van-nav-bar-height: 60px;
-  --van-nav-bar-background: var(--main);
-  --van-nav-bar-title-text-color: white;
-  --van-nav-bar-arrow-size: 32px;
-  --van-nav-bar-icon-color: white;
-
-  --van-cell-value-font-size: 18px;
   --van-cell-group-inset-padding: 0;
   --van-cell-vertical-padding: 14px;
-
-  --van-stepper-input-font-size: 18px;
-  --van-stepper-button-round-theme-color: var(--main);
-
-  --van-picker-action-font-size: 18px;
-  --van-picker-confirm-action-color: var(--main);
-
-  --van-dialog-font-size: 18px;
-  --van-button-default-font-size: 18px;
-
-  //--van-border-color: var(--primary);
 
   display: flex;
   flex-direction: column;

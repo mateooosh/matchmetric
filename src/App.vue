@@ -39,6 +39,7 @@ const settingsStore = useSettingsStore()
   --van-cell-text-color: var(--primary);
   --van-cell-label-color: var(--secondary);
   --van-field-label-color: var(--primary);
+  --van-cell-value-font-size: 18px;
 
   // cell group
   --van-cell-group-background: var(--theme-0);
@@ -49,10 +50,12 @@ const settingsStore = useSettingsStore()
   // dialog
   --van-dialog-background: var(--theme-0);
   --van-dialog-has-title-message-text-color: var(--secondary);
+  --van-dialog-font-size: 18px;
 
   // button
   --van-button-default-background: var(--theme-0);
   --van-button-default-color: var(--primary);
+  --van-button-default-font-size: 18px;
 
   // field
   --van-field-input-text-color: var(--primary);
@@ -73,11 +76,28 @@ const settingsStore = useSettingsStore()
   --van-picker-background: var(--theme-0);
   --van-picker-mask-color: var(--theme-0);
   --van-picker-option-text-color: var(--primary);
+  --van-picker-action-font-size: 18px;
+  --van-picker-confirm-action-color: var(--main);
 
   // action sheet
   --van-action-sheet-item-background: var(--theme-0);
   --van-action-sheet-item-text-color: var(--primary);
   --van-action-sheet-item-font-size: 18px;
+
+  // nav bar
+  --van-nav-bar-height: 60px;
+  --van-nav-bar-background: var(--main);
+  --van-nav-bar-title-text-color: white;
+  --van-nav-bar-arrow-size: 32px;
+  --van-nav-bar-icon-color: white;
+  --van-nav-bar-text-color: white;
+
+  // collapse item
+  --van-collapse-item-content-padding: 0 0 0 16px;
+
+  // stepper
+  --van-stepper-input-font-size: 18px;
+  --van-stepper-button-round-theme-color: var(--main);
 
   user-select: none;
 
