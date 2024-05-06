@@ -40,7 +40,7 @@ const onValueChange = (value: string) => {
   emit('update:modelValue', value)
 }
 
-watch(props, async (newProps) => {
+watch(props, (newProps) => {
   state.innerValue = newProps.modelValue
 })
 

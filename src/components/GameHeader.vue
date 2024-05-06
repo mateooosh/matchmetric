@@ -3,7 +3,9 @@
     <div class="type">
       <HallIcon v-if="props.game.type === GameType.INSIDE" :color="getIconColor(props.game.result)"/>
       <StadiumIcon v-else :color="getIconColor(props.game.result)"/>
-      <div class="rating" :class="ratingClass">{{ rating }}</div>
+      <div class="rating" :class="ratingClass">
+        <AnimatedNumber :number="rating"/>
+      </div>
     </div>
     <div class="date">{{ props.game.date }}</div>
     <div class="stats">
@@ -49,6 +51,7 @@ import * as _ from 'lodash'
 import useSettingsStore from '../stores/settingsStore.ts'
 import CSSVars from '../models/CSSVars.ts'
 import useGamesStore from '../stores/gamesStore.ts'
+import AnimatedNumber from './AnimatedNumber.vue'
 
 const router = useRouter()
 const { settings } = useSettingsStore()
