@@ -68,6 +68,11 @@
             </van-cell>
           </van-collapse-item>
         </van-collapse>
+        <van-cell title="Show rating">
+          <template #right-icon>
+            <van-switch v-model="settingsStore.settings.showRating" :active-color="main" size="30px"/>
+          </template>
+        </van-cell>
         <van-cell title="Short form of stats" label="If there is not enough space, display number of goals/assists">
           <template #right-icon>
             <van-switch v-model="settingsStore.settings.shortFormOfStats" :active-color="main" size="30px"

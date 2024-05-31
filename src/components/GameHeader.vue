@@ -3,11 +3,11 @@
     <div class="type">
       <HallIcon v-if="props.game.type === GameType.INSIDE" :color="getIconColor(props.game.result)"/>
       <StadiumIcon v-else :color="getIconColor(props.game.result)"/>
-      <div class="rating" :class="ratingClass">
+      <div v-if="settings.showRating" class="rating" :class="ratingClass">
         <AnimatedNumber :number="rating"/>
       </div>
     </div>
-    <div class="date">{{ props.game.date }}</div>
+    <div class="date" :class="{ 'ml': settings.showRating }">{{ props.game.date }}</div>
     <div class="stats">
       <div ref="goals">
         <span v-if="!props.game.goals">-</span>
@@ -171,7 +171,10 @@ const theme0 = computed(() => CSSVars.getTheme0())
     text-wrap: nowrap;
     font-weight: 500;
     font-size: 20px;
-    margin-left: 16px;
+
+    &.ml {
+      margin-left: 16px;
+    }
   }
 
   > .stats {
